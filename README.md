@@ -11,7 +11,7 @@
             --gold-glow: #f1c40f;
             --gold-gradient: linear-gradient(135deg, #ffe066 0%, #f39c12 50%, #9a6a00 100%);
             --bg-dark: #07020d;
-            --card-bg: rgba(20, 9, 36, 0.7);
+            --card-bg: rgba(20, 9, 36, 0.75);
             --border-gold: rgba(243, 156, 18, 0.4);
         }
 
@@ -29,7 +29,7 @@
             background-attachment: fixed;
         }
 
-        /* ذرات طلایی شناور */
+        /* ذرات شناور طلایی */
         #particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -103,7 +103,6 @@
             color: #d1c4e9;
             font-size: 1.1rem;
             margin-top: 5px;
-            letter-spacing: 1px;
         }
 
         /* کاور پوستر */
@@ -188,7 +187,6 @@
             font-size: 0.85rem;
             display: inline-block;
             margin-bottom: 10px;
-            box-shadow: 0 0 10px rgba(243, 156, 18, 0.4);
         }
 
         .btn-gold {
@@ -231,7 +229,6 @@
             border-radius: 8px;
             margin-bottom: 15px;
             outline: none;
-            transition: 0.3s;
         }
 
         .form-input:focus {
@@ -284,14 +281,25 @@
             cursor: pointer;
         }
 
-        .preview-box {
-            background: rgba(0,0,0,0.5);
-            border: 1px dashed var(--gold);
-            padding: 12px;
-            border-radius: 10px;
-            margin: 10px 0;
+        .auth-status {
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 12px;
             text-align: center;
-            color: #f1c40f;
+            font-weight: bold;
+            display: none;
+        }
+
+        .auth-status.error {
+            background: rgba(192, 57, 43, 0.3);
+            border: 1px solid #c0392b;
+            color: #e74c3c;
+        }
+
+        .auth-status.success {
+            background: rgba(39, 174, 96, 0.3);
+            border: 1px solid #27ae60;
+            color: #2ecc71;
         }
     </style>
 </head>
@@ -336,12 +344,13 @@
     <div id="adminModal" class="modal">
         <div class="modal-body">
             <span class="close-icon" onclick="closeAdmin()">&times;</span>
-            <h2 style="color: var(--gold); margin-bottom: 20px;">⚙️ تخت پادشاهی و مدیریت VORTEXPLAY</h2>
+            <h2 style="color: var(--gold); margin-bottom: 20px;">⚙️ مدیریت VORTEXPLAY</h2>
 
             <div id="loginSection">
                 <p style="margin-bottom: 10px;">رمز عبور ۳۲ رقمی مدیر را وارد کنید:</p>
                 <input type="password" id="adminPass" class="form-input" placeholder="رمز ۳۲ رقمی...">
-                <button class="btn-gold" onclick="loginAdmin()">ورود به پنل</button>
+                <button class="btn-gold" onclick="loginAdmin()">بررسی رمز و ورود</button>
+                <div id="authStatus" class="auth-status"></div>
             </div>
 
             <div id="controlSection" style="display: none;">
@@ -350,10 +359,6 @@
                     <h3 style="color: var(--gold-glow); margin-bottom: 10px;">📝 تغییر عنوان و زیرعنوان</h3>
                     <input type="text" id="editTitle" class="form-input" placeholder="عنوان جدید سایت">
                     <input type="text" id="editSubtitle" class="form-input" placeholder="زیرعنوان جدید">
-                    <div class="preview-box">
-                        <div id="textPreview">پیش‌نمایش: -</div>
-                        <div style="font-size: 0.8rem; opacity: 0.8; margin-top:4px;">⏳ منتظر تأیید شما...</div>
-                    </div>
                     <button class="btn-gold" style="background: #27ae60; color:#fff;" onclick="applyTextChanges()">✅ تأیید و اعمال تغییرات</button>
                 </div>
 
@@ -384,10 +389,9 @@
     </div>
 
     <script>
-        // 🔑 رمز ۳۲ رقمی مدیر
+        // 🔑 رمز دقیقاً ۳۲ رقمی مدیر
         const SECRET_KEY_32 = "12345678901234567890123456789032";
 
-        // ذخیره‌سازی داده‌ها درون حافظه مرورگر (LocalStorage)
         let defaultData = {
             title: "VORTEXPLAY",
             subtitle: "پادشاهی نهایی گیمرها ✨",
@@ -449,17 +453,34 @@
             document.getElementById('msgContent').value = '';
         }
 
-        function openAdmin() { document.getElementById('adminModal').style.display = 'block'; }
-        function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
+        function openAdmin() { 
+            document.getElementById('adminModal').style.display = 'block'; 
+            document.getElementById('authStatus').style.display = 'none';
+        }
 
+        function closeAdmin() { 
+            document.getElementById('adminModal').style.display = 'none'; 
+        }
+
+        // بررسی رمز عبور (اشتباه/درست)
         function loginAdmin() {
-            let pass = document.getElementById('adminPass').value;
-            if(pass === SECRET_KEY_32) {
-                document.getElementById('loginSection').style.display = 'none';
-                document.getElementById('controlSection').style.display = 'block';
-                loadMessages();
+            let passInput = document.getElementById('adminPass').value;
+            let statusDiv = document.getElementById('authStatus');
+
+            statusDiv.style.display = 'block';
+
+            if(passInput === SECRET_KEY_32) {
+                statusDiv.className = 'auth-status success';
+                statusDiv.innerText = '✅ رمز عبور درست است! در حال ورود...';
+                
+                setTimeout(() => {
+                    document.getElementById('loginSection').style.display = 'none';
+                    document.getElementById('controlSection').style.display = 'block';
+                    loadMessages();
+                }, 1000);
             } else {
-                alert('رمز عبور ۳۲ رقمی اشتباه است!');
+                statusDiv.className = 'auth-status error';
+                statusDiv.innerText = '❌ رمز عبور اشتباه است! دوباره تلاش کنید.';
             }
         }
 
@@ -467,6 +488,7 @@
             document.getElementById('loginSection').style.display = 'block';
             document.getElementById('controlSection').style.display = 'none';
             document.getElementById('adminPass').value = '';
+            document.getElementById('authStatus').style.display = 'none';
             closeAdmin();
         }
 
@@ -510,11 +532,7 @@
             if(data.messages.length === 0) container.innerHTML = '<p style="color:#888;">هیچ پیامی وجود ندارد.</p>';
         }
 
-        document.getElementById('editTitle').addEventListener('input', (e) => {
-            document.getElementById('textPreview').innerText = 'پیش‌نمایش: ' + e.target.value;
-        });
-
-        // افکت ذرات شناور
+        // انیمیشن ذرات
         (function createParticles() {
             const container = document.getElementById('particles');
             for(let i=0; i<30; i++) {
