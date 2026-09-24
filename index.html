@@ -1,543 +1,358 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html dir="rtl" lang="fa">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="VORTEXPLAY - دنیای گیمینگ نئونی">
-  <title>VORTEXPLAY | دنیای گیمینگ</title>
-
-  <style>
-    :root {
-      --bg: #060711;
-      --panel: rgba(16, 20, 43, 0.78);
-      --panel-light: rgba(27, 34, 68, 0.82);
-      --cyan: #00eaff;
-      --pink: #ff2bd6;
-      --purple: #8d5cff;
-      --green: #39ff9b;
-      --text: #f2f6ff;
-      --muted: #aab4d0;
-      --line: rgba(130, 155, 255, 0.24);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-      color: var(--text);
-      font-family: Tahoma, Arial, sans-serif;
-      background:
-        radial-gradient(circle at 12% 10%, rgba(0, 234, 255, 0.15), transparent 30rem),
-        radial-gradient(circle at 88% 14%, rgba(255, 43, 214, 0.16), transparent 25rem),
-        radial-gradient(circle at 50% 100%, rgba(141, 92, 255, 0.14), transparent 30rem),
-        var(--bg);
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      opacity: 0.22;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(0, 234, 255, 0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 234, 255, 0.07) 1px, transparent 1px);
-      background-size: 34px 34px;
-      mask-image: linear-gradient(to bottom, black, transparent);
-    }
-
-    .container {
-      width: min(1160px, 92%);
-      margin: auto;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(6, 7, 17, 0.80);
-      backdrop-filter: blur(14px);
-    }
-
-    .nav {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .logo {
-      color: var(--cyan);
-      text-decoration: none;
-      font-family: Arial, sans-serif;
-      font-weight: 900;
-      font-size: 1.45rem;
-      letter-spacing: 2px;
-      text-shadow: 0 0 14px var(--cyan), 0 0 28px rgba(0, 234, 255, 0.45);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: 0.2s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--pink);
-    }
-
-    .hero {
-      min-height: 610px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 85px 0 65px;
-    }
-
-    .hero-box {
-      width: 100%;
-      padding: 58px 30px;
-      border: 1px solid rgba(0, 234, 255, 0.32);
-      border-radius: 28px;
-      background: linear-gradient(135deg, rgba(20, 25, 54, 0.78), rgba(9, 10, 24, 0.75));
-      box-shadow:
-        0 0 30px rgba(0, 234, 255, 0.08),
-        inset 0 0 38px rgba(141, 92, 255, 0.05);
-    }
-
-    .badge {
-      display: inline-block;
-      margin-bottom: 18px;
-      padding: 8px 14px;
-      color: var(--green);
-      font-size: 0.82rem;
-      border: 1px solid rgba(57, 255, 155, 0.45);
-      border-radius: 99px;
-      background: rgba(57, 255, 155, 0.06);
-      box-shadow: 0 0 16px rgba(57, 255, 155, 0.12);
-    }
-
-    h1 {
-      color: var(--cyan);
-      font-size: clamp(2.2rem, 7vw, 5.5rem);
-      line-height: 1.15;
-      text-shadow: 0 0 20px var(--cyan), 0 0 50px rgba(0, 234, 255, 0.35);
-    }
-
-    .hero p {
-      max-width: 690px;
-      margin: 22px auto 0;
-      color: var(--muted);
-      line-height: 2.1;
-      font-size: 1.05rem;
-    }
-
-    .actions {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 30px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 13px 21px;
-      border: 1px solid transparent;
-      border-radius: 12px;
-      text-decoration: none;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 0.95rem;
-      transition: 0.22s ease;
-    }
-
-    .btn-primary {
-      color: #071018;
-      background: var(--cyan);
-      box-shadow: 0 0 20px rgba(0, 234, 255, 0.45);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 0 32px rgba(0, 234, 255, 0.70);
-    }
-
-    .btn-outline {
-      color: var(--text);
-      border-color: rgba(255, 43, 214, 0.58);
-      background: rgba(255, 43, 214, 0.05);
-    }
-
-    .btn-outline:hover {
-      color: white;
-      transform: translateY(-4px);
-      background: rgba(255, 43, 214, 0.17);
-      box-shadow: 0 0 22px rgba(255, 43, 214, 0.30);
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(100px, 1fr));
-      max-width: 600px;
-      gap: 12px;
-      margin: 43px auto 0;
-    }
-
-    .stat {
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      background: rgba(7, 9, 24, 0.62);
-    }
-
-    .stat strong {
-      display: block;
-      color: var(--pink);
-      font-size: 1.35rem;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
-    section {
-      padding: 50px 0;
-    }
-
-    .section-heading {
-      margin-bottom: 24px;
-    }
-
-    .section-heading h2 {
-      color: var(--cyan);
-      font-size: clamp(1.55rem, 4vw, 2.3rem);
-      text-shadow: 0 0 14px rgba(0, 234, 255, 0.55);
-    }
-
-    .section-heading p {
-      margin-top: 10px;
-      color: var(--muted);
-      line-height: 1.9;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      min-height: 225px;
-      padding: 23px;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: var(--panel);
-      transition: 0.25s ease;
-    }
-
-    .card:hover {
-      border-color: rgba(255, 43, 214, 0.72);
-      transform: translateY(-7px);
-      box-shadow: 0 0 28px rgba(255, 43, 214, 0.16);
-    }
-
-    .icon {
-      width: 52px;
-      height: 52px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 18px;
-      font-size: 1.6rem;
-      border: 1px solid rgba(0, 234, 255, 0.40);
-      border-radius: 15px;
-      background: rgba(0, 234, 255, 0.07);
-    }
-
-    .card h3 {
-      color: var(--pink);
-      margin-bottom: 10px;
-      font-size: 1.12rem;
-    }
-
-    .card p {
-      color: var(--muted);
-      font-size: 0.91rem;
-      line-height: 1.9;
-    }
-
-    .featured {
-      display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 18px;
-    }
-
-    .featured-main,
-    .side-box {
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: var(--panel);
-    }
-
-    .featured-main {
-      padding: 30px;
-      min-height: 280px;
-      background:
-        linear-gradient(135deg, rgba(0, 234, 255, 0.10), rgba(141, 92, 255, 0.10)),
-        var(--panel);
-    }
-
-    .featured-main span {
-      color: var(--green);
-      font-size: 0.85rem;
-    }
-
-    .featured-main h3 {
-      margin: 16px 0 12px;
-      color: var(--cyan);
-      font-size: 1.7rem;
-    }
-
-    .featured-main p,
-    .side-box p {
-      color: var(--muted);
-      line-height: 2;
-    }
-
-    .side {
-      display: grid;
-      gap: 18px;
-    }
-
-    .side-box {
-      padding: 20px;
-    }
-
-    .side-box h4 {
-      color: var(--pink);
-      margin-bottom: 10px;
-    }
-
-    .about {
-      padding: 28px;
-      border: 1px solid rgba(141, 92, 255, 0.36);
-      border-radius: 22px;
-      background: linear-gradient(135deg, rgba(141, 92, 255, 0.12), rgba(0, 234, 255, 0.06));
-    }
-
-    .about p {
-      color: var(--muted);
-      line-height: 2.1;
-    }
-
-    footer {
-      margin-top: 35px;
-      padding: 28px 0;
-      color: var(--muted);
-      font-size: 0.88rem;
-      text-align: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.09);
-    }
-
-    @media (max-width: 860px) {
-      .cards {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .featured {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .nav {
-        min-height: 68px;
-        flex-direction: column;
-        justify-content: center;
-        padding: 12px 0;
-      }
-
-      .nav-links {
-        gap: 13px;
-      }
-
-      .hero {
-        min-height: 530px;
-        padding-top: 48px;
-      }
-
-      .hero-box {
-        padding: 40px 18px;
-      }
-
-      .stats,
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .stat {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .stat strong {
-        margin: 0;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEXPLAY 👑</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <style>
+        :root {
+            --طلایی: #FFD700;
+            --بنفش: #9932CC;
+            --آبی: #00BFFF;
+            --تیره: #050510;
+            --کارت: #12122A;
+            --سفید: #FFFFFF;
+            --خاکستری: #AAAAAA;
+        }
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif;}
+        body {
+            background: radial-gradient(circle at top, #1A1A3A 0%, #050510 70%);
+            color: var(--سفید);
+            min-height: 100vh;
+        }
+        .سربرگ {
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--طلایی);
+        }
+        .لوگو {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--طلایی);
+            text-shadow: 0 0 10px var(--طلایی);
+        }
+        .دکمه-مدیریت {
+            background: linear-gradient(135deg, var(--بنفش), var(--آبی));
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            border: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .دکمه-مدیریت:hover {transform: scale(1.05);}
+        .نوار {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .تب {
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .تب.فعال {
+            border-color: var(--طلایی);
+            background: rgba(255, 215, 0, 0.15);
+            box-shadow: 0 0 8px var(--طلایی);
+        }
+        .تب:hover {border-color: var(--آبی);}
+        .محتوا {max-width: 1100px; margin: 0 auto; padding: 1rem;}
+        .بخش {display: none;}
+        .بخش.فعال {display: block; animation: fadeIn 0.3s;}
+        @keyframes fadeIn {from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;}}
+        .کارت {
+            background: var(--کارت);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-left: 3px solid var(--طلایی);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .کارت:hover {transform: translateX(5px);}
+        .کارت h3 {color: var(--طلایی); margin-bottom: 0.5rem;}
+        .کارت p {color: var(--خاکستری); margin-bottom: 0.8rem;}
+        .لینک {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--بنفش), var(--آبی));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .لینک:hover {opacity: 0.9;}
+        .فرم {
+            background: var(--کارت);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            margin: 2rem auto;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .فرم h3 {text-align: center; margin-bottom: 1.5rem; color: var(--طلایی);}
+        .فرم input, .فرم textarea, .فرم select {
+            width: 100%;
+            padding: 0.9rem;
+            margin: 0.5rem 0 1rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            font-size: 1rem;
+        }
+        .فرم input:focus, .فرm textarea:focus {outline: none; border-color: var(--طلایی);}
+        .فرم button {
+            width: 100%;
+            padding: 0.9rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .دکمه-اصلی {
+            background: linear-gradient(135deg, var(--طلایی), #FFA500);
+            color: black;
+        }
+        .دکمه-اصلی:hover {transform: scale(1.02);}
+        .دکمه-خروج {
+            background: transparent;
+            color: var(--خاکستری);
+            border: 1px solid #444;
+            margin-top: 0.5rem;
+        }
+        .پنهان {display: none !important;}
+        .خالی {text-align: center; color: var(--خاکستری); padding: 3rem;}
+        .دکمه-حذف {
+            background: rgba(255, 50, 50, 0.2);
+            color: #FF6666;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+    </style>
 </head>
-
 <body>
-  <header>
-    <div class="container nav">
-      <a class="logo" href="#home">VORTEXPLAY</a>
 
-      <ul class="nav-links">
-        <li><a href="#categories">دسته‌ها</a></li>
-        <li><a href="#featured">ویژه</a></li>
-        <li><a href="#about">درباره</a></li>
-      </ul>
+<header class="سربرگ">
+    <div class="لوگو">👑 VORTEXPLAY</div>
+    <button class="دکمه-مدیریت" onclick="بازکردن_پنل()">🔐 پنل مدیریت</button>
+</header>
+
+<nav class="نوار">
+    <div class="تب فعال" data-bخش="بازی">🎮 بازی‌ها</div>
+    <div class="تب" data-bخش="پیلود">📦 پیلود</div>
+    <div class="تب" data-bخش="بکاپ">💾 بکاپ/آموزش</div>
+</nav>
+
+<main class="محتوا">
+    <div class="بخش فعال" id="بخش-بازی">
+        <h2>🎮 بازی‌ها</h2>
+        <div id="لیست-بازی"></div>
     </div>
-  </header>
+    <div class="بخش" id="بخش-پیلود">
+        <h2>📦 پیلود</h2>
+        <div id="لیست-پیلود"></div>
+    </div>
+    <div class="بخش" id="بخش-بکاپ">
+        <h2>💾 بکاپ/آموزش</h2>
+        <div id="لیست-بکاپ"></div>
+    </div>
 
-  <main id="home">
-    <section class="hero container">
-      <div class="hero-box">
-        <div class="badge">● پلتفرم گیمینگ شخصی</div>
-
-        <h1>VORTEXPLAY</h1>
-
-        <p>
-          وارد دنیای نئونی بازی‌ها شو؛ جایی برای معرفی بازی‌ها، ابزارها،
-          گالری تصاویر و محتواهای مورد علاقه‌ات.
-        </p>
-
-        <div class="actions">
-          <a class="btn btn-primary" href="#categories">مشاهده دسته‌بندی‌ها</a>
-          <a class="btn btn-outline" href="#about">درباره پروژه</a>
+    <div class="بخش" id="بخش-مدیریت">
+        <div id="فرم-ورود" class="فرم">
+            <h3>🔐 ورود به پنل مدیریت</h3>
+            <input type="password" id="رمز-ورود" placeholder="رمز ۳۲ رقمی را وارد کنید">
+            <button class="دکمه-اصلی" onclick="بررسی_رمز()">ورود</button>
         </div>
 
-        <div class="stats">
-          <div class="stat">
-            <strong>4</strong>
-            <span>دسته اصلی</span>
-          </div>
+        <div id="فرم-پنل" class="پنهان">
+            <div class="فرم">
+                <h3>➕ افزودن محتوای جدید</h3>
+                <select id="نوع">
+                    <option value="بازی">بازی</option>
+                    <option value="پیلود">پیلود</option>
+                    <option value="بکاپ">بکاپ/آموزش</option>
+                </select>
+                <input type="text" id="عنوان" placeholder="عنوان">
+                <textarea id="توضیحات" rows="3" placeholder="توضیحات کوتاه"></textarea>
+                <input type="url" id="لینک" placeholder="لینک دانلود">
+                <button class="دکمه-اصلی" onclick="ثبت()">✅ ثبت و نمایش</button>
+                <button class="دکمه-خروج" onclick="خروج()">خروج از پنل</button>
+            </div>
 
-          <div class="stat">
-            <strong>∞</strong>
-            <span>محتوای قابل افزودن</span>
-          </div>
-
-          <div class="stat">
-            <strong>100%</strong>
-            <span>ساخته‌شده با عشق</span>
-          </div>
+            <div class="فرم" style="margin-top: 2rem;">
+                <h3>✏️ ویرایش یا حذف</h3>
+                <select id="انتخاب-مورد" onchange="بارگذاری_مورد()">
+                    <option value="">-- یک مورد را انتخاب کنید --</option>
+                </select>
+                <input type="text" id="ویرایش-عنوان" placeholder="عنوان جدید">
+                <textarea id="ویرایش-توضیحات" rows="3" placeholder="توضیحات جدید"></textarea>
+                <input type="url" id="ویرایش-لینک" placeholder="لینک جدید">
+                <button class="دکمه-اصلی" onclick="ذخیره()">💾 ذخیره تغییرات</button>
+                <button class="دکمه-حذف" onclick="حذف()">🗑️ حذف این مورد</button>
+            </div>
         </div>
-      </div>
-    </section>
+    </div>
+</main>
 
-    <section class="container" id="categories">
-      <div class="section-heading">
-        <h2>دسته‌بندی‌ها</h2>
-        <p>برای شروع، یکی از بخش‌های زیر را انتخاب کن.</p>
-      </div>
+<script>
+const SUPABASE_URL = "https://ysovsscszmytalyrodeg.supabase.co";
+const SUPABASE_KEY = "sb_publishable_4OxYjCjqv5vxo2u6Ck03sg_ziAjqVGO";
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-      <div class="cards">
-        <article class="card">
-          <div class="icon">🎮</div>
-          <h3>XBOX</h3>
-          <p>معرفی بازی‌ها، اخبار، آموزش‌ها و محتوای مربوط به کنسول Xbox.</p>
-        </article>
+const رمز_مدیریت = "VORTEX-992383-SHAHRIAR-2026-PLAY";
+let دسترسی_داده = false;
+let شناسه_ویرایش = null;
 
-        <article class="card">
-          <div class="icon">🌐</div>
-          <h3>UNIVERSAL</h3>
-          <p>بازی‌ها و ابزارهای مناسب برای پلتفرم‌های مختلف.</p>
-        </article>
+document.querySelectorAll(".تب").forEach(تب => {
+    تب.addEventListener("click", () => {
+        document.querySelectorAll(".تب").forEach(t => t.classList.remove("فعال"));
+        تب.classList.add("فعال");
+        const نام = تب.getAttribute("data-bخش");
+        document.querySelectorAll(".بخش").forEach(b => b.classList.remove("فعال"));
+        document.getElementById(`بخش-${نام}`).classList.add("فعال");
+    });
+});
 
-        <article class="card">
-          <div class="icon">⚡</div>
-          <h3>PAYLOAD</h3>
-          <p>ابزارها و آموزش‌های مجاز، امن و صرفاً برای استفاده قانونی.</p>
-        </article>
+function بازکردن_پنل() {
+    document.querySelectorAll(".تب").forEach(t => t.classList.remove("فعال"));
+    document.querySelectorAll(".بخش").forEach(b => b.classList.remove("فعال"));
+    document.getElementById("بخش-مدیریت").classList.add("فعال");
+    if (دسترسی_داده) {
+        document.getElementById("فرم-ورود").classList.add("پنهان");
+        document.getElementById("فرم-پنل").classList.remove("پنهان");
+    }
+}
 
-        <article class="card">
-          <div class="icon">🖼️</div>
-          <h3>GALLERY</h3>
-          <p>والپیپرها، اسکرین‌شات‌ها و تصاویر مورد علاقه گیمینگ.</p>
-        </article>
-      </div>
-    </section>
+function بررسی_رمز() {
+    const ورودی = document.getElementById("رمز-ورود").value.trim();
+    if (ورودی === رمز_مدیریت) {
+        دسترسی_داده = true;
+        document.getElementById("فرم-ورود").classList.add("پنهان");
+        document.getElementById("فرم-پنل").classList.remove("پنهان");
+        بارگذاری_همه();
+        پر_کردن_لیست();
+    } else {
+        alert("❌ رمز عبور اشتباه است!");
+    }
+}
 
-    <section class="container" id="featured">
-      <div class="section-heading">
-        <h2>بخش ویژه</h2>
-        <p>این قسمت را بعداً با بازی‌ها، مقاله‌ها یا لینک‌های خودت پر کن.</p>
-      </div>
+function خروج() {
+    دسترسی_داده = false;
+    شناسه_ویرایش = null;
+    document.getElementById("فرم-ورود").classList.remove("پنهان");
+    document.getElementById("فرم-پنل").classList.add("پنهان");
+    document.getElementById("رمز-ورود").value = "";
+}
 
-      <div class="featured">
-        <article class="featured-main">
-          <span>★ محتوای منتخب</span>
-          <h3>شروع سفر در VORTEXPLAY</h3>
-          <p>
-            این سایت اکنون به‌صورت رایگان روی GitHub Pages منتشر شده است.
-            می‌توانی متن‌ها، دسته‌ها، لینک‌ها و تصاویر آن را هر زمان که خواستی تغییر بدهی.
-          </p>
-        </article>
+async function بارگذاری_همه() {
+    const { data, error } = await supabase
+        .from("محتوا")
+        .select("*")
+        .order("ایجاد_شده", { ascending: false });
 
-        <div class="side">
-          <article class="side-box">
-            <h4>به‌روزرسانی‌های آینده</h4>
-            <p>افزودن صفحه بازی‌ها، گالری تصویری و جست‌وجوی ساده با JavaScript.</p>
-          </article>
+    if (error) return console.error(error);
 
-          <article class="side-box">
-            <h4>یادآوری</h4>
-            <p>فقط محتوا، فایل و لینک‌هایی را منتشر کن که حق استفاده یا اشتراک‌گذاری آن‌ها را داری.</p>
-          </article>
+    ["بازی", "پیلود", "بکاپ"].forEach(نوع => {
+        const کانتینر = document.getElementById(`لیست-${نوع}`);
+        const موارد = data.filter(m => m.نوع === نوع);
+        کانتینر.innerHTML = موارد.length === 0
+            ? `<p class="خالی">هنوز محتوایی اضافه نشده است</p>`
+            : موارد.map(ساخت_کارت).join("");
+    });
+}
+
+function ساخت_کارت(مورد) {
+    return `
+        <div class="کارت">
+            <h3>${مورد.عنوان}</h3>
+            <p>${مورد.توضیحات || "بدون توضیح"}</p>
+            <a href="${مورد.لینک}" target="_blank" class="لینک">⬇️ دانلود</a>
         </div>
-      </div>
-    </section>
+    `;
+}
 
-    <section class="container" id="about">
-      <div class="section-heading">
-        <h2>درباره پروژه</h2>
-      </div>
+async function ثبت() {
+    const داده = {
+        نوع: document.getElementById("نوع").value,
+        عنوان: document.getElementById("عنوان").value.trim(),
+        توضیحات: document.getElementById("توضیحات").value.trim(),
+        لینک: document.getElementById("لینک").value.trim()
+    };
 
-      <div class="about">
-        <p>
-          VORTEXPLAY یک وب‌سایت شخصی گیمینگ با ظاهر سایبرپانک است.
-          این نسخه با HTML و CSS ساخته شده و برای اجرا به سرور یا پرداخت نیاز ندارد؛
-          GitHub Pages آن را به یک سایت عمومی تبدیل می‌کند.
-        </p>
-      </div>
-    </section>
-  </main>
+    if (!داده.عنوان || !داده.لینک) {
+        alert("لطفاً عنوان و لینک را کامل کنید!");
+        return;
+    }
 
-  <footer>
-    © 2026 VORTEXPLAY — ساخته‌شده با GitHub Pages
-  </footer>
+    const { error } = await supabase.from("محتوا").insert([داده]);
+    if (error) {
+        alert("❌ اول جدول را در ساپابیس بساز! دستور در پایین است.");
+        return;
+    }
+
+    alert("✅ اضافه شد!");
+    document.getElementById("عنوان").value = "";
+    document.getElementById("توضیحات").value = "";
+    document.getElementById("لینک").value = "";
+    await بارگذاری_همه();
+    await پر_کردن_لیست();
+}
+
+async function پر_کردن_لیست() {
+    const { data } = await supabase.from("محتوا").select("*").order("ایجاد_شده", { ascending: false });
+    const لیست = document.getElementById("انتخاب-مورد");
+    لیست.innerHTML = `<option value="">-- انتخاب کنید --</option>`;
+    data.forEach(m => لیست.innerHTML += `<option value="${m.id}">${m.نوع} — ${m.عنوان}</option>`);
+}
+
+async function بارگذاری_مورد() {
+    شناسه_ویرایش = document.getElementById("انتخاب-مورد").value;
+    if (!شناسه_ویرایش) return;
+
+    const { data } = await supabase.from("محتوا").select("*").eq("id", شناسه_ویرایش).single();
+    if (data) {
+        document.getElementById("ویرایش-عنوان").value = data.عنوان || "";
+        document.getElementById("ویرایش-توضیحات").value = data.توضیحات || "";
+        document.getElementById("ویرایش-لینک").value = data.لینک || "";
+    }
+}
+
+async function ذخیره() {
+    if (!شناسه_ویرایش) return alert("ابتدا انتخاب کن!");
+    const { error } = await supabase.from("محتوا").update({
+        عنوان: document.getElementById("ویرایش-عنوان").value.trim(),
+        توضیحات: document.getElementById("ویرایش-توضیحات").value.trim(),
+        لینک: document.getElementById("ویرایش-لینک").value.trim()
+    }).eq("id", شناسه_ویرایش);
+
+    if (error) alert("❌ خطا: " + error.message);
+    else { alert("✅ ویرایش شد!"); await بارگذاری_همه(); await پر_کردن_لیست(); }
+}
+
+async function حذف() {
+    if (!شناسه_ویرایش) return alert("ابتدا انتخاب کن!");
+    if (!confirm("مطمئنی حذف بشه؟")) return;
+    const { error } = await supabase.from("محتوا").delete().eq("id", شناسه_ویرایش);
+    if (error) alert("❌ خطا: " + error.message);
+    else { alert("✅ حذف شد!"); شناسه_ویرایش = null; await بارگذاری_همه(); await پر_کردن_لیست(); }
+}
+
+بارگذاری_همه();
+</script>
 </body>
 </html>
