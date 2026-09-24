@@ -6,444 +6,86 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>VORTEXPLAY ☁️ تابلو ابری امن</title>
+<title>VORTEXPLAY ☁️ نهایی</title>
 <style>
 :root {
   --gold: #FFD700;
-  --gold-dark: #CCAA00;
   --orange: #FF6B00;
-  --orange-dark: #CC5500;
   --cyan: #00D9FF;
-  --cyan-dark: #00A8CC;
   --success: #00FF88;
-  --success-bg: rgba(0, 255, 136, 0.15);
   --error: #FF3366;
-  --error-bg: rgba(255, 51, 102, 0.15);
   --warn: #FFCC00;
-  --warn-bg: rgba(255, 204, 0, 0.15);
   --bg-dark: #0A0418;
   --bg-card: rgba(25, 12, 50, 0.9);
-  --bg-input: rgba(0, 0, 0, 0.5);
   --border-gold: rgba(255, 215, 0, 0.35);
-  --border-cyan: rgba(0, 217, 255, 0.35);
-  --text-light: #E0E0FF;
-  --text-dim: #8888AA;
-  --shadow-glow: 0 0 25px rgba(255, 215, 0, 0.25);
-  --shadow-cyan: 0 0 15px rgba(0, 217, 255, 0.2);
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Tahoma', 'Vazirmatn', sans-serif;
-  min-height: 100vh;
-  background: linear-gradient(135deg, var(--bg-dark) 0%, #1A0A3C 40%, #2A1050 70%, var(--bg-dark) 100%);
-  color: var(--text-light);
-  padding: 15px;
-  line-height: 1.6;
-}
-
-.container {
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-.header {
-  text-align: center;
-  padding: 30px 20px;
-  margin-bottom: 25px;
-  border-bottom: 2px solid transparent;
-  border-image: linear-gradient(90deg, transparent, var(--gold), var(--orange), var(--gold), transparent) 1;
-}
-
-.logo {
-  font-size: 32px;
-  font-weight: 900;
-  background: linear-gradient(90deg, var(--gold) 0%, var(--orange) 50%, var(--gold) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: 1px;
-  text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-  margin-bottom: 5px;
-}
-
-.subtitle {
-  color: var(--text-dim);
-  font-size: 14px;
-}
-
-.version {
-  font-size: 11px;
-  color: #555;
-  margin-top: 8px;
-}
-
-.card {
-  background: var(--bg-card);
-  border-radius: 20px;
-  padding: 25px;
-  margin-bottom: 22px;
-  border: 1px solid var(--border-gold);
-  box-shadow: var(--shadow-glow);
-  backdrop-filter: blur(12px);
-  transition: transform 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-2px);
-}
-
-.card-header {
-  font-size: 18px;
-  font-weight: bold;
-  color: var(--gold);
-  margin-bottom: 18px;
-  padding-bottom: 10px;
-  border-bottom: 1px dashed var(--border-gold);
-}
-
-.input-group {
-  margin-bottom: 14px;
-}
-
-label.input-label {
-  display: block;
-  font-size: 13px;
-  color: var(--text-dim);
-  margin-bottom: 6px;
-}
-
-input[type="text"],
-textarea {
-  width: 100%;
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: 1px solid var(--border-gold);
-  background: var(--bg-input);
-  color: var(--text-light);
-  font-size: 15px;
-  outline: none;
-  transition: all 0.3s ease;
-  font-family: inherit;
-}
-
-input[type="text"]:focus,
-textarea:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
-  background: rgba(0, 0, 0, 0.6);
-}
-
-textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-.btn {
-  width: 100%;
-  padding: 15px;
-  border-radius: 12px;
-  border: none;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 8px;
-  font-family: inherit;
-}
-
-.btn-primary {
-  background: linear-gradient(90deg, var(--gold) 0%, var(--orange) 100%);
-  color: #000;
-  box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 107, 0, 0.45);
-}
-
-.btn-primary:active {
-  transform: scale(0.97);
-}
-
-.btn-secondary {
-  background: rgba(0, 217, 255, 0.15);
-  color: var(--cyan);
-  border: 1px solid var(--border-cyan);
-  width: auto;
-  padding: 10px 18px;
-  font-size: 14px;
-}
-
-.btn-secondary:hover {
-  background: rgba(0, 217, 255, 0.25);
-  box-shadow: var(--shadow-cyan);
-}
-
-.btn-danger {
-  background: rgba(255, 51, 102, 0.15);
-  color: var(--error);
-  border: 1px solid var(--error);
-  width: auto;
-  padding: 10px 18px;
-  font-size: 14px;
-}
-
-.btn-danger:hover {
-  background: rgba(255, 51, 102, 0.25);
-}
-
-.status {
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-size: 14px;
-  margin-top: 15px;
-  text-align: center;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.status.ok {
-  background: var(--success-bg);
-  color: var(--success);
-  border: 1px solid rgba(0, 255, 136, 0.3);
-}
-
-.status.wait {
-  background: var(--warn-bg);
-  color: var(--warn);
-  border: 1px solid rgba(255, 204, 0, 0.3);
-}
-
-.status.err {
-  background: var(--error-bg);
-  color: var(--error);
-  border: 1px solid rgba(255, 51, 102, 0.3);
-}
-
-.controls {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.refresh-info {
-  font-size: 12px;
-  color: var(--text-dim);
-  margin-right: auto;
-}
-
-.file-area {
-  margin-top: 5px;
-}
-
-.file-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 18px;
-  background: rgba(0, 217, 255, 0.15);
-  border-radius: 10px;
-  color: var(--cyan);
-  cursor: pointer;
-  font-size: 14px;
-  border: 1px dashed var(--border-cyan);
-  transition: all 0.3s ease;
-}
-
-.file-label:hover {
-  background: rgba(0, 217, 255, 0.25);
-  border-style: solid;
-}
-
-.file-name {
-  margin-top: 8px;
-  font-size: 13px;
-  color: var(--cyan);
-}
-
-.hidden {
-  display: none !important;
-}
-
-/* پیام‌ها */
-.msg {
-  padding: 18px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  animation: fadeSlideIn 0.4s ease forwards;
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-@keyframes fadeSlideIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.msg:first-child {
-  animation-delay: 0.05s;
-}
-
-.msg:nth-child(2) {
-  animation-delay: 0.1s;
-}
-
-.msg:nth-child(3) {
-  animation-delay: 0.15s;
-}
-
-.msg:last-child {
-  border-bottom: none;
-}
-
-.msg-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.msg-author {
-  color: var(--gold);
-  font-weight: bold;
-  font-size: 15px;
-}
-
-.msg-time {
-  color: var(--text-dim);
-  font-size: 12px;
-}
-
-.msg-body {
-  line-height: 1.8;
-  font-size: 15px;
-  white-space: pre-wrap;
-  word-break: break-word;
-  color: #fff;
-}
-
-.msg-file {
-  margin-top: 12px;
-  padding: 12px 14px;
-  background: rgba(0, 217, 255, 0.1);
-  border-radius: 10px;
-  border-left: 3px solid var(--cyan);
-  font-size: 14px;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 50px 20px;
-  color: var(--text-dim);
-}
-
-.empty-icon {
-  font-size: 40px;
-  margin-bottom: 15px;
-  opacity: 0.5;
-}
-
-/* پنل مدیریت */
-.admin-toggle {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: none;
-  background: linear-gradient(135deg, var(--gold), var(--orange));
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 999;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-  transition: transform 0.3s ease;
-}
-
-.admin-toggle:hover {
-  transform: scale(1.1);
-}
-
-.admin-panel {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.92);
-  z-index: 1000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.admin-panel.show {
-  display: flex;
-}
-
-.admin-box {
-  background: var(--bg-card);
-  border-radius: 20px;
-  padding: 30px;
-  border: 2px solid var(--gold);
-  box-shadow: 0 0 30px rgba(255, 215, 0, 0.25);
-  max-width: 420px;
-  width: 100%;
-}
-
-.admin-title {
-  color: var(--gold);
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 20px;
-}
-
-.admin-success {
-  color: var(--success);
-  text-align: center;
-  margin: 15px 0;
-  padding: 10px;
-  background: var(--success-bg);
-  border-radius: 8px;
-}
-
-/* موبایل */
-@media (max-width: 480px) {
-  .logo { font-size: 24px; }
-  .card { padding: 18px; }
-  .controls { flex-direction: column; align-items: stretch; }
-  .refresh-info { margin-right: 0; text-align: center; }
-}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Tahoma,sans-serif;min-height:100vh;
+  background:linear-gradient(135deg,var(--bg-dark) 0%,#1A0A3C 50%,#2A1050 100%);
+  color:#fff;padding:15px}
+.container{max-width:650px;margin:0 auto}
+.header{text-align:center;padding:25px 0 20px;
+  border-bottom:2px solid transparent;
+  border-image:linear-gradient(90deg,transparent,var(--gold),var(--orange),transparent) 1}
+.logo{font-size:32px;font-weight:900;
+  background:linear-gradient(90deg,var(--gold),var(--orange));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:#888;margin-top:8px;font-size:14px}
+.card{background:var(--bg-card);border-radius:20px;padding:25px;margin-bottom:20px;
+  border:1px solid var(--border-gold);backdrop-filter:blur(10px)}
+input,textarea{width:100%;padding:14px;border-radius:12px;
+  border:1px solid rgba(255,215,0,0.3);background:rgba(0,0,0,0.5);
+  color:#fff;font-size:15px;margin-bottom:12px;outline:none}
+input:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 10px rgba(255,215,0,0.3)}
+button{width:100%;padding:15px;border-radius:12px;border:none;
+  font-size:16px;font-weight:bold;cursor:pointer;transition:all .2s}
+button:disabled{opacity:.6;cursor:not-allowed}
+.btn-primary{background:linear-gradient(90deg,var(--gold),var(--orange));color:#000;margin-top:8px}
+.btn-primary:active{transform:scale(.97)}
+.btn-small{width:auto;padding:10px 18px;font-size:14px;
+  background:rgba(0,217,255,.15);color:var(--cyan);border:1px solid rgba(0,217,255,0.3)}
+.status{padding:12px;border-radius:10px;text-align:center;margin:12px 0;font-size:14px}
+.ok{background:rgba(0,255,136,.15);color:var(--success);border:1px solid rgba(0,255,136,0.2)}
+.wait{background:rgba(255,204,0,.15);color:var(--warn);border:1px solid rgba(255,204,0,0.2)}
+.err{background:rgba(255,51,102,.15);color:var(--error);border:1px solid rgba(255,51,102,0.2)}
+.msg{padding:16px;border-bottom:1px solid rgba(255,255,255,.1);animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.msg:last-child{border-bottom:none}
+.name{color:var(--gold);font-weight:bold;margin-bottom:5px}
+.time{color:#888;font-size:12px;margin-bottom:8px}
+.empty{text-align:center;padding:50px 20px;color:#777}
+.controls{display:flex;gap:10px;margin-top:15px;flex-wrap:wrap;align-items:center}
+.refresh-info{font-size:12px;color:#666;margin-left:auto}
+.file-label{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;
+  background:rgba(0,217,255,.15);border-radius:10px;color:var(--cyan);cursor:pointer;
+  border:1px dashed rgba(0,217,255,0.3);margin:10px 0}
+.file-info{color:var(--cyan);font-size:13px;margin-bottom:10px}
+.hidden{display:none!important}
+.admin-btn{position:fixed;top:15px;left:15px;width:48px;height:48px;border-radius:50%;
+  border:none;background:linear-gradient(90deg,var(--gold),var(--orange));font-size:20px;
+  cursor:pointer;z-index:999;box-shadow:0 0 15px rgba(255,215,0,0.3)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1000;
+  display:none;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal-box{background:var(--bg-card);border-radius:20px;padding:25px;
+  border:2px solid var(--gold);max-width:400px;width:100%}
 </style>
 </head>
 <body>
 
-<button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()">⚙️</button>
+<button class="admin-btn" onclick="openAdmin()">⚙️</button>
 
-<div class="admin-panel" id="adminPanelOverlay">
-  <div class="admin-box">
-    <h2 class="admin-title">🔐 پنل مدیریت VORTEXPLAY</h2>
-    <div class="input-group">
-      <label class="input-label">رمز مدیریت</label>
-      <input type="password" id="adminPasswordInput" placeholder="رمز را وارد کنید...">
-    </div>
-    <button class="btn btn-primary" onclick="verifyAdmin()">ورود به پنل</button>
-    <button class="btn btn-secondary" style="margin-top:10px; width:100%" onclick="closeAdminPanel()">بستن</button>
-    
-    <div id="adminActionsArea" class="hidden">
-      <div class="admin-success">✅ با موفقیت وارد شدید</div>
-      <button class="btn btn-danger" style="margin-top:15px" onclick="confirmClearAllMessages()">🗑️ حذف کامل همه پیام‌ها</button>
-      <button class="btn btn-secondary" style="margin-top:10px; width:100%" onclick="forceRefreshFromServer()">🔄 بروزرسانی اجباری از سرور</button>
+<div class="modal" id="adminModal">
+  <div class="modal-box">
+    <h3 style="color:var(--gold);text-align:center;margin-bottom:20px">🔐 پنل مدیریت</h3>
+    <input type="password" id="adminPass" placeholder="رمز مدیریت را وارد کنید">
+    <button class="btn-primary" onclick="checkAdmin()">ورود</button>
+    <button class="btn-small" style="width:100%;margin-top:10px" onclick="closeAdmin()">بستن</button>
+    <div id="adminActions" class="hidden" style="margin-top:20px">
+      <p style="color:var(--success);text-align:center">✅ با موفقیت وارد شدید</p>
+      <button class="btn-small" style="width:100%;margin-top:15px;
+        background:rgba(255,51,102,.15);color:var(--error);border-color:var(--error)"
+        onclick="clearAll()">🗑️ حذف همه پیام‌ها</button>
     </div>
   </div>
 </div>
@@ -451,31 +93,253 @@ textarea {
 <div class="container">
   <div class="header">
     <h1 class="logo">👑 VORTEXPLAY</h1>
-    <p class="subtitle">تابلو پیام‌رسانی ابری امن و همزمان</p>
-    <p class="version">نسخه ۲.۱.۰ | پایدار و سریع</p>
+    <p class="subtitle">تابلو پیام‌رسانی ابری — همزمان و امن</p>
   </div>
 
-  <!-- بخش ارسال -->
   <div class="card">
-    <h3 class="card-header">✍️ ارسال پیام جدید</h3>
+    <input type="text" id="uName" placeholder="نام شما" maxlength="30">
+    <textarea id="uMsg" placeholder="متن پیام خود را بنویسید..."></textarea>
     
-    <div class="input-group">
-      <label class="input-label">نام شما</label>
-      <input type="text" id="senderNameInput" placeholder="نام یا نام مستعار خود را بنویسید" maxlength="30" autocomplete="off">
+    <label class="file-label">
+      📁 انتخاب فایل
+      <input type="file" id="uFile" class="hidden" onchange="showFileInfo()">
+    </label>
+    <p id="fileInfo" class="file-info"></p>
+    
+    <button class="btn-primary" id="sendBtn" onclick="sendMessage()">📤 ارسال پیام</button>
+    <div id="status" class="status wait">⏳ در حال اتصال...</div>
+    
+    <div class="controls">
+      <button class="btn-small" onclick="fetchMessages()">🔄 بروزرسانی دستی</button>
+      <span class="refresh-info">🔄 هر ۵ ثانیه خودکار</span>
     </div>
+  </div>
 
-    <div class="input-group">
-      <label class="input-label">متن پیام</label>
-      <textarea id="messageTextInput" placeholder="متن پیام خود را اینجا بنویسید..."></textarea>
-    </div>
+  <div class="card">
+    <div id="messagesList"></div>
+  </div>
+</div>
 
-    <div class="file-area">
-      <label class="file-label">
-        📁 پیوست فایل
-        <input type="file" id="fileAttachmentInput" class="hidden" onchange="handleFileSelection()">
-      </label>
-      <div id="selectedFileNameDisplay" class="file-name"></div>
+<script>
+// ==================================================
+// ✅ تنظیمات — از قبل کامل شده! کاری نکن
+const BIN_ID = '6ab5a0c1ac6210605af2700e';
+const MASTER_KEY = '$2a$10$UjKZraBn9B.p9tfKZ6xzzuBs1uGDggLoZbjCdt9T9jVDor9.KGK56';
+const ADMIN_PASSWORD = 'VORTEX2026';
+const API = 'https://api.jsonbin.io/v3/b/' + BIN_ID;
+const HEADERS = {
+  'X-Master-Key': MASTER_KEY,
+  'Content-Type': 'application/json'
+};
+let lastMessageId = null;
+let isLoading = false;
+// ==================================================
+
+function showStatus(text, type = 'wait') {
+  const el = document.getElementById('status');
+  el.className = `status ${type}`;
+  el.textContent = text;
+}
+
+function showFileInfo() {
+  const file = document.getElementById('uFile').files[0];
+  const info = document.getElementById('fileInfo');
+  if (file) {
+    info.textContent = `✅ ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+  } else {
+    info.textContent = '';
+  }
+}
+
+async function fetchMessages() {
+  if (isLoading) return;
+  isLoading = true;
+
+  try {
+    const res = await fetch(`${API}/latest?t=${Date.now()}`, {
+      headers: HEADERS,
+      cache: 'no-store'
+    });
+
+    if (!res.ok) throw new Error(`کد خطا: ${res.status}`);
+    
+    const data = await res.json();
+    const messages = data.record.messages || [];
+    
+    const currentId = messages.length > 0 ? messages[0].id : 'EMPTY_LIST';
+    
+    if (currentId !== lastMessageId) {
+      lastMessageId = currentId;
+      renderMessages(messages);
+      if (lastMessageId !== null) {
+        showStatus(`✅ پیام جدید! مجموع: ${messages.length} پیام`, 'ok');
+      } else {
+        showStatus(`✅ متصل شد! ${messages.length} پیام موجود است`, 'ok');
+      }
+    }
+  } catch (err) {
+    showStatus(`❌ خطا: ${err.message}`, 'err');
+    console.error('[Fetch Error]', err);
+  } finally {
+    isLoading = false;
+  }
+}
+
+async function sendMessage() {
+  const name = document.getElementById('uName').value.trim() || 'ناشناس';
+  const text = document.getElementById('uMsg').value.trim();
+  const file = document.getElementById('uFile').files[0];
+  const sendBtn = document.getElementById('sendBtn');
+
+  if (!text && !file) {
+    alert('⚠️ لطفاً متنی بنویسید یا فایلی انتخاب کنید!');
+    return;
+  }
+
+  sendBtn.disabled = true;
+  sendBtn.textContent = '⏳ در حال ارسال...';
+  showStatus('⏳ در حال ارسال پیام...');
+
+  try {
+    // دریافت لیست فعلی
+    const prevRes = await fetch(`${API}/latest?t=${Date.now()}`, {
+      headers: HEADERS,
+      cache: 'no-store'
+    });
+    if (!prevRes.ok) throw new Error('دریافت لیست قبلی ناموفق');
+    
+    const prevData = await prevRes.json();
+    const allMessages = prevData.record.messages || [];
+
+    // اطلاعات فایل
+    let fileData = null;
+    if (file) {
+      fileData = {
+        name: file.name,
+        size: (file.size / 1024).toFixed(1) + ' KB'
+      };
+    }
+
+    // اضافه کردن پیام جدید
+    allMessages.unshift({
+      id: Date.now(),
+      name: name,
+      text: text,
+      file: fileData,
+      time: new Date().toLocaleString('fa-IR')
+    });
+
+    // ارسال به سرور
+    const putRes = await fetch(API, {
+      method: 'PUT',
+      headers: HEADERS,
+      body: JSON.stringify({ messages: allMessages })
+    });
+
+    if (!putRes.ok) throw new Error(`خطای سرور: ${putRes.status}`);
+
+    // موفقیت
+    showStatus('✅ پیام ارسال شد!', 'ok');
+    document.getElementById('uMsg').value = '';
+    document.getElementById('uFile').value = '';
+    document.getElementById('fileInfo').textContent = '';
+    lastMessageId = allMessages[0].id;
+    renderMessages(allMessages);
+
+  } catch (err) {
+    showStatus(`❌ خطا: ${err.message}`, 'err');
+    alert(`خطا در ارسال:\n${err.message}\nلطفاً دوباره تلاش کنید.`);
+  } finally {
+    sendBtn.disabled = false;
+    sendBtn.textContent = '📤 ارسال پیام';
+  }
+}
+
+function renderMessages(messages) {
+  const container = document.getElementById('messagesList');
+  
+  if (!messages.length) {
+    container.innerHTML = `
+      <div class="empty">
+        📭 هنوز هیچ پیامی ارسال نشده است.<br>
+        اولین پیام را شما بنویسید! ✍️
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = messages.map(msg => `
+    <div class="msg">
+      <div class="name">👤 ${escapeHtml(msg.name)}</div>
+      <div class="time">${msg.time}</div>
+      ${msg.text ? `<div style="margin:8px 0;line-height:1.8">${escapeHtml(msg.text)}</div>` : ''}
+      ${msg.file ? `
+        <div style="margin-top:10px;padding:10px;background:rgba(0,217,255,.1);border-radius:8px;
+          border-left:3px solid var(--cyan)">
+          📁 <strong>${escapeHtml(msg.file.name)}</strong>
+          <span style="color:#888;font-size:12px;margin-left:8px">(${msg.file.size})</span>
+        </div>
+      ` : ''}
     </div>
+  `).join('');
+}
+
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// پنل مدیریت
+function openAdmin() {
+  document.getElementById('adminModal').classList.add('show');
+  document.getElementById('adminPass').value = '';
+  document.getElementById('adminActions').classList.add('hidden');
+}
+function closeAdmin() {
+  document.getElementById('adminModal').classList.remove('show');
+}
+function checkAdmin() {
+  const pass = document.getElementById('adminPass').value;
+  if (pass === ADMIN_PASSWORD) {
+    document.getElementById('adminActions').classList.remove('hidden');
+  } else {
+    alert('❌ رمز عبور اشتباه است!');
+  }
+}
+async function clearAll() {
+  if (!confirm('⚠️ هشدار!\nهمه پیام‌ها برای همیشه حذف می‌شوند.\nادامه می‌دهید؟')) return;
+  if (!confirm('⚠️ تأیید نهایی:\nبازگشت ندارد! مطمئن هستید؟')) return;
+
+  try {
+    showStatus('⏳ در حال حذف...');
+    await fetch(API, {
+      method: 'PUT',
+      headers: HEADERS,
+      body: JSON.stringify({ messages: [] })
+    });
+    lastMessageId = 'EMPTY_LIST';
+    renderMessages([]);
+    showStatus('✅ همه پیام‌ها حذف شدند', 'ok');
+    closeAdmin();
+  } catch (err) {
+    alert(`خطا: ${err.message}`);
+    showStatus('❌ خطا در حذف', 'err');
+  }
+}
+
+// میانبر
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === 'Enter') sendMessage();
+});
+
+// شروع
+setInterval(fetchMessages, 5000);
+fetchMessages();
+</script>
+</body>
+</html>
 
     <button class="btn btn-primary" id="sendButton" onclick="submitMessage()">📤 ارسال پیام به همه</button>
     
