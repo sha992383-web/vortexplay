@@ -10,7 +10,6 @@
             --primary: #f39c12;
             --bg: #0d0714;
             --card-bg: #170d24;
-            --border: #f39c12;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; }
@@ -57,7 +56,6 @@
             padding: 0 15px;
         }
 
-        /* دسته‌بندی‌ها */
         .cat-bar {
             display: flex;
             gap: 10px;
@@ -83,7 +81,6 @@
             font-weight: bold;
         }
 
-        /* کارت محصولات */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -125,7 +122,6 @@
             display: block;
         }
 
-        /* نوار مدیریت پایین */
         .admin-bar {
             position: fixed;
             bottom: 0; left: 0; right: 0;
@@ -146,7 +142,6 @@
             cursor: pointer;
         }
 
-        /* پنجره مدال */
         .modal {
             display: none;
             position: fixed;
@@ -179,6 +174,13 @@
             border-radius: 6px;
             outline: none;
         }
+
+        .loading {
+            text-align: center;
+            color: var(--primary);
+            padding: 20px;
+            font-size: 1.1rem;
+        }
     </style>
 </head>
 <body>
@@ -194,20 +196,19 @@
 
     <div class="container">
         <div class="cat-bar" id="catBar"></div>
+        <div id="loadingBox" class="loading">⏳ در حال دریافت محصولات از سرور...</div>
         <div class="grid" id="productGrid"></div>
     </div>
 
     <div class="admin-bar">
-        <span>🛒 فروشگاه فعال است</span>
+        <span>🌐 آنلاین و همگام‌سازی شده</span>
         <button class="btn-admin" onclick="showModal()">⚙️ مدیریت</button>
     </div>
 
-    <!-- مدال ورود و تنظیمات -->
     <div id="modal" class="modal">
         <div class="modal-box">
             <span class="close" onclick="hideModal()">&times;</span>
 
-            <!-- بخش فرم ورود -->
             <div id="loginBox">
                 <h3 style="color:var(--primary); margin-bottom:15px;">ورود به مدیریت</h3>
                 <input type="text" id="passInput" placeholder="رمز عبور (1234)">
@@ -215,7 +216,6 @@
                 <p id="alertMsg" style="color:red; display:none; margin-top:10px; text-align:center;">رمز اشتباه است!</p>
             </div>
 
-            <!-- بخش پنل مدیریت -->
             <div id="panelBox" style="display:none;">
                 <h3 style="color:var(--primary); margin-bottom:10px;">➕ افزودن محصول</h3>
                 <input type="text" id="pTitle" placeholder="عنوان محصول">
@@ -223,7 +223,7 @@
                 <input type="text" id="pPrice" placeholder="قیمت (مثلا: ۵۰,۰۰۰ تومان)">
                 <input type="text" id="pImg" placeholder="لینک عکس محصول">
                 <input type="text" id="pLink" placeholder="لینک دانلود/خرید">
-                <button class="btn-admin" style="width:100%; background:#27ae60; color:#fff;" onclick="newProduct()">انتشار محصول</button>
+                <button class="btn-admin" style="width:100%; background:#27ae60; color:#fff;" onclick="newProduct()">انتشار همگانی محصول</button>
 
                 <hr style="border-color:var(--primary); margin:15px 0;">
 
@@ -243,7 +243,10 @@
     </div>
 
     <script>
-        // داده‌های فروشگاه
+        // لینک پایگاه داده آنلاین عمومی جهت همگام‌سازی بین همه کاربران
+        const BIN_ID = "66f3123be410157d3af68a12";
+        const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
         let db = {
             title: "فروشگاه VORTEXPLAY",
             logo: "https://via.placeholder.com/90/f39c12/000000?text=LOGO",
@@ -253,30 +256,52 @@
             items: []
         };
 
-        // بارگیری داده‌ها از حافظه
-        function load() {
-            let data = localStorage.getItem('vortex_simple_db');
-            if(data) db = JSON.parse(data);
+        // دریافت اطلاعات از پایگاه داده آنلاین
+        async function load() {
+            document.getElementById('loadingBox').style.display = 'block';
+            try {
+                let res = await fetch(API_URL + "/latest", {
+                    headers: { "X-Bin-Meta": "false" }
+                });
+                if(res.ok) {
+                    let data = await res.json();
+                    if(data && data.items) db = data;
+                }
+            } catch(e) {
+                console.log("خطا در دریافت اطلاعات آنلاین", e);
+            }
+            document.getElementById('loadingBox').style.display = 'none';
             render();
         }
 
-        // ذخیره داده‌ها
-        function save() {
-            localStorage.setItem('vortex_simple_db', JSON.stringify(db));
+        // ارسال و ذخیره اطلاعات روی پایگاه داده آنلاین
+        async function save() {
+            document.getElementById('loadingBox').innerText = '⏳ در حال ذخیره در سرور آنلاین...';
+            document.getElementById('loadingBox').style.display = 'block';
+            try {
+                await fetch(API_URL, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(db)
+                });
+            } catch(e) {
+                alert('خطا در ذخیره‌سازی آنلاین!');
+            }
+            document.getElementById('loadingBox').style.display = 'none';
             render();
         }
 
-        // نمایش اطلاعات در صفحه
         function render() {
             document.getElementById('shopTitle').innerText = db.title;
             document.getElementById('logoImg').src = db.logo;
             document.getElementById('coverImg').src = db.cover;
 
-            // ساخت منوی دسته‌بندی
             let catBar = document.getElementById('catBar');
             let pCat = document.getElementById('pCat');
             catBar.innerHTML = '';
             pCat.innerHTML = '';
+
+            if(!db.categories) db.categories = ["همه"];
 
             db.categories.forEach(cat => {
                 let btn = document.createElement('button');
@@ -290,7 +315,6 @@
                 }
             });
 
-            // ساخت لیست محصولات
             let grid = document.getElementById('productGrid');
             grid.innerHTML = '';
 
@@ -298,8 +322,9 @@
                 ? db.items 
                 : db.items.filter(x => x.cat === db.currentCat);
 
-            if(list.length === 0) {
+            if(!list || list.length === 0) {
                 grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#888;">محصولی وجود ندارد.</p>';
+                return;
             }
 
             list.forEach(item => {
@@ -314,10 +339,8 @@
             });
         }
 
-        // ورود ساده به مدیریت
         function login() {
             let pass = document.getElementById('passInput').value.trim();
-            // تبدیل اعداد فارسی به انگلیسی
             pass = pass.replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
 
             if(pass === "1234") {
@@ -331,8 +354,7 @@
             }
         }
 
-        // افزودن محصول جدید
-        function newProduct() {
+        async function newProduct() {
             let title = document.getElementById('pTitle').value;
             let cat = document.getElementById('pCat').value;
             let price = document.getElementById('pPrice').value || 'رایگان';
@@ -341,29 +363,28 @@
 
             if(!title) return alert('عنوان محصول را بنویسید');
 
+            if(!db.items) db.items = [];
             db.items.push({ title, cat, price, img, link });
-            save();
-            alert('محصول اضافه شد!');
+            await save();
+            alert('محصول در سرور آنلاین منتشر شد و برای همه قابل مشاهده است!');
             document.getElementById('pTitle').value = '';
         }
 
-        // افزودن دسته‌بندی
-        function newCategory() {
+        async function newCategory() {
             let name = document.getElementById('cName').value.trim();
             if(name && !db.categories.includes(name)) {
                 db.categories.push(name);
-                save();
+                await save();
                 alert('دسته اضافه شد!');
                 document.getElementById('cName').value = '';
             }
         }
 
-        // ویرایش ظاهر
-        function updateTheme() {
+        async function updateTheme() {
             db.title = document.getElementById('sTitle').value || db.title;
             db.logo = document.getElementById('sLogo').value || db.logo;
             db.cover = document.getElementById('sCover').value || db.cover;
-            save();
+            await save();
             alert('تغییرات ظاهر ذخیره شد!');
         }
 
