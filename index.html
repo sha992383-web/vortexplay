@@ -1,153 +1,229 @@
-import logging
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import (
-    Application,
-    CommandHandler,
-    CallbackQueryHandler,
-    ContextTypes,
-)
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VORTEXPLAY | دنیای گیم</title>
 
-# تنظیمات ثبت گزارش‌ها (Logs)
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    level=logging.INFO,
-)
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-TOKEN = "8973901292:AAFKfr5b06hhQUabY9qIKec8D7ta8tS45kM"
+    :root {
+      --bg: #070812;
+      --panel: rgba(19, 23, 48, 0.82);
+      --cyan: #00e5ff;
+      --pink: #ff2bd6;
+      --purple: #8c52ff;
+      --text: #eef4ff;
+      --muted: #a9b2cb;
+    }
 
-# منوی اصلی ربات
-def main_keyboard():
-    keyboard = [
-        [
-            InlineKeyboardButton("🎮 اکانت‌های قانونی", callback_data="accounts"),
-            InlineKeyboardButton("🎁 گیفت کارت و پلاس", callback_data="giftcards"),
-        ],
-        [
-            InlineKeyboardButton("📚 آموزش‌های پلی‌استیشن", callback_data="tutorials"),
-            InlineKeyboardButton("🛠 خدمات و تعمیرات", callback_data="services"),
-        ],
-        [
-            InlineKeyboardButton("📞 پشتیبانی و سفارش", callback_data="support"),
-            InlineKeyboardButton("ℹ️ درباره فروشگاه", callback_data="about"),
-        ],
-    ]
-    return InlineKeyboardMarkup(keyboard)
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(0, 229, 255, .18), transparent 25rem),
+        radial-gradient(circle at 85% 5%, rgba(255, 43, 214, .16), transparent 23rem),
+        var(--bg);
+    }
 
-# دکمه بازگشت
-def back_keyboard():
-    return InlineKeyboardMarkup([[InlineKeyboardButton("🔙 بازگشت به منوی اصلی", callback_data="main_menu")]])
+    header {
+      width: min(1120px, 92%);
+      margin: auto;
+      padding: 30px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
 
-# دستور /start
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    welcome_text = (
-        "سلام! به فروشگاه و مرکز آموزش تخصصی پلی‌استیشن خوش آمدید. 🎮✨\n\n"
-        "برای دسترسی به خدمات و آموزش‌ها از منوی زیر استفاده کنید:"
-    )
-    if update.message:
-        await update.message.reply_text(welcome_text, reply_markup=main_keyboard())
-    elif update.callback_query:
-        query = update.callback_query
-        await query.answer()
-        await query.edit_message_text(text=welcome_text, reply_markup=main_keyboard())
+    .logo {
+      color: var(--cyan);
+      font-size: 1.6rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 0 0 14px var(--cyan);
+    }
 
-# مدیریت کلیک روی دکمه‌ها
-async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-right: 18px;
+      transition: .2s;
+    }
 
-    if query.data == "main_menu":
-        await start(update, context)
+    nav a:hover {
+      color: var(--pink);
+    }
 
-    elif query.data == "accounts":
-        text = (
-            "🎮 **اکانت‌های قانونی PS4 و PS5**\n\n"
-            "• ظرفیت ۱ (آفلاین)\n"
-            "• ظرفیت ۲ (آنلاین/آفلاین کامل)\n"
-            "• ظرفیت ۳ (آنلاین)\n\n"
-            "برای استعلام موجودی و قیمت بازی‌ها با پشتیبانی در ارتباط باشید."
-        )
-        await query.edit_message_text(text=text, parse_mode="Markdown", reply_markup=back_keyboard())
+    .hero {
+      width: min(1120px, 92%);
+      margin: 55px auto 35px;
+      padding: 55px 28px;
+      text-align: center;
+      border: 1px solid rgba(0, 229, 255, .35);
+      border-radius: 24px;
+      background: var(--panel);
+      box-shadow: 0 0 35px rgba(0, 229, 255, .10);
+    }
 
-    elif query.data == "giftcards":
-        text = (
-            "🎁 **گیفت کارت و اشتراک پلاس**\n\n"
-            "• گیفت کارت استور آمریکا / انگلیس\n"
-            "• اشتراک پلاس Essential / Extra / Deluxe\n\n"
-            "تحویل سریع با ضمانت کامل."
-        )
-        await query.edit_message_text(text=text, parse_mode="Markdown", reply_markup=back_keyboard())
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      color: var(--cyan);
+      text-shadow: 0 0 20px var(--cyan);
+      margin-bottom: 18px;
+    }
 
-    elif query.data == "tutorials":
-        keyboard = [
-            [InlineKeyboardButton("🔹 آموزش ساخت اکانت و وارد کردن آن", callback_data="tut_account")],
-            [InlineKeyboardButton("🔹 آموزش فعال‌سازی گیفت کارت و پلاس", callback_data="tut_plus")],
-            [InlineKeyboardButton("🔹 تنظیمات DNS رفع تحریم و کاهش پینگ", callback_data="tut_dns")],
-            [InlineKeyboardButton("🔙 بازگشت به منوی اصلی", callback_data="main_menu")],
-        ]
-        text = "📚 **بخش آموزش‌های کاربردی پلی‌استیشن**\nیکی از موضوعات زیر را انتخاب کنید:"
-        await query.edit_message_text(text=text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: var(--muted);
+      line-height: 2;
+    }
 
-    elif query.data == "tut_account":
-        text = (
-            "📖 **آموزش وارد کردن اکانت روی کنسول:**\n\n"
-            "۱. دکمه PS دسته را نگه دارید و وارد `Switch User` شوید.\n"
-            "۲. گزینه `Add User` را بزنید.\n"
-            "۳. ایمیل و رمز اکانت خریداری شده را وارد کنید.\n"
-            "۴. کد تایید ورود را از پشتیبانی دریافت کنید."
-        )
-        await query.edit_message_text(text=text, parse_mode="Markdown", reply_markup=back_keyboard())
+    .btn {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 13px 24px;
+      border-radius: 12px;
+      background: var(--pink);
+      color: white;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(255, 43, 214, .55);
+      transition: transform .2s;
+    }
 
-    elif query.data == "tut_plus":
-        text = (
-            "📖 **آموزش فعال‌سازی کد گیفت کارت:**\n\n"
-            "۱. وارد `PlayStation Store` شوید.\n"
-            "۲. روی آیکون سه نقطه بالا سمت راست بزنید.\n"
-            "۳. گزینه `Redeem Code` را بزنید و کد ۱۲ رقمی را وارد کنید."
-        )
-        await query.edit_message_text(text=text, parse_mode="Markdown", reply_markup=back_keyboard())
+    .btn:hover {
+      transform: translateY(-4px);
+    }
 
-    elif query.data == "tut_dns":
-        text = (
-            "📖 **آموزش تنظیم DNS برای آنلاین بازی کردن:**\n\n"
-            "به مسیر Settings > Network > Set Up Internet Connection بروید.\n"
-            "تنظیمات را روی Manual قرار دهید:\n\n"
-            "**الکترو:**\n`78.157.42.100`\n`78.157.42.101`\n\n"
-            "**رادار:**\n`10.202.10.10`\n`10.202.10.11`"
-        )
-        await query.edit_message_text(text=text, parse_mode="Markdown", reply_markup=back_keyboard())
+    .section {
+      width: min(1120px, 92%);
+      margin: 48px auto;
+    }
 
-    elif query.data == "services":
-        text = (
-            "🛠 **خدمات فنی کنسول:**\n\n"
-            "• نصب بازی‌های دیتایی و کپی‌خور\n"
-            "• سرویس سخت‌افزاری و تعویض خمیر سیلیکون\n"
-            "• تعمیر دسته و رفع آنالوگ دریفت"
-        )
-        await query.edit_message_text(text=text, parse_mode="Markdown", reply_markup=back_keyboard())
+    .section h2 {
+      margin-bottom: 20px;
+      color: var(--cyan);
+      text-shadow: 0 0 12px rgba(0, 229, 255, .8);
+    }
 
-    elif query.data == "support":
-        text = (
-            "📞 **ارتباط با پشتیبانی**\n\n"
-            "برای مشاوره و ثبت سفارش می‌توانید با آیدی زیر در تماس باشید:\n"
-            "👤 @YourSupportID"
-        )
-        await query.edit_message_text(text=text, parse_mode="Markdown", reply_markup=back_keyboard())
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+    }
 
-    elif query.data == "about":
-        text = (
-            "ℹ️ **درباره مرجع پلی‌استیشن**\n\n"
-            "ارائه‌دهنده ساخت اکانت، فروش بازی‌ها و آموزش‌های جامع کنسول‌های PS4 و PS5."
-        )
-        await query.edit_message_text(text=text, parse_mode="Markdown", reply_markup=back_keyboard())
+    .card {
+      min-height: 180px;
+      padding: 24px;
+      border: 1px solid rgba(140, 82, 255, .45);
+      border-radius: 18px;
+      background: var(--panel);
+      transition: .25s;
+    }
 
-def main():
-    app = Application.builder().token(TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CallbackQueryHandler(button_handler))
-    
-    print("ربات فعال شد...")
-    app.run_polling()
+    .card:hover {
+      border-color: var(--pink);
+      transform: translateY(-7px);
+      box-shadow: 0 0 25px rgba(255, 43, 214, .18);
+    }
 
-if __name__ == "__main__":
-    main()
+    .card h3 {
+      margin-bottom: 14px;
+      color: var(--pink);
+    }
 
+    .card p {
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    footer {
+      width: min(1120px, 92%);
+      margin: 50px auto 0;
+      padding: 25px 0;
+      color: var(--muted);
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+      }
+
+      nav a {
+        margin: 0 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">VORTEXPLAY</div>
+
+    <nav>
+      <a href="#categories">دسته‌بندی‌ها</a>
+      <a href="#about">درباره ما</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>به VORTEXPLAY خوش آمدی</h1>
+
+      <p>
+        یک فضای گیمینگ با طراحی نئون برای معرفی بازی‌ها، ابزارها،
+        گالری تصاویر و محتوای مورد علاقه‌ات.
+      </p>
+
+      <a class="btn" href="#categories">ورود به دسته‌بندی‌ها</a>
+    </section>
+
+    <section class="section" id="categories">
+      <h2>دسته‌بندی‌ها</h2>
+
+      <div class="cards">
+        <article class="card">
+          <h3>🎮 XBOX</h3>
+          <p>معرفی بازی‌ها، اخبار و محتوای مربوط به Xbox.</p>
+        </article>
+
+        <article class="card">
+          <h3>🌐 UNIVERSAL</h3>
+          <p>بازی‌ها و ابزارهایی برای همه پلتفرم‌ها.</p>
+        </article>
+
+        <article class="card">
+          <h3>⚡ PAYLOAD</h3>
+          <p>ابزارها و محتوای آموزشی مجاز و قانونی.</p>
+        </article>
+
+        <article class="card">
+          <h3>🖼️ GALLERY</h3>
+          <p>گالری تصاویر، والپیپر و طرح‌های گیمینگ.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <h2>درباره VORTEXPLAY</h2>
+      <p style="color: #a9b2cb; line-height: 2;">
+        این سایت با HTML، CSS و JavaScript ساخته شده و به‌صورت رایگان
+        روی GitHub Pages منتشر می‌شود.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 VORTEXPLAY — ساخته‌شده با GitHub Pages
+  </footer>
+</body>
+</html>
