@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VORTEXPLAY — رسانه و شبکه سلطنتی</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Vazirmatn:wght@300;500;800&display=swap" rel="stylesheet">
+    <title>فروشگاه VORTEXPLAY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #f39c12;
-            --primary-glow: #f1c40f;
-            --bg-dark: #07020d;
-            --bg-image: url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1200&auto=format&fit=crop');
-            --card-bg: rgba(20, 9, 36, 0.85);
+            --bg-dark: #0a0512;
+            --card-bg: rgba(22, 11, 36, 0.9);
             --border-color: rgba(243, 156, 18, 0.4);
         }
 
@@ -19,212 +17,141 @@
 
         body {
             background-color: var(--bg-dark);
-            background-image: var(--bg-image);
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #f1f1f1;
+            color: #fff;
             min-height: 100vh;
-            padding-bottom: 100px;
-        }
-
-        .overlay {
-            position: fixed;
-            top:0; left:0; width:100%; height:100%;
-            background: rgba(7, 2, 13, 0.85);
-            z-index: 0;
-            pointer-events: none;
+            padding-bottom: 90px;
         }
 
         header {
             text-align: center;
-            padding: 40px 20px 10px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .crown {
-            font-size: 3.5rem;
-            animation: floatCrown 3.5s ease-in-out infinite;
-            display: inline-block;
-            filter: drop-shadow(0 0 15px var(--primary-glow));
-        }
-
-        @keyframes floatCrown {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            padding: 30px 20px 10px;
         }
 
         .logo-box {
-            width: 110px; height: 110px;
-            margin: 10px auto;
+            width: 100px; height: 100px;
+            margin: 0 auto 10px;
             border-radius: 50%;
-            padding: 4px;
-            background: var(--primary-color);
-            box-shadow: 0 0 25px var(--primary-color);
+            border: 3px solid var(--primary-color);
+            overflow: hidden;
+            box-shadow: 0 0 20px var(--primary-color);
         }
 
-        .logo-box img {
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+        .logo-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        h1 {
-            font-family: 'Cinzel', serif;
-            color: var(--primary-color);
-            font-size: 2.5rem;
-            text-shadow: 0 0 20px rgba(0,0,0,0.8);
-        }
+        h1 { color: var(--primary-color); font-size: 2rem; margin-bottom: 5px; }
 
-        .subtitle { color: #d1c4e9; font-size: 1rem; margin-top: 5px; }
-
-        /* کاور اصلی */
         .cover-container {
             max-width: 900px;
-            margin: 20px auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 1;
+            margin: 15px auto;
+            padding: 0 15px;
         }
 
         .cover-img {
             width: 100%;
-            max-height: 350px;
+            max-height: 280px;
             object-fit: cover;
-            border-radius: 16px;
-            border: 2px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
         }
 
-        /* سیستم دسته‌بندی (Tabs) */
         .main-container {
-            max-width: 850px;
-            margin: 30px auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 1;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
         }
 
-        .categories-nav {
+        /* منوی دسته‌بندی */
+        .cat-nav {
             display: flex;
             gap: 10px;
             overflow-x: auto;
-            padding-bottom: 12px;
-            margin-bottom: 25px;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
             border-bottom: 1px solid var(--border-color);
         }
 
         .cat-btn {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.05);
             border: 1px solid var(--border-color);
             color: #fff;
             padding: 8px 18px;
-            border-radius: 25px;
+            border-radius: 20px;
             cursor: pointer;
             white-space: nowrap;
-            transition: all 0.3s;
         }
 
-        .cat-btn.active, .cat-btn:hover {
+        .cat-btn.active {
             background: var(--primary-color);
             color: #000;
             font-weight: bold;
-            box-shadow: 0 0 12px var(--primary-color);
         }
 
-        /* کارت‌های سبک پیام‌رسان (Messenger Channel View) */
-        .feed-container {
-            display: flex;
-            flex-direction: column;
+        /* شبکه محصولات فروشگاه */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
         }
 
-        .msg-card {
+        .product-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-            position: relative;
-        }
-
-        .msg-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 8px;
-        }
-
-        .msg-header .avatar {
-            width: 35px; height: 35px;
-            border-radius: 50%;
-            background: var(--primary-color);
-        }
-
-        .msg-title { font-weight: bold; color: var(--primary-glow); }
-        .msg-date { font-size: 0.75rem; color: #888; margin-right: auto; }
-
-        .msg-body { font-size: 0.95rem; line-height: 1.7; color: #eee; margin-bottom: 15px; }
-
-        .msg-media {
-            width: 100%;
-            max-height: 380px;
-            object-fit: cover;
             border-radius: 12px;
-            margin-bottom: 15px;
-        }
-
-        .download-box {
-            background: rgba(0,0,0,0.4);
-            border: 1px dashed var(--primary-color);
-            padding: 12px 18px;
-            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
         }
 
-        .btn-download {
+        .product-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .price-tag {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 8px 0;
+        }
+
+        .btn-buy {
             background: var(--primary-color);
             color: #000;
-            padding: 8px 20px;
-            border-radius: 8px;
             text-decoration: none;
+            padding: 10px;
+            border-radius: 8px;
             font-weight: bold;
-            transition: 0.3s;
+            display: block;
+            margin-top: 10px;
         }
-
-        .btn-download:hover { filter: brightness(1.2); box-shadow: 0 0 10px var(--primary-color); }
 
         /* نوار مدیریت پایین */
         .bottom-bar {
             position: fixed;
             bottom: 0; left: 0; right: 0;
-            background: rgba(5, 1, 10, 0.95);
+            background: #05020a;
             border-top: 1px solid var(--border-color);
             padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 99;
-            backdrop-filter: blur(15px);
         }
 
-        .btn-action {
+        .btn-admin {
             background: var(--primary-color);
             border: none;
-            color: #000;
-            padding: 8px 18px;
+            padding: 8px 16px;
+            border-radius: 6px;
             font-weight: bold;
-            border-radius: 8px;
             cursor: pointer;
         }
 
-        /* مدال‌ها */
+        /* مدال مدیریت */
         .modal {
             display: none;
             position: fixed;
@@ -236,341 +163,222 @@
         }
 
         .modal-content {
-            background: #110522;
+            background: #120824;
             border: 2px solid var(--primary-color);
-            border-radius: 18px;
-            max-width: 650px;
-            margin: 30px auto;
-            padding: 25px;
+            border-radius: 12px;
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 20px;
             position: relative;
         }
 
-        .close-btn { position: absolute; left: 20px; top: 15px; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        .close-btn { position: absolute; left: 15px; top: 15px; cursor: pointer; font-size: 1.5rem; }
 
         .form-control {
             width: 100%;
             padding: 10px;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.5);
             border: 1px solid var(--border-color);
             color: #fff;
-            border-radius: 8px;
-            margin-bottom: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
             outline: none;
         }
-
-        .status-msg { text-align: center; padding: 10px; border-radius: 6px; margin-top: 10px; display: none; }
-        .status-error { background: rgba(192,57,43,0.4); color: #e74c3c; }
-        .status-success { background: rgba(39,174,96,0.4); color: #2ecc71; }
     </style>
 </head>
 <body>
 
-    <div class="overlay"></div>
-
     <header>
-        <div class="crown">👑</div>
         <div class="logo-box">
-            <img id="siteLogo" src="https://via.placeholder.com/150/f39c12/000000?text=VORTEX" alt="لوگو">
+            <img id="siteLogo" src="https://via.placeholder.com/100/f39c12/000000?text=STORE" alt="لوگو">
         </div>
-        <h1 id="siteTitle">VORTEXPLAY</h1>
-        <div class="subtitle" id="siteSubtitle">شبکه و کانال اختصاصی پادشاهی گیمرها ✨</div>
+        <h1 id="siteTitle">فروشگاه VORTEXPLAY</h1>
+        <p id="siteSubtitle" style="color: #aaa;">مرجع فروش محصولات و اکانت‌های گیمینگ</p>
     </header>
 
     <div class="cover-container">
-        <img id="siteCover" class="cover-img" src="https://via.placeholder.com/900x350/110522/f39c12?text=VORTEXPLAY+OFFICIAL+CHANNEL" alt="کاور">
+        <img id="siteCover" class="cover-img" src="https://via.placeholder.com/900x280/120824/f39c12?text=VORTEXPLAY+STORE" alt="کاور">
     </div>
 
     <div class="main-container">
-        <!-- تب‌های دسته‌بندی -->
-        <div class="categories-nav" id="categoriesNav"></div>
+        <!-- منوی دسته‌بندی -->
+        <div class="cat-nav" id="catNav"></div>
 
-        <!-- پیام‌ها و فایل‌ها (فید اصلی) -->
-        <div class="feed-container" id="feedContainer"></div>
+        <!-- کارت‌های محصولات -->
+        <div class="shop-grid" id="shopGrid"></div>
     </div>
 
-    <!-- نوار مدیریت پایین -->
+    <!-- نوار مدیریت -->
     <div class="bottom-bar">
-        <span style="color: var(--primary-color); font-weight: bold;">👑 VORTEXPLAY Control Center</span>
-        <button class="btn-action" onclick="openModal('adminModal')">⚙️ ورود به پنل مدیریت</button>
+        <span>🛒 فروشگاه فعال است</span>
+        <button class="btn-admin" onclick="openAdmin()">⚙️ ورود به مدیریت</button>
     </div>
 
     <!-- پنجره مدیریت -->
     <div id="adminModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('adminModal')">&times;</span>
-            <h2 style="color: var(--primary-color); margin-bottom: 15px;">⚙️ پنل مدیریت پیشرفته</h2>
+            <span class="close-btn" onclick="closeAdmin()">&times;</span>
+            <h3 style="color: var(--primary-color); margin-bottom: 15px;">ورود به مدیریت فروشگاه</h3>
 
-            <!-- بخش ورود -->
-            <div id="loginSection">
-                <p style="margin-bottom: 8px;">رمز عبور ۳۲ رقمی مدیر:</p>
-                <input type="password" id="adminPass" class="form-control" placeholder="رمز عبور...">
-                <button class="btn-action" style="width: 100%;" onclick="verifyLogin()">بررسی و ورود</button>
-                <div id="authStatus" class="status-msg"></div>
+            <div id="loginForm">
+                <input type="password" id="adminPass" class="form-control" placeholder="رمز عبور مدیر">
+                <button class="btn-admin" style="width: 100%; margin-top: 5px;" onclick="checkPassword()">ورود</button>
+                <p id="errorMsg" style="color: #ff4d4d; margin-top: 10px; display: none; text-align: center;">❌ رمز عبور اشتباه است!</p>
             </div>
 
-            <!-- بخش تنظیمات (پس از ورود) -->
-            <div id="controlSection" style="display: none;">
-                
-                <!-- ۱. ارسال پیام/پست جدید به کانال -->
-                <h3 style="color: var(--primary-glow); margin: 15px 0 8px;">📢 ارسال پیام/فایل جدید به کاربران</h3>
-                <input type="text" id="postTitle" class="form-control" placeholder="عنوان پیام یا فایل">
-                <select id="postCategory" class="form-control"></select>
-                <textarea id="postContent" class="form-control" rows="3" placeholder="توضیحات کامل پیام..."></textarea>
-                <input type="text" id="postMedia" class="form-control" placeholder="لینک عکس/پیش‌نمایش (اختیاری)">
-                <input type="text" id="postFile" class="form-control" placeholder="لینک دانلود مستقیم فایل">
-                <button class="btn-action" style="width: 100%; background:#27ae60; color:#fff;" onclick="publishPost()">🚀 انتشار همگانی برای همه کاربران</button>
+            <div id="adminPanel" style="display: none;">
+                <h4 style="color: var(--primary-color); margin-bottom: 10px;">➕ افزودن محصول جدید</h4>
+                <input type="text" id="pTitle" class="form-control" placeholder="نام محصول">
+                <select id="pCat" class="form-control"></select>
+                <input type="text" id="pPrice" class="form-control" placeholder="قیمت (مثلا: ۵۰,۰۰۰ تومان)">
+                <input type="text" id="pImg" class="form-control" placeholder="لینک عکس محصول">
+                <input type="text" id="pLink" class="form-control" placeholder="لینک دانلود یا خرید">
+                <button class="btn-admin" style="width: 100%; background: #27ae60; color:#fff;" onclick="addProduct()">افزودن محصول</button>
 
-                <hr style="border-color: var(--border-color); margin: 20px 0;">
+                <hr style="border-color: var(--border-color); margin: 15px 0;">
 
-                <!-- ۲. مدیریت دسته‌بندی‌ها -->
-                <h3 style="color: var(--primary-glow); margin-bottom: 8px;">📁 افزودن دسته‌بندی جدید</h3>
-                <input type="text" id="newCatName" class="form-control" placeholder="نام دسته (مثلا: نرم‌افزارها)">
-                <button class="btn-action" style="width: 100%;" onclick="addCategory()">+ افزودن دسته</button>
+                <h4 style="color: var(--primary-color); margin-bottom: 10px;">📂 افزودن دسته‌بندی</h4>
+                <input type="text" id="newCat" class="form-control" placeholder="نام دسته جدید">
+                <button class="btn-admin" style="width: 100%;" onclick="addCategory()">افزودن دسته</button>
 
-                <hr style="border-color: var(--border-color); margin: 20px 0;">
+                <hr style="border-color: var(--border-color); margin: 15px 0;">
 
-                <!-- ۳. تغییر ظاهر و پس‌زمینه از صفر -->
-                <h3 style="color: var(--primary-glow); margin-bottom: 8px;">🎨 تغییر کامل ظاهر سایت</h3>
-                <label>عنوان سایت:</label>
-                <input type="text" id="editTitle" class="form-control">
-                <label>زیرعنوان:</label>
-                <input type="text" id="editSubtitle" class="form-control">
-                <label>رنگ اصلی سایت:</label>
-                <input type="color" id="editColor" class="form-control" style="height: 40px;" value="#f39c12">
-                <label>لینک عکس پس‌زمینه (Background Image):</label>
-                <input type="text" id="editBg" class="form-control" placeholder="URL عکس پس‌زمینه">
-                <label>لینک لوگو:</label>
-                <input type="text" id="editLogo" class="form-control">
-                <label>لینک کاور اصلی:</label>
-                <input type="text" id="editCover" class="form-control">
-                <button class="btn-action" style="width: 100%; background:#e67e22; color:#fff;" onclick="saveThemeSettings()">🎨 ذخیره و تغییر ظاهر</button>
-
-                <button class="btn-action" style="width: 100%; background:#c0392b; color:#fff; margin-top:20px;" onclick="logout()">خروج از حساب</button>
+                <h4 style="color: var(--primary-color); margin-bottom: 10px;">🎨 تغییر ظاهر فروشگاه</h4>
+                <input type="text" id="editTitle" class="form-control" placeholder="نام فروشگاه">
+                <input type="text" id="editLogo" class="form-control" placeholder="لینک عکس لوگو">
+                <input type="text" id="editCover" class="form-control" placeholder="لینک عکس کاور">
+                <button class="btn-admin" style="width: 100%; background: #e67e22; color:#fff;" onclick="saveTheme()">ذخیره تغییرات ظاهر</button>
             </div>
         </div>
     </div>
 
     <script>
-        // 🔑 هش SHA-256 رمز عبور "12345678901234567890123456789032" برای امنیت کامل
-        const ADMIN_HASH = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; 
+        // 🔑 رمز عبور جدید و ساده مدیریت
+        const ADMIN_PASS = "12345678";
 
-        // داده‌های پیش‌فرض
-        let appData = {
+        let shopData = {
             settings: {
-                title: "VORTEXPLAY",
-                subtitle: "شبکه و کانال اختصاصی پادشاهی گیمرها ✨",
-                color: "#f39c12",
-                bg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1200&auto=format&fit=crop",
-                logo: "https://via.placeholder.com/150/f39c12/000000?text=VORTEX",
-                cover: "https://via.placeholder.com/900x350/110522/f39c12?text=VORTEXPLAY+OFFICIAL+CHANNEL"
+                title: "فروشگاه VORTEXPLAY",
+                subtitle: "مرجع فروش محصولات و اکانت‌های گیمینگ",
+                logo: "https://via.placeholder.com/100/f39c12/000000?text=STORE",
+                cover: "https://via.placeholder.com/900x280/120824/f39c12?text=VORTEXPLAY+STORE"
             },
-            categories: ["همه", "بازی‌ها", "نرم‌افزارها", "آموزش"],
+            categories: ["همه", "اکانت‌ها", "برنامه‌ها"],
             activeCat: "همه",
-            posts: [
+            products: [
                 {
-                    id: 1,
-                    title: "خوش آمدید به کانال رسمِی VORTEXPLAY",
-                    category: "آموزش",
-                    content: "تمامی فایل‌ها و اطلاعیه‌های رسمی پادشاهی از این بخش قابل مشاهده و دانلود است.",
-                    media: "https://via.placeholder.com/800x350/110522/f39c12?text=WELCOME+TO+VORTEXPLAY",
-                    file: "",
-                    date: "امروز"
+                    title: "اکانت ویژه VORTEX",
+                    category: "اکانت‌ها",
+                    price: "رایگان",
+                    img: "https://via.placeholder.com/250/120824/f39c12?text=VIP+ACCOUNT",
+                    link: "#"
                 }
             ]
         };
 
-        // هش کردن رمز ورودی برای امنیت
-        async function sha256(str) {
-            const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
-            return Array.prototype.map.call(new Uint8Array(buf), x => (('0' + x.toString(16)).slice(-2))).join('');
+        function loadData() {
+            let saved = localStorage.getItem('vortex_shop_db');
+            if(saved) shopData = JSON.parse(saved);
+            renderStore();
         }
 
-        function loadStore() {
-            let local = localStorage.getItem('vortex_master_db');
-            if(local) appData = JSON.parse(local);
-            applyTheme();
-            renderCategories();
-            renderPosts();
+        function saveData() {
+            localStorage.setItem('vortex_shop_db', JSON.stringify(shopData));
+            renderStore();
         }
 
-        function saveStore() {
-            localStorage.setItem('vortex_master_db', JSON.stringify(appData));
-            applyTheme();
-            renderCategories();
-            renderPosts();
-        }
+        function renderStore() {
+            document.getElementById('siteTitle').innerText = shopData.settings.title;
+            document.getElementById('siteSubtitle').innerText = shopData.settings.subtitle;
+            document.getElementById('siteLogo').src = shopData.settings.logo;
+            document.getElementById('siteCover').src = shopData.settings.cover;
 
-        // اعمال تغییرات ظاهری
-        function applyTheme() {
-            let s = appData.settings;
-            document.getElementById('siteTitle').innerText = s.title;
-            document.getElementById('siteSubtitle').innerText = s.subtitle;
-            document.getElementById('siteLogo').src = s.logo;
-            document.getElementById('siteCover').src = s.cover;
-            
-            document.documentElement.style.setProperty('--primary-color', s.color);
-            document.documentElement.style.setProperty('--bg-image', `url('${s.bg}')`);
-        }
+            // رندر دسته‌ها
+            let catNav = document.getElementById('catNav');
+            let pCat = document.getElementById('pCat');
+            catNav.innerHTML = '';
+            pCat.innerHTML = '';
 
-        // رندر دسته‌بندی‌ها
-        function renderCategories() {
-            let container = document.getElementById('categoriesNav');
-            let select = document.getElementById('postCategory');
-            container.innerHTML = '';
-            select.innerHTML = '';
-
-            appData.categories.forEach(cat => {
+            shopData.categories.forEach(c => {
                 let btn = document.createElement('button');
-                btn.className = `cat-btn ${appData.activeCat === cat ? 'active' : ''}`;
-                btn.innerText = cat;
-                btn.onclick = () => { appData.activeCat = cat; renderCategories(); renderPosts(); };
-                container.appendChild(btn);
+                btn.className = `cat-btn ${shopData.activeCat === c ? 'active' : ''}`;
+                btn.innerText = c;
+                btn.onclick = () => { shopData.activeCat = c; renderStore(); };
+                catNav.appendChild(btn);
 
-                if(cat !== "همه") {
-                    select.innerHTML += `<option value="${cat}">${cat}</option>`;
-                }
+                if(c !== "همه") pCat.innerHTML += `<option value="${c}">${c}</option>`;
             });
-        }
 
-        // رندر پیام‌ها/پست‌ها به سبک پیام‌رسان
-        function renderPosts() {
-            let container = document.getElementById('feedContainer');
-            container.innerHTML = '';
+            // رندر محصولات
+            let grid = document.getElementById('shopGrid');
+            grid.innerHTML = '';
 
-            let filtered = appData.activeCat === "همه" 
-                ? appData.posts 
-                : appData.posts.filter(p => p.category === appData.activeCat);
+            let filtered = shopData.activeCat === "همه" 
+                ? shopData.products 
+                : shopData.products.filter(p => p.category === shopData.activeCat);
 
-            if(filtered.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:#aaa; padding:30px;">هیچ پیامی در این دسته‌بندی قرار ندارد.</p>`;
-                return;
-            }
-
-            filtered.slice().reverse().forEach(p => {
-                let mediaHTML = p.media ? `<img src="${p.media}" class="msg-media">` : '';
-                let fileHTML = p.file ? `
-                    <div class="download-box">
-                        <span>📦 فایل ضمیمه شده</span>
-                        <a href="${p.file}" target="_blank" class="btn-download">⬇️ دانلود فایل</a>
-                    </div>
-                ` : '';
-
-                container.innerHTML += `
-                    <div class="msg-card">
-                        <div class="msg-header">
-                            <div class="avatar"></div>
-                            <div>
-                                <div class="msg-title">${escapeHTML(p.title)}</div>
-                                <span style="font-size:0.75rem; color:var(--primary-glow)">[${escapeHTML(p.category)}]</span>
-                            </div>
-                            <div class="msg-date">${p.date}</div>
-                        </div>
-                        <div class="msg-body">${escapeHTML(p.content)}</div>
-                        ${mediaHTML}
-                        ${fileHTML}
+            filtered.forEach(p => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <img src="${p.img}" alt="${p.title}">
+                        <h3>${p.title}</h3>
+                        <div class="price-tag">${p.price}</div>
+                        <a href="${p.link}" target="_blank" class="btn-buy">🛒 دریافت / دانلود</a>
                     </div>
                 `;
             });
         }
 
-        // بررسی ورود مدیر با امنیت کامل
-        async function verifyLogin() {
-            let pass = document.getElementById('adminPass').value;
-            let status = document.getElementById('authStatus');
-            status.style.display = 'block';
+        function openAdmin() { document.getElementById('adminModal').style.display = 'block'; }
+        function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
 
-            let hash = await sha256(pass);
-            if(hash === ADMIN_HASH) {
-                status.className = 'status-msg status-success';
-                status.innerText = '✅ رمز عبور صحیح است. در حال ورود...';
-                setTimeout(() => {
-                    document.getElementById('loginSection').style.display = 'none';
-                    document.getElementById('controlSection').style.display = 'block';
-                    fillAdminFields();
-                }, 800);
+        function checkPassword() {
+            let input = document.getElementById('adminPass').value;
+            if(input === ADMIN_PASS) {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('editTitle').value = shopData.settings.title;
+                document.getElementById('editLogo').value = shopData.settings.logo;
+                document.getElementById('editCover').value = shopData.settings.cover;
             } else {
-                status.className = 'status-msg status-error';
-                status.innerText = '❌ رمز عبور اشتباه است!';
+                document.getElementById('errorMsg').style.display = 'block';
             }
         }
 
-        function fillAdminFields() {
-            let s = appData.settings;
-            document.getElementById('editTitle').value = s.title;
-            document.getElementById('editSubtitle').value = s.subtitle;
-            document.getElementById('editColor').value = s.color;
-            document.getElementById('editBg').value = s.bg;
-            document.getElementById('editLogo').value = s.logo;
-            document.getElementById('editCover').value = s.cover;
+        function addProduct() {
+            let title = document.getElementById('pTitle').value;
+            let category = document.getElementById('pCat').value;
+            let price = document.getElementById('pPrice').value || 'رایگان';
+            let img = document.getElementById('pImg').value || 'https://via.placeholder.com/250';
+            let link = document.getElementById('pLink').value || '#';
+
+            if(!title) return alert('نام محصول الزامی است');
+
+            shopData.products.push({ title, category, price, img, link });
+            saveData();
+            alert('محصول با موفقیت اضافه شد');
+            document.getElementById('pTitle').value = '';
         }
 
-        // انتشار پست جدید
-        function publishPost() {
-            let title = document.getElementById('postTitle').value;
-            let category = document.getElementById('postCategory').value;
-            let content = document.getElementById('postContent').value;
-            let media = document.getElementById('postMedia').value;
-            let file = document.getElementById('postFile').value;
-
-            if(!title || !content) return alert('لطفاً عنوان و متن پیام را وارد کنید!');
-
-            appData.posts.push({
-                id: Date.now(),
-                title, category, content, media, file,
-                date: new Date().toLocaleTimeString('fa-IR', {hour: '2-digit', minute:'2-digit'})
-            });
-
-            saveStore();
-            alert('🚀 پیام با موفقیت منتشر شد!');
-            document.getElementById('postTitle').value = '';
-            document.getElementById('postContent').value = '';
-            document.getElementById('postMedia').value = '';
-            document.getElementById('postFile').value = '';
-        }
-
-        // افزودن دسته‌بندی
         function addCategory() {
-            let name = document.getElementById('newCatName').value.trim();
-            if(!name) return alert('نام دسته‌بندی را بنویسید!');
-            if(!appData.categories.includes(name)) {
-                appData.categories.push(name);
-                saveStore();
-                alert('دسته‌بندی جدید اضافه شد!');
-                document.getElementById('newCatName').value = '';
+            let name = document.getElementById('newCat').value.trim();
+            if(name && !shopData.categories.includes(name)) {
+                shopData.categories.push(name);
+                saveData();
+                alert('دسته اضافه شد');
+                document.getElementById('newCat').value = '';
             }
         }
 
-        // ذخیره تغییرات ظاهری
-        function saveThemeSettings() {
-            appData.settings.title = document.getElementById('editTitle').value;
-            appData.settings.subtitle = document.getElementById('editSubtitle').value;
-            appData.settings.color = document.getElementById('editColor').value;
-            appData.settings.bg = document.getElementById('editBg').value;
-            appData.settings.logo = document.getElementById('editLogo').value;
-            appData.settings.cover = document.getElementById('editCover').value;
-
-            saveStore();
-            alert('🎨 ظاهر جدید سایت ذخیره و اعمال شد!');
+        function saveTheme() {
+            shopData.settings.title = document.getElementById('editTitle').value || shopData.settings.title;
+            shopData.settings.logo = document.getElementById('editLogo').value || shopData.settings.logo;
+            shopData.settings.cover = document.getElementById('editCover').value || shopData.settings.cover;
+            saveData();
+            alert('ظاهر فروشگاه به‌روزرسانی شد');
         }
 
-        function logout() {
-            document.getElementById('loginSection').style.display = 'block';
-            document.getElementById('controlSection').style.display = 'none';
-            document.getElementById('adminPass').value = '';
-            closeModal('adminModal');
-        }
-
-        function openModal(id) { document.getElementById(id).style.display = 'block'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-        // جلوگیری از حملات XSS
-        function escapeHTML(str) {
-            return str.replace(/[&<>'"]/g, 
-                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-            );
-        }
-
-        loadStore();
+        loadData();
     </script>
 </body>
 </html>
