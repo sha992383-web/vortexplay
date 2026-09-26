@@ -3,554 +3,579 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VORTEXPLAY 👑 | سامانه سلطنتی</title>
+<title>VORTEXPLAY 🎮 | Cyberpunk Edition</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
 :root{
-  --gold:#D4AF37;
-  --gold-light:#F4E4BC;
-  --gold-dark:#996515;
-  --royal-purple:#2A1040;
-  --deep-dark:#0F051A;
-  --accent:#FFD700;
-  --text-light:#F9F2E8;
-  --shadow-gold:0 0 20px rgba(212,175,55,0.4);
-  --shadow-strong:0 0 40px rgba(255,215,0,0.6);
+  --neon-cyan: #00f0ff;
+  --neon-pink: #ff00e5;
+  --neon-purple: #b000ff;
+  --neon-green: #00ff88;
+  --neon-orange: #ff6600;
+  --neon-yellow: #ffee00;
+  --neon-red: #ff0055;
+  --bg-black: #000000;
+  --bg-navy: #0a0e27;
+  --bg-deep-purple: #1a0033;
+  --bg-ink: #000814;
+  --text-ice: #e0f7ff;
+  --text-ice-blue: #b0e0ff;
+  --text-silver: #c0c0c0;
+  --text-gold: #ffd700;
+  --glow-cyan: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 40px #00f0ff;
+  --glow-pink: 0 0 10px #ff00e5, 0 0 20px #ff00e5, 0 0 40px #ff00e5;
+  --glow-purple: 0 0 10px #b000ff, 0 0 20px #b000ff, 0 0 40px #b000ff;
+  --glow-green: 0 0 10px #00ff88, 0 0 20px #00ff88, 0 0 40px #00ff88;
 }
+
 body{
   font-family:'Tajawal',sans-serif;
   min-height:100vh;
-  background:linear-gradient(135deg,#0F051A 0%,#1A0A2E 50%,#2A1040 100%);
-  color:var(--text-light);
+  background:
+    radial-gradient(ellipse at top, #1a0033 0%, transparent 50%),
+    radial-gradient(ellipse at bottom, #0a0e27 0%, transparent 50%),
+    linear-gradient(180deg, #000000 0%, #000814 100%);
+  color:var(--text-ice);
   overflow-x:hidden;
 }
-.bg-pattern{
-  position:fixed;inset:0;
-  background-image:
-    radial-gradient(circle at 20% 30%,rgba(212,175,55,0.08) 0%,transparent 50%),
-    radial-gradient(circle at 80% 70%,rgba(255,215,0,0.06) 0%,transparent 50%);
-  pointer-events:none;z-index:0;
-}
-.neon-ring{
-  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:500px;height:500px;border-radius:50%;
-  border:1px solid rgba(212,175,55,0.15);
-  box-shadow:inset 0 0 60px rgba(212,175,55,0.1),0 0 40px rgba(212,175,55,0.15);
-  pointer-events:none;z-index:0;
-}
-.page-container{position:relative;z-index:1}
-header{
-  text-align:center;padding:30px 20px;
-  border-bottom:1px solid rgba(212,175,55,0.2);
-  background:linear-gradient(180deg,rgba(212,175,55,0.1) 0%,transparent 100%);
-}
-.logo-title{
-  font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;
-  background:linear-gradient(90deg,var(--gold-dark),var(--accent),var(--gold-dark));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  text-shadow:0 0 30px rgba(255,215,0,0.3);
-  letter-spacing:2px;
-}
-.subtitle{color:var(--gold-light);opacity:0.8;margin-top:8px;font-size:1rem}
-.admin-toggle{
-  position:absolute;top:20px;left:20px;
-  background:transparent;border:1px solid var(--gold);color:var(--gold);
-  padding:8px 16px;border-radius:8px;cursor:pointer;transition:0.3s;
-  font-family:'Tajawal',sans-serif;
-}
-.admin-toggle:hover{background:rgba(212,175,55,0.15);box-shadow:var(--shadow-gold)}
-.container{max-width:1200px;margin:0 auto;padding:30px 20px}
-.section-title{
-  font-family:'Cinzel',serif;font-size:1.8rem;margin:40px 0 20px;
-  color:var(--accent);border-bottom:1px solid rgba(212,175,55,0.25);padding-bottom:10px;
-}
-.categories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:25px}
-.category-card{
-  background:rgba(255,255,255,0.03);border:1px solid rgba(212,175,55,0.2);
-  border-radius:16px;padding:25px;transition:0.4s;cursor:pointer;
-  backdrop-filter:blur(8px);
-}
-.category-card:hover{
-  transform:translateY(-5px);border-color:var(--accent);
-  box-shadow:var(--shadow-gold);background:rgba(212,175,55,0.08);
-}
-.cat-icon{font-size:2.5rem;margin-bottom:12px}
-.cat-name{font-family:'Cinzel',serif;font-size:1.3rem;color:var(--accent);margin-bottom:8px}
-.cat-desc{color:var(--gold-light);opacity:0.75;font-size:0.9rem;line-height:1.6}
-.cat-count{margin-top:12px;font-size:0.85rem;color:var(--gold);opacity:0.9}
-.back-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  color:var(--gold);text-decoration:none;margin-bottom:20px;cursor:pointer;
-  transition:0.2s;
-}
-.back-btn:hover{color:var(--accent)}
-.item-card{
-  background:rgba(255,255,255,0.03);border:1px solid rgba(212,175,55,0.15);
-  border-radius:12px;padding:20px;margin-bottom:15px;transition:0.3s;
-}
-.item-card:hover{border-color:rgba(212,175,55,0.4);background:rgba(212,175,55,0.05)}
-.item-title{font-weight:700;color:var(--gold-light);margin-bottom:8px;font-size:1.1rem}
-.item-desc{color:#ddd;opacity:0.85;font-size:0.9rem;line-height:1.7;margin-bottom:10px}
-.item-link{
-  display:inline-block;background:linear-gradient(90deg,var(--gold-dark),var(--gold));
-  color:#000;padding:8px 20px;border-radius:8px;text-decoration:none;font-weight:700;
-  transition:0.3s;margin-top:5px;
-}
-.item-link:hover{box-shadow:var(--shadow-strong);transform:scale(1.03)}
-.item-img{max-width:100%;border-radius:8px;margin:10px 0;max-height:200px;object-fit:cover}
 
-/* === پنل مدیریت === */
-.admin-panel{
+/* ========== پس‌زمینه لایه‌بندی شده ========== */
+.bg-layer-1, .bg-layer-2, .bg-layer-3{
+  position:fixed;inset:0;pointer-events:none;z-index:0
+}
+.bg-layer-2{
+  background:
+    linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px),
+    linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px);
+  background-size:60px 60px;
+  transform:perspective(500px) rotateX(60deg);
+  transform-origin:center top;
+  mask-image:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  -webkit-mask-image:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  opacity:0.4
+}
+
+/* ذرات نئونی */
+.particle{
+  position:fixed;width:4px;height:4px;border-radius:50%;
+  pointer-events:none;z-index:1;animation:floatUp 15s infinite ease-in-out
+}
+.p-cyan{background:var(--neon-cyan);box-shadow:var(--glow-cyan);animation-duration:18s}
+.p-pink{background:var(--neon-pink);box-shadow:var(--glow-pink);animation-duration:22s;animation-delay:2s}
+.p-purple{background:var(--neon-purple);box-shadow:var(--glow-purple);animation-duration:20s;animation-delay:5s}
+@keyframes floatUp{
+  0%{transform:translateY(100vh) translateX(0);opacity:0}
+  10%{opacity:1}
+  90%{opacity:1}
+  100%{transform:translateY(-100px) translateX(20px);opacity:0}
+}
+
+/* اسکن لاین */
+.scanline{
+  position:fixed;top:0;left:0;width:100%;height:2px;
+  background:linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+  box-shadow:var(--glow-cyan);animation:scan 8s linear infinite;
+  pointer-events:none;z-index:999;opacity:0.3
+}
+@keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(100vh)}}
+
+.page-wrap{position:relative;z-index:1}
+
+/* ========== هدر ========== */
+header{
+  position:relative;padding:30px 20px;text-align:center;
+  border-bottom:1px solid rgba(0,240,255,0.2);
+  background:linear-gradient(180deg, rgba(0,240,255,0.08) 0%, transparent 100%)
+}
+.admin-btn{
+  position:absolute;top:20px;left:20px;
+  background:rgba(0,240,255,0.1);border:1px solid var(--neon-cyan);
+  color:var(--neon-cyan);padding:10px 18px;border-radius:8px;
+  font-family:inherit;font-weight:700;cursor:pointer;transition:0.3s
+}
+.admin-btn:hover{
+  background:rgba(0,240,255,0.2);box-shadow:var(--glow-cyan);
+  transform:scale(1.05)
+}
+.logo{
+  font-family:'Orbitron',sans-serif;font-size:clamp(2rem,6vw,4rem);font-weight:900;
+  background:linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:none;letter-spacing:3px;
+  animation:logoPulse 3s ease-in-out infinite
+}
+@keyframes logoPulse{
+  0%,100%{filter:drop-shadow(0 0 15px rgba(0,240,255,0.5))}
+  50%{filter:drop-shadow(0 0 30px rgba(176,0,255,0.6))}
+}
+.subhead{color:var(--text-ice-blue);opacity:0.9;margin-top:10px;font-size:1.1rem}
+
+.container{max-width:1200px;margin:0 auto;padding:40px 20px}
+.section-title{
+  font-family:'Orbitron',sans-serif;font-size:1.6rem;margin-bottom:30px;
+  color:var(--neon-cyan);display:flex;align-items:center;gap:12px
+}
+.section-title::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg, rgba(0,240,255,0.4), transparent)
+}
+
+/* ========== کارت‌های دسته‌بندی سه‌بعدی ========== */
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:25px}
+.cat-card{
+  background:rgba(26,0,51,0.6);backdrop-filter:blur(20px);
+  border:1px solid rgba(0,240,255,0.3);border-radius:20px;padding:28px;
+  cursor:pointer;transition:0.4s cubic-bezier(0.4,0,0.2,1);
+  transform:perspective(1000px) rotateX(0deg) rotateY(0deg)
+}
+.cat-card:hover{
+  transform:perspective(1000px) rotateX(5deg) rotateY(-5deg) translateY(-10px);
+  border-color:var(--neon-purple);box-shadow:var(--glow-purple), 0 20px 60px rgba(0,0,0,0.6);
+  background:rgba(26,0,51,0.8)
+}
+.cat-icon{font-size:3rem;margin-bottom:15px}
+.cat-name{font-family:'Orbitron',sans-serif;font-size:1.25rem;color:var(--neon-cyan);margin-bottom:8px}
+.cat-desc{color:var(--text-ice-blue);opacity:0.8;line-height:1.7;margin-bottom:12px}
+.cat-count{
+  display:inline-block;padding:4px 12px;border-radius:20px;
+  background:rgba(0,255,136,0.15);color:var(--neon-green);font-size:0.85px
+}
+.empty-msg{text-align:center;padding:60px 20px;color:#444;font-size:1.1rem}
+
+/* ========== صفحه داخلی ========== */
+.back-btn{
+  display:inline-flex;align-items:center;gap:8px;color:var(--neon-cyan);
+  text-decoration:none;margin-bottom:25px;cursor:pointer;transition:0.2s;font-weight:700
+}
+.back-btn:hover{color:var(--neon-pink);transform:translateX(-5px)}
+.item-card{
+  background:rgba(26,0,51,0.5);border:1px solid rgba(0,240,255,0.2);
+  border-radius:16px;padding:24px;margin-bottom:20px;transition:0.3s
+}
+.item-card:hover{border-color:rgba(255,0,229,0.4);background:rgba(26,0,51,0.7)}
+.item-title{font-size:1.2rem;font-weight:700;color:var(--text-ice);margin-bottom:10px}
+.item-img{max-width:100%;border-radius:10px;margin:12px 0;max-height:250px;object-fit:cover}
+.item-body{color:var(--text-ice-blue);line-height:1.8;margin-bottom:15px;white-space:pre-wrap}
+.item-link{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+  color:#000;padding:10px 24px;border-radius:10px;text-decoration:none;font-weight:700;
+  transition:0.3s
+}
+.item-link:hover{box-shadow:var(--glow-purple);transform:scale(1.05)}
+.hidden{display:none}
+
+/* ========== پنل مدیریت ========== */
+.admin-overlay{
   position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:999;
-  display:none;align-items:center;justify-content:center;padding:20px;
+  display:none;align-items:center;justify-content:center;padding:20px
 }
-.admin-panel.active{display:flex}
+.admin-overlay.active{display:flex}
 .admin-box{
-  background:linear-gradient(135deg,#1A0A2E,#2A1040);
-  border:2px solid var(--gold);border-radius:20px;padding:30px;
-  max-width:500px;width:100%;max-height:90vh;overflow-y:auto;
-  box-shadow:var(--shadow-strong);
+  background:linear-gradient(135deg, #0a0e27, #1a0033);
+  border:2px solid var(--neon-cyan);border-radius:20px;padding:30px;
+  max-width:520px;width:100%;max-height:90vh;overflow-y:auto;
+  box-shadow:var(--glow-purple)
 }
-.admin-box h2{text-align:center;color:var(--accent);margin-bottom:25px;font-family:'Cinzel',serif}
-.input-field{
-  width:100%;padding:12px 15px;margin:8px 0;border-radius:8px;
-  border:1px solid rgba(212,175,55,0.3);background:rgba(0,0,0,0.3);
-  color:#fff;font-size:1rem;font-family:inherit;
+.admin-box h2{
+  text-align:center;font-family:'Orbitron',sans-serif;
+  color:var(--neon-cyan);margin-bottom:25px
 }
-.input-field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 10px rgba(255,215,0,0.3)}
+.inp{
+  width:100%;padding:14px 16px;margin:8px 0;border-radius:10px;
+  border:1px solid rgba(0,240,255,0.3);background:rgba(0,0,0,0.5);
+  color:#FFF;font-size:1rem;font-family:inherit
+}
+.inp:focus{outline:none;border-color:var(--neon-purple);box-shadow:0 0 15px rgba(176,0,255,0.3)}
 .btn{
-  padding:12px 20px;border-radius:8px;border:none;font-weight:700;cursor:pointer;
-  font-family:inherit;transition:0.3s;margin:5px;
+  padding:13px 22px;border-radius:10px;border:none;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:0.3s;margin:6px
 }
-.btn-gold{background:linear-gradient(90deg,var(--gold-dark),var(--gold));color:#000;width:100%;margin-top:10px}
-.btn-gold:hover{box-shadow:var(--shadow-strong)}
-.btn-secondary{background:transparent;border:1px solid var(--gold);color:var(--gold)}
-.btn-danger{background:transparent;border:1px solid #ff6b6b;color:#ff6b6b}
-.btn-danger:hover{background:rgba(255,107,107,0.1)}
+.btn-primary{
+  background:linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+  color:#000;width:100%;margin-top:10px;font-size:1rem
+}
+.btn-primary:hover{box-shadow:var(--glow-purple);transform:scale(1.02)}
+.btn-secondary{background:transparent;border:1px solid var(--neon-cyan);color:var(--neon-cyan)}
+.btn-danger{background:transparent;border:1px solid var(--neon-red);color:var(--neon-red)}
 .tabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
 .tab{
-  padding:10px 15px;border-radius:8px;border:1px solid rgba(212,175,55,0.3);
-  cursor:pointer;color:var(--gold-light);transition:0.2s;font-size:0.9rem;
+  padding:10px 16px;border-radius:8px;border:1px solid rgba(0,240,255,0.25);
+  cursor:pointer;color:#888;transition:0.2s;font-size:0.9rem
 }
-.tab.active{background:rgba(212,175,55,0.2);border-color:var(--accent);color:var(--accent)}
-.tab-content{display:none}
-.tab-content.active{display:block}
-.hidden-section{display:none}
-.empty-state{text-align:center;padding:40px;color:var(--gold-light);opacity:0.5}
-.code-output{
-  background:#000;border:1px solid #444;border-radius:8px;padding:15px;
-  font-family:monospace;font-size:0.85rem;white-space:pre-wrap;word-break:break-all;
-  color:#90EE90;margin-top:15px;max-height:250px;overflow:auto;
+.tab.active{background:rgba(0,240,255,0.15);border-color:var(--neon-cyan);color:var(--neon-cyan)}
+.tab-page{display:none}
+.tab-page.active{display:block}
+.code-box{
+  background:#000;border:1px solid #222;border-radius:10px;padding:18px;
+  font-family:monospace;font-size:0.8rem;white-space:pre-wrap;word-break:break-all;
+  color:#9f9;max-height:300px;overflow:auto;margin-top:15px;line-height:1.6
 }
-.copy-note{color:#87CEEB;font-size:0.85rem;margin-top:8px}
+.list-item{
+  padding:12px;border-bottom:1px solid rgba(0,240,255,0.1);
+  display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap
+}
 footer{
   text-align:center;padding:30px 20px;margin-top:60px;
-  border-top:1px solid rgba(212,175,55,0.15);color:var(--gold-light);opacity:0.6;
-  font-size:0.85rem;
+  border-top:1px solid rgba(0,240,255,0.1);color:#444;font-size:0.85rem
 }
 </style>
 </head>
 <body>
-<div class="bg-pattern"></div>
-<div class="neon-ring"></div>
+<div class="bg-layer-1"></div>
+<div class="bg-layer-2"></div>
+<div class="scanline"></div>
+<div id="particles"></div>
 
-<div class="page-container">
+<div class="page-wrap">
 <header>
-  <button class="admin-toggle" onclick="openAdminPanel()">⚙️ مدیریت</button>
-  <h1 class="logo-title">VORTEXPLAY</h1>
-  <p class="subtitle">سامانه سلطنتی محتوا و فایل‌ها</p>
+  <button class="admin-btn" onclick="openPanel()">⚙️ مدیریت</button>
+  <h1 class="logo">VORTEXPLAY</h1>
+  <p class="subhead">سامانه گیمینگ سایبرپانک — نسخه نهایی</p>
 </header>
 
 <div class="container">
   <!-- صفحه اصلی -->
-  <div id="home-page">
+  <div id="home">
     <h2 class="section-title">دسته‌بندی‌ها</h2>
-    <div id="categories-container" class="categories-grid">
-      <!-- دسته‌بندی‌ها از اینجا اضافه می‌شوند -->
-    </div>
+    <div id="cats-container" class="cats-grid"></div>
   </div>
 
-  <!-- صفحه داخل دسته -->
-  <div id="category-page" class="hidden-section">
+  <!-- صفحه دسته -->
+  <div id="cat-page" class="hidden">
     <span class="back-btn" onclick="goBack()">← بازگشت به صفحه اصلی</span>
-    <h2 id="current-cat-name" class="section-title"></h2>
-    <p id="current-cat-desc" style="color:var(--gold-light);opacity:0.7;margin-bottom:20px"></p>
+    <h2 id="cat-name" class="section-title"></h2>
+    <p id="cat-desc" style="color:#66e0ff;margin-bottom:25px"></p>
     <div id="items-container"></div>
   </div>
 </div>
 
 <footer>
-  VORTEXPLAY © 2026 | سامانه سلطنتی | هاست دائمی از طریق گیت‌هاب و کلادفلر
+  VORTEXPLAY © 2026 | سایبرپانک Edition | هاست دائمی گیت‌هاب
 </footer>
 </div>
 
 <!-- پنل مدیریت -->
-<div id="admin-panel" class="admin-panel">
+<div id="admin-panel" class="admin-overlay">
   <div class="admin-box">
     <h2>🔐 پنل مدیریت</h2>
     
-    <!-- ورود -->
-    <div id="login-form">
-      <input type="password" id="admin-pass" class="input-field" placeholder="رمز ۳۲ رقمی را وارد کنید">
-      <button class="btn btn-gold" onclick="checkPass()">ورود به پنل</button>
+    <div id="login-view">
+      <input type="password" id="pass-inp" class="inp" placeholder="رمز ۳۲ رقمی را وارد کنید">
+      <button class="btn btn-primary" onclick="checkPass()">ورود</button>
     </div>
 
-    <!-- محتوای پنل پس از ورود -->
-    <div id="admin-content" style="display:none">
+    <div id="admin-view" style="display:none">
       <div class="tabs">
-        <div class="tab active" data-tab="cats">📂 دسته‌بندی‌ها</div>
-        <div class="tab" data-tab="items">📄 افزودن پیام/فایل</div>
-        <div class="tab" data-tab="code">💻 کد تولید</div>
-        <div class="tab" data-tab="visual">🎨 ظاهر سایت</div>
+        <div class="tab active" data-tab="cats">📂 دسته‌بندی</div>
+        <div class="tab" data-tab="items">📄 افزودن محتوا</div>
+        <div class="tab" data-tab="code">💻 کد نهایی</div>
       </div>
 
-      <!-- تب دسته‌بندی‌ها -->
-      <div class="tab-content active" id="tab-cats">
-        <h3 style="color:var(--accent);margin-bottom:15px">ایجاد دسته‌بندی جدید</h3>
-        <input type="text" id="cat-name" class="input-field" placeholder="نام دسته‌بندی">
-        <input type="text" id="cat-desc" class="input-field" placeholder="توضیح کوتاه دسته‌بندی">
-        <input type="text" id="cat-icon" class="input-field" placeholder="آیکون (مثلاً 🎮 یا عکس لینک)">
-        <button class="btn btn-gold" onclick="addCategory()">✅ ایجاد دسته‌بندی</button>
-        <div id="cat-list" style="margin-top:25px"></div>
+      <!-- تب دسته‌بندی -->
+      <div class="tab-page active" id="tab-cats">
+        <h4 style="color:var(--neon-cyan);margin-bottom:12px">ایجاد دسته جدید</h4>
+        <input type="text" id="new-cat-name" class="inp" placeholder="نام دسته">
+        <input type="text" id="new-cat-desc" class="inp" placeholder="توضیح کوتاه">
+        <input type="text" id="new-cat-icon" class="inp" placeholder="آیکون 🎮 یا لینک عکس">
+        <button class="btn btn-primary" onclick="addCat()">✅ ایجاد</button>
+        <div id="cat-list" style="margin-top:20px"></div>
       </div>
 
-      <!-- تب افزودن پیام/فایل -->
-      <div class="tab-content" id="tab-items">
-        <h3 style="color:var(--accent);margin-bottom:15px">افزودن پیام یا فایل به دسته‌بندی</h3>
-        <select id="target-cat" class="input-field">
-          <option value="">انتخاب دسته‌بندی مقصد...</option>
+      <!-- تب محتوا -->
+      <div class="tab-page" id="tab-items">
+        <h4 style="color:var(--neon-cyan);margin-bottom:12px">افزودن پیام / فایل</h4>
+        <select id="sel-cat" class="inp">
+          <option value="">انتخاب دسته مقصد...</option>
         </select>
-        <input type="text" id="item-title" class="input-field" placeholder="عنوان پیام/فایل">
-        <textarea id="item-desc" class="input-field" rows="4" placeholder="توضیحات و متن کامل"></textarea>
-        <input type="text" id="item-img" class="input-field" placeholder="لینک عکس/کاور (اختیاری)">
-        <input type="text" id="item-link" class="input-field" placeholder="لینک دانلود یا فایل (اختیاری)">
-        <button class="btn btn-gold" onclick="addItem()">✅ افزودن محتوا</button>
-        <div id="item-list" style="margin-top:25px"></div>
+        <input type="text" id="item-title" class="inp" placeholder="عنوان">
+        <textarea id="item-body" class="inp" rows="4" placeholder="متن و توضیحات"></textarea>
+        <input type="text" id="item-img" class="inp" placeholder="لینک عکس (اختیاری)">
+        <input type="text" id="item-link" class="inp" placeholder="لینک دانلود (اختیاری)">
+        <button class="btn btn-primary" onclick="addItem()">✅ افزودن</button>
       </div>
 
-      <!-- تب کد تولید -->
-      <div class="tab-content" id="tab-code">
-        <h3 style="color:var(--accent);margin-bottom:15px">کد نهایی برای قرار دادن در سایت</h3>
-        <p style="color:#aaa;font-size:0.9rem;margin-bottom:10px">این کد را کپی کن و جای کل کد فایل index.html قرار بده، سپس در گیت‌هاب ذخیره کن:</p>
-        <div class="code-output" id="full-code-box">کد در حال بارگذاری...</div>
-        <p class="copy-note">💡 پس از تغییر، فایل را در گیت‌هاب ذخیره کن → کلادفلر خودکار به‌روزرسانی می‌شود</p>
-        <button class="btn btn-secondary" onclick="copyCode()" style="margin-top:10px">📋 کپی کد کامل</button>
+      <!-- تب کد -->
+      <div class="tab-page" id="tab-code">
+        <h4 style="color:var(--neon-cyan);margin-bottom:12px">کد کامل برای گیت‌هاب</h4>
+        <p style="color:#666;font-size:0.9rem;margin-bottom:10px">کد زیر را کپی کن و جای کل فایل index.html در گیت‌هاب قرار بده:</p>
+        <div class="code-box" id="full-code">در حال ساخت کد...</div>
+        <button class="btn btn-secondary" style="margin-top:10px;width:100%" onclick="copyCode()">📋 کپی کامل کد</button>
       </div>
 
-      <!-- تب ظاهر -->
-      <div class="tab-content" id="tab-visual">
-        <h3 style="color:var(--accent);margin-bottom:15px">تنظیمات ظاهری</h3>
-        <input type="text" id="site-title" class="input-field" placeholder="نام سایت" value="VORTEXPLAY">
-        <input type="text" id="site-subtitle" class="input-field" placeholder="زیرنویس سایت" value="سامانه سلطنتی محتوا و فایل‌ها">
-        <button class="btn btn-gold" onclick="saveVisual()">ذخیره ظاهر</button>
-      </div>
-
-      <button class="btn btn-secondary" style="margin-top:25px;width:100%" onclick="closeAdminPanel()">بستن پنل</button>
+      <button class="btn btn-secondary" style="margin-top:20px;width:100%" onclick="closePanel()">بستن</button>
     </div>
   </div>
 </div>
 
 <script>
-// === داده‌های اصلی ===
 const ADMIN_PASS = "K9#mP2$xR7!vL3@nQ5&bT1*wZ8%yA4^";
-let categories = [];
-let currentCatIndex = null;
-let siteConfig = {
-  title: "VORTEXPLAY",
-  subtitle: "سامانه سلطنتی محتوا و فایل‌ها"
-};
+let data = {categories:[]};
+let activeCat = null;
 
-// === بارگذاری اولیه ===
-document.addEventListener('DOMContentLoaded', () => {
-  loadData();
-  renderCategories();
-  setupTabs();
-});
-
-function loadData(){
-  const saved = localStorage.getItem('vortex_data');
-  if(saved) categories = JSON.parse(saved);
-  const cfg = localStorage.getItem('vortex_config');
-  if(cfg){
-    siteConfig = JSON.parse(cfg);
-    document.querySelector('.logo-title').textContent = siteConfig.title;
-    document.querySelector('.subtitle').textContent = siteConfig.subtitle;
-    document.getElementById('site-title').value = siteConfig.title;
-    document.getElementById('site-subtitle').value = siteConfig.subtitle;
+// ساخت ذرات پس‌زمینه
+function createParticles(){
+  const cont = document.getElementById('particles');
+  const colors = ['p-cyan','p-pink','p-purple'];
+  for(let i=0;i<30;i++){
+    const p = document.createElement('div');
+    p.className = `particle ${colors[Math.floor(Math.random()*colors.length)]}`;
+    p.style.left = `${Math.random()*100}%`;
+    p.style.animationDelay = `${Math.random()*15}s`;
+    cont.appendChild(p);
   }
 }
-function saveData(){
-  localStorage.setItem('vortex_data', JSON.stringify(categories));
-  updateCodeOutput();
+
+// بارگذاری
+function load(){
+  createParticles();
+  const s = localStorage.getItem('vortex_data');
+  if(s) data = JSON.parse(s);
+  renderCats();
+}
+function save(){
+  localStorage.setItem('vortex_data', JSON.stringify(data));
+  updateCodeBox();
 }
 
-// === پنل مدیریت ===
-function openAdminPanel(){
+// پنل
+function openPanel(){
   document.getElementById('admin-panel').classList.add('active');
-  document.getElementById('login-form').style.display = 'block';
-  document.getElementById('admin-content').style.display = 'none';
-  document.getElementById('admin-pass').value = '';
+  document.getElementById('login-view').style.display='block';
+  document.getElementById('admin-view').style.display='none';
+  document.getElementById('pass-inp').value='';
 }
-function closeAdminPanel(){
+function closePanel(){
   document.getElementById('admin-panel').classList.remove('active');
-  currentCatIndex = null;
+  activeCat = null;
 }
 function checkPass(){
-  const pass = document.getElementById('admin-pass').value;
-  if(pass === ADMIN_PASS){
-    document.getElementById('login-form').style.display = 'none';
-    document.getElementById('admin-content').style.display = 'block';
-    updateCategorySelect();
+  if(document.getElementById('pass-inp').value === ADMIN_PASS){
+    document.getElementById('login-view').style.display='none';
+    document.getElementById('admin-view').style.display='block';
+    renderCatSelect();
     renderCatList();
-    updateCodeOutput();
-  }else{
-    alert('❌ رمز اشتباه است!');
+    updateCodeBox();
+  }else alert('❌ رمز اشتباه!');
+}
+
+// تب‌ها
+document.querySelectorAll('.tab').forEach(t=>{
+  t.onclick=()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-page').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('tab-'+t.dataset.tab).classList.add('active');
+    if(t.dataset.tab==='code') updateCodeBox();
   }
-}
+});
 
-// === تب‌ها ===
-function setupTabs(){
-  document.querySelectorAll('.tab').forEach(tab=>{
-    tab.onclick = ()=>{
-      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
-      if(tab.dataset.tab === 'code') updateCodeOutput();
-    };
-  });
+// دسته‌بندی
+function addCat(){
+  const name = document.getElementById('new-cat-name').value.trim();
+  const desc = document.getElementById('new-cat-desc').value.trim();
+  const icon = document.getElementById('new-cat-icon').value.trim() || '📁';
+  if(!name) return alert('نام دسته را بنویسید');
+  data.categories.push({name,desc,icon,items:[]});
+  save();renderCats();renderCatSelect();renderCatList();
+  document.getElementById('new-cat-name').value='';
+  document.getElementById('new-cat-desc').value='';
+  document.getElementById('new-cat-icon').value='';
 }
-
-// === دسته‌بندی‌ها ===
-function addCategory(){
-  const name = document.getElementById('cat-name').value.trim();
-  const desc = document.getElementById('cat-desc').value.trim();
-  const icon = document.getElementById('cat-icon').value.trim() || '📁';
-  if(!name){alert('نام دسته‌بندی را بنویسید');return}
-  categories.push({name,desc,icon,items:[]});
-  saveData();renderCategories();updateCategorySelect();renderCatList();
-  document.getElementById('cat-name').value='';document.getElementById('cat-desc').value='';document.getElementById('cat-icon').value='';
-}
-function renderCategories(){
-  const container = document.getElementById('categories-container');
-  if(!categories.length){
-    container.innerHTML = '<p class="empty-state">هنوز دسته‌بندی تعریف نشده ⚙️ از پنل مدیریت ایجاد کنید</p>';
+function renderCats(){
+  const c = document.getElementById('cats-container');
+  if(!data.categories.length){
+    c.innerHTML='<p class="empty-msg">هنوز دسته‌ای تعریف نشده ⚙️ از پنل مدیریت ایجاد کنید</p>';
     return;
   }
-  container.innerHTML = categories.map((cat,idx)=>`
-    <div class="category-card" onclick="openCategory(${idx})">
+  c.innerHTML = data.categories.map((cat,i)=>`
+    <div class="cat-card" onclick="openCat(${i})">
       <div class="cat-icon">${cat.icon}</div>
       <h3 class="cat-name">${cat.name}</h3>
-      <p class="cat-desc">${cat.desc || 'بدون توضیح'}</p>
-      <p class="cat-count">${cat.items.length} مورد</p>
+      <p class="cat-desc">${cat.desc || 'مشاهده محتوا'}</p>
+      <span class="cat-count">${cat.items.length} مورد</span>
     </div>
   `).join('');
 }
-function openCategory(idx){
-  currentCatIndex = idx;
-  document.getElementById('home-page').classList.add('hidden-section');
-  document.getElementById('category-page').classList.remove('hidden-section');
-  const cat = categories[idx];
-  document.getElementById('current-cat-name').textContent = cat.icon+' '+cat.name;
-  document.getElementById('current-cat-desc').textContent = cat.desc;
+function openCat(i){
+  activeCat = i;
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('cat-page').classList.remove('hidden');
+  const cat = data.categories[i];
+  document.getElementById('cat-name').textContent = cat.icon+' '+cat.name;
+  document.getElementById('cat-desc').textContent = cat.desc;
   renderItems(cat.items);
 }
 function goBack(){
-  currentCatIndex = null;
-  document.getElementById('home-page').classList.remove('hidden-section');
-  document.getElementById('category-page').classList.add('hidden-section');
+  activeCat = null;
+  document.getElementById('home').classList.remove('hidden');
+  document.getElementById('cat-page').classList.add('hidden');
 }
 function renderItems(items){
-  const container = document.getElementById('items-container');
+  const c = document.getElementById('items-container');
   if(!items.length){
-    container.innerHTML = '<p class="empty-state">هنوز محتوایی اضافه نشده</p>';
+    c.innerHTML='<p class="empty-msg">هنوز محتوایی قرار نگرفته ✨</p>';
     return;
   }
-  container.innerHTML = items.map((item,i)=>`
+  c.innerHTML = items.map(item=>`
     <div class="item-card">
       <h4 class="item-title">${item.title}</h4>
       ${item.img?`<img src="${item.img}" class="item-img" alt="">`:''}
-      <p class="item-desc">${item.desc.replace(/\n/g,'<br>')}</p>
-      ${item.link?`<a href="${item.link}" target="_blank" class="item-link">🔗 دریافت / دانلود</a>`:''}
+      <div class="item-body">${item.body}</div>
+      ${item.link?`<a href="${item.link}" target="_blank" class="item-link">🔗 دریافت فایل</a>`:''}
     </div>
   `).join('');
 }
-function updateCategorySelect(){
-  const select = document.getElementById('target-cat');
-  select.innerHTML = '<option value="">انتخاب دسته‌بندی مقصد...</option>' +
-    categories.map((cat,i)=>`<option value="${i}">${cat.icon} ${cat.name}</option>`).join('');
+function renderCatSelect(){
+  const sel = document.getElementById('sel-cat');
+  sel.innerHTML = '<option value="">انتخاب دسته مقصد...</option>' +
+    data.categories.map((cat,i)=>`<option value="${i}">${cat.icon} ${cat.name}</option>`).join('');
 }
 function renderCatList(){
-  const list = document.getElementById('cat-list');
-  if(!categories.length){list.innerHTML='<p style="opacity:0.6">هنوز دسته‌بندی وجود ندارد</p>';return}
-  list.innerHTML = categories.map((cat,i)=>`
-    <div style="padding:10px;border-bottom:1px solid rgba(212,175,55,0.15);display:flex;justify-content:space-between;align-items:center">
+  const l = document.getElementById('cat-list');
+  if(!data.categories.length){l.innerHTML='<p style="opacity:0.6">هنوز دسته‌ای وجود ندارد</p>';return}
+  l.innerHTML = data.categories.map((cat,i)=>`
+    <div class="list-item">
       <span>${cat.icon} ${cat.name} (${cat.items.length})</span>
-      <button class="btn btn-danger" style="padding:5px 10px;font-size:0.8rem" onclick="delCat(${i})">حذف</button>
+      <button class="btn btn-danger" style="padding:6px 12px;font-size:0.8rem" onclick="delCat(${i})">حذف</button>
     </div>
   `).join('');
 }
-function delCat(idx){
-  if(confirm('آیا مطمئن هستید؟ تمام محتوای این دسته هم حذف می‌شود')){
-    categories.splice(idx,1);
-    saveData();renderCategories();updateCategorySelect();renderCatList();
-    if(currentCatIndex===idx) goBack();
+function delCat(i){
+  if(confirm('مطمئن هستید؟ تمام محتوای این دسته حذف می‌شود')){
+    data.categories.splice(i,1);
+    save();renderCats();renderCatSelect();renderCatList();
+    if(activeCat===i) goBack();
   }
 }
 
-// === افزودن آیتم ===
+// افزودن آیتم
 function addItem(){
-  const catIdx = parseInt(document.getElementById('target-cat').value);
+  const idx = parseInt(document.getElementById('sel-cat').value);
   const title = document.getElementById('item-title').value.trim();
-  const desc = document.getElementById('item-desc').value.trim();
+  const body = document.getElementById('item-body').value.trim();
   const img = document.getElementById('item-img').value.trim();
   const link = document.getElementById('item-link').value.trim();
-  if(isNaN(catIdx) || !title){alert('دسته‌بندی و عنوان را تکمیل کنید');return}
-  categories[catIdx].items.push({title,desc,img,link});
-  saveData();renderCatList();
-  if(currentCatIndex===catIdx) renderItems(categories[catIdx].items);
-  alert('✅ محتوا اضافه شد! حالا به تب «کد تولید» برو و کد جدید را کپی کن');
-  document.getElementById('item-title').value='';document.getElementById('item-desc').value='';
-  document.getElementById('item-img').value='';document.getElementById('item-link').value='';
+  if(isNaN(idx) || !title) return alert('دسته و عنوان را تکمیل کنید');
+  data.categories[idx].items.push({title,body,img,link});
+  save();renderCatList();
+  if(activeCat===idx) renderItems(data.categories[idx].items);
+  alert('✅ اضافه شد! به تب «کد نهایی» برو');
+  document.getElementById('item-title').value='';
+  document.getElementById('item-body').value='';
+  document.getElementById('item-img').value='';
+  document.getElementById('item-link').value='';
 }
 
-// === ظاهر ===
-function saveVisual(){
-  siteConfig.title = document.getElementById('site-title').value.trim() || 'VORTEXPLAY';
-  siteConfig.subtitle = document.getElementById('site-subtitle').value.trim() || 'سامانه سلطنتی محتوا و فایل‌ها';
-  localStorage.setItem('vortex_config', JSON.stringify(siteConfig));
-  document.querySelector('.logo-title').textContent = siteConfig.title;
-  document.querySelector('.subtitle').textContent = siteConfig.subtitle;
-  alert('✅ ظاهر ذخیره شد! کد جدید را در تب کد تولید بگیر');
-  updateCodeOutput();
+// تولید کد کامل استاتیک برای گیت‌هاب
+function updateCodeBox(){
+  document.getElementById('full-code').textContent = generateStaticHTML();
 }
-
-// === تولید کد کامل برای گیت‌هاب ===
-function updateCodeOutput(){
-  const dataStr = JSON.stringify({categories,siteConfig});
-  const codeBox = document.getElementById('full-code-box');
-  codeBox.textContent = generateFullPageCode(dataStr);
-}
-function generateFullPageCode(dataStr){
-  // کد کامل صفحه با داده‌های فعلی
+function generateStaticHTML(){
+  const d = JSON.stringify(data);
   return `<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${siteConfig.title} 👑</title>
+<title>VORTEXPLAY 🎮 | Cyberpunk Edition</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--gold:#D4AF37;--gold-light:#F4E4BC;--gold-dark:#996515;--royal-purple:#2A1040;--deep-dark:#0F051A;--accent:#FFD700;--text-light:#F9F2E8;--shadow-gold:0 0 20px rgba(212,175,55,0.4);--shadow-strong:0 0 40px rgba(255,215,0,0.6)}
-body{font-family:'Tajawal',sans-serif;min-height:100vh;background:linear-gradient(135deg,#0F051A 0%,#1A0A2E 50%,#2A1040 100%);color:var(--text-light);overflow-x:hidden}
-.bg-pattern{position:fixed;inset:0;background-image:radial-gradient(circle at 20% 30%,rgba(212,175,55,0.08) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(255,215,0,0.06) 0%,transparent 50%);pointer-events:none;z-index:0}
-.neon-ring{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;border:1px solid rgba(212,175,55,0.15);box-shadow:inset 0 0 60px rgba(212,175,55,0.1),0 0 40px rgba(212,175,55,0.15);pointer-events:none;z-index:0}
-.page-container{position:relative;z-index:1}
-header{text-align:center;padding:30px 20px;border-bottom:1px solid rgba(212,175,55,0.2);background:linear-gradient(180deg,rgba(212,175,55,0.1) 0%,transparent 100%)}
-.logo-title{font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;background:linear-gradient(90deg,var(--gold-dark),var(--accent),var(--gold-dark));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:2px}
-.subtitle{color:var(--gold-light);opacity:0.8;margin-top:8px;font-size:1rem}
-.admin-toggle{position:absolute;top:20px;left:20px;background:transparent;border:1px solid var(--gold);color:var(--gold);padding:8px 16px;border-radius:8px;cursor:pointer;transition:0.3s;font-family:'Tajawal',sans-serif}
-.admin-toggle:hover{background:rgba(212,175,55,0.15);box-shadow:var(--shadow-gold)}
-.container{max-width:1200px;margin:0 auto;padding:30px 20px}
-.section-title{font-family:'Cinzel',serif;font-size:1.8rem;margin:40px 0 20px;color:var(--accent);border-bottom:1px solid rgba(212,175,55,0.25);padding-bottom:10px}
-.categories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:25px}
-.category-card{background:rgba(255,255,255,0.03);border:1px solid rgba(212,175,55,0.2);border-radius:16px;padding:25px;transition:0.4s;cursor:pointer;backdrop-filter:blur(8px)}
-.category-card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:var(--shadow-gold);background:rgba(212,175,55,0.08)}
-.cat-icon{font-size:2.5rem;margin-bottom:12px}
-.cat-name{font-family:'Cinzel',serif;font-size:1.3rem;color:var(--accent);margin-bottom:8px}
-.cat-desc{color:var(--gold-light);opacity:0.75;font-size:0.9rem;line-height:1.6}
-.cat-count{margin-top:12px;font-size:0.85rem;color:var(--gold);opacity:0.9}
-.back-btn{display:inline-flex;align-items:center;gap:8px;color:var(--gold);text-decoration:none;margin-bottom:20px;cursor:pointer;transition:0.2s}
-.back-btn:hover{color:var(--accent)}
-.item-card{background:rgba(255,255,255,0.03);border:1px solid rgba(212,175,55,0.15);border-radius:12px;padding:20px;margin-bottom:15px;transition:0.3s}
-.item-card:hover{border-color:rgba(212,175,55,0.4);background:rgba(212,175,55,0.05)}
-.item-title{font-weight:700;color:var(--gold-light);margin-bottom:8px;font-size:1.1rem}
-.item-desc{color:#ddd;opacity:0.85;font-size:0.9rem;line-height:1.7;margin-bottom:10px}
-.item-link{display:inline-block;background:linear-gradient(90deg,var(--gold-dark),var(--gold));color:#000;padding:8px 20px;border-radius:8px;text-decoration:none;font-weight:700;transition:0.3s;margin-top:5px}
-.item-link:hover{box-shadow:var(--shadow-strong);transform:scale(1.03)}
-.item-img{max-width:100%;border-radius:8px;margin:10px 0;max-height:200px;object-fit:cover}
-.hidden-section{display:none}
-.empty-state{text-align:center;padding:40px;color:var(--gold-light);opacity:0.5}
-footer{text-align:center;padding:30px 20px;margin-top:60px;border-top:1px solid rgba(212,175,55,0.15);color:var(--gold-light);opacity:0.6;font-size:0.85rem}
+:root{--neon-cyan:#00f0ff;--neon-pink:#ff00e5;--neon-purple:#b000ff;--neon-green:#00ff88;--neon-orange:#ff6600;--neon-yellow:#ffee00;--neon-red:#ff0055;--bg-black:#000;--bg-navy:#0a0e27;--bg-deep-purple:#1a0033;--bg-ink:#000814;--text-ice:#e0f7ff;--text-ice-blue:#b0e0ff;--text-silver:#c0c0c0;--text-gold:#ffd700;--glow-cyan:0 0 10px #00f0ff,0 0 20px #00f0ff,0 0 40px #00f0ff;--glow-pink:0 0 10px #ff00e5,0 0 20px #ff00e5,0 0 40px #ff00e5;--glow-purple:0 0 10px #b000ff,0 0 20px #b000ff,0 0 40px #b000ff;--glow-green:0 0 10px #00ff88,0 0 20px #00ff88,0 0 40px #00ff88}
+body{font-family:'Tajawal',sans-serif;min-height:100vh;background:radial-gradient(ellipse at top,#1a0033 0%,transparent 50%),radial-gradient(ellipse at bottom,#0a0e27 0%,transparent 50%),linear-gradient(180deg,#000 0%,#000814 100%);color:var(--text-ice);overflow-x:hidden}
+.bg-layer-2{position:fixed;inset:0;background:linear-gradient(90deg,rgba(0,240,255,0.03)1px,transparent 1px),linear-gradient(rgba(0,240,255,0.03)1px,transparent 1px);background-size:60px 60px;transform:perspective(500px)rotateX(60deg);transform-origin:center top;mask-image:linear-gradient(to top,rgba(0,0,0,0.8),transparent);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,0.8),transparent);opacity:0.4;pointer-events:none;z-index:0}
+.scanline{position:fixed;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,#00f0ff,transparent);box-shadow:var(--glow-cyan);animation:scan 8s linear infinite;pointer-events:none;z-index:999;opacity:0.3}
+@keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(100vh)}}
+.page-wrap{position:relative;z-index:1}
+header{position:relative;padding:30px 20px;text-align:center;border-bottom:1px solid rgba(0,240,255,0.2);background:linear-gradient(180deg,rgba(0,240,255,0.08)0%,transparent 100%)}
+.logo{font-family:'Orbitron',sans-serif;font-size:clamp(2rem,6vw,4rem);font-weight:900;background:linear-gradient(90deg,#00f0ff,#b000ff,#ff00e5);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:3px;animation:logoPulse 3s ease-in-out infinite}
+@keyframes logoPulse{0%,100%{filter:drop-shadow(0 0 15px rgba(0,240,255,0.5))}50%{filter:drop-shadow(0 0 30px rgba(176,0,255,0.6))}}
+.subhead{color:var(--text-ice-blue);opacity:0.9;margin-top:10px;font-size:1.1rem}
+.container{max-width:1200px;margin:0 auto;padding:40px 20px}
+.section-title{font-family:'Orbitron',sans-serif;font-size:1.6rem;margin-bottom:30px;color:var(--neon-cyan);display:flex;align-items:center;gap:12px}
+.section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(0,240,255,0.4),transparent)}
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:25px}
+.cat-card{background:rgba(26,0,51,0.6);backdrop-filter:blur(20px);border:1px solid rgba(0,240,255,0.3);border-radius:20px;padding:28px;cursor:pointer;transition:0.4s cubic-bezier(0.4,0,0.2,1);transform:perspective(1000px)rotateX(0deg)rotateY(0deg)}
+.cat-card:hover{transform:perspective(1000px)rotateX(5deg)rotateY(-5deg)translateY(-10px);border-color:var(--neon-purple);box-shadow:var(--glow-purple),0 20px 60px rgba(0,0,0,0.6);background:rgba(26,0,51,0.8)}
+.cat-icon{font-size:3rem;margin-bottom:15px}
+.cat-name{font-family:'Orbitron',sans-serif;font-size:1.25rem;color:var(--neon-cyan);margin-bottom:8px}
+.cat-desc{color:var(--text-ice-blue);opacity:0.8;line-height:1.7;margin-bottom:12px}
+.cat-count{display:inline-block;padding:4px 12px;border-radius:20px;background:rgba(0,255,136,0.15);color:var(--neon-green);font-size:0.85rem}
+.hidden{display:none}
+.back-btn{display:inline-flex;align-items:center;gap:8px;color:var(--neon-cyan);text-decoration:none;margin-bottom:25px;cursor:pointer;transition:0.2s;font-weight:700}
+.back-btn:hover{color:var(--neon-pink);transform:translateX(-5px)}
+.item-card{background:rgba(26,0,51,0.5);border:1px solid rgba(0,240,255,0.2);border-radius:16px;padding:24px;margin-bottom:20px;transition:0.3s}
+.item-card:hover{border-color:rgba(255,0,229,0.4);background:rgba(26,0,51,0.7)}
+.item-title{font-size:1.2rem;font-weight:700;color:var(--text-ice);margin-bottom:10px}
+.item-img{max-width:100%;border-radius:10px;margin:12px 0;max-height:250px;object-fit:cover}
+.item-body{color:var(--text-ice-blue);line-height:1.8;margin-bottom:15px;white-space:pre-wrap}
+.item-link{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,#00f0ff,#b000ff);color:#000;padding:10px 24px;border-radius:10px;text-decoration:none;font-weight:700;transition:0.3s}
+.item-link:hover{box-shadow:var(--glow-purple);transform:scale(1.05)}
+.empty-msg{text-align:center;padding:60px 20px;color:#444;font-size:1.1rem}
+footer{text-align:center;padding:30px 20px;margin-top:60px;border-top:1px solid rgba(0,240,255,0.1);color:#444;font-size:0.85rem}
 </style>
 </head>
 <body>
-<div class="bg-pattern"></div>
-<div class="neon-ring"></div>
-<div class="page-container">
+<div class="bg-layer-2"></div>
+<div class="scanline"></div>
+<div class="page-wrap">
 <header>
-  <h1 class="logo-title">${siteConfig.title}</h1>
-  <p class="subtitle">${siteConfig.subtitle}</p>
+  <h1 class="logo">VORTEXPLAY</h1>
+  <p class="subhead">سامانه گیمینگ سایبرپانک</p>
 </header>
-<div class="container">
-  <div id="home-page">
-    <h2 class="section-title">دسته‌بندی‌ها</h2>
-    <div id="cats">${generateCategoriesHTML()}</div>
+<div class="container" id="static-content">
+  <h2 class="section-title">دسته‌بندی‌ها</h2>
+  <div class="cats-grid">
+    \${DATA.categories.length===0?'<p class=\"empty-msg\">هنوز محتوایی قرار نگرفته ✨</p>':DATA.categories.map((cat,i)=>\`
+      <div class=\"cat-card\" onclick=\"openCat(\${i})\">
+        <div class=\"cat-icon\">\${cat.icon}</div>
+        <h3 class=\"cat-name\">\${cat.name}</h3>
+        <p class=\"cat-desc\">\${cat.desc || 'مشاهده محتوا'}</p>
+        <span class=\"cat-count\">\${cat.items.length} مورد</span>
+      </div>
+    \`).join('')}
   </div>
 </div>
-<footer>VORTEXPLAY © 2026 | هاست دائمی گیت‌هاب + کلادفلر</footer>
+<footer>VORTEXPLAY © 2026 | سایبرپانک Edition</footer>
 </div>
 <script>
-const DATA = ${dataStr};
-function renderHome(){
-  const cont = document.getElementById('cats');
-  if(!DATA.categories.length){
-    cont.innerHTML = '<p class="empty-state">به زودی محتوا بارگذاری می‌شود ✨</p>';
-    return;
-  }
-  cont.innerHTML = DATA.categories.map((cat,idx)=>\`
-    <div class="category-card" onclick="openCat(\${idx})">
-      <div class="cat-icon">\${cat.icon}</div>
-      <h3 class="cat-name">\${cat.name}</h3>
-      <p class="cat-desc">\${cat.desc || 'مشاهده محتوا'}</p>
-      <p class="cat-count">\${cat.items.length} مورد</p>
-    </div>
-  \`).join('');
-}
-function openCat(idx){
-  const cat = DATA.categories[idx];
-  document.getElementById('home-page').innerHTML = \`
-    <span class="back-btn" onclick="location.reload()">← بازگشت</span>
-    <h2 class="section-title">\${cat.icon} \${cat.name}</h2>
-    <p style="color:var(--gold-light);opacity:0.7;margin-bottom:20px">\${cat.desc}</p>
-    \${cat.items.length===0?'<p class=\"empty-state\">هنوز محتوایی قرار نگرفته ✨</p>':cat.items.map(item=>\`
-      <div class="item-card">
-        <h4 class="item-title">\${item.title}</h4>
+const DATA = ${d};
+function openCat(i){
+  const cat = DATA.categories[i];
+  document.getElementById('static-content').innerHTML = \`
+    <span class=\"back-btn\" onclick=\"location.reload()\">← بازگشت</span>
+    <h2 class=\"section-title\">\${cat.icon} \${cat.name}</h2>
+    <p style=\"color:#66e0ff;margin-bottom:25px\">\${cat.desc}</p>
+    \${cat.items.length===0?'<p class=\"empty-msg\">هنوز محتوایی قرار نگرفته ✨</p>':cat.items.map(item=>\`
+      <div class=\"item-card\">
+        <h4 class=\"item-title\">\${item.title}</h4>
         \${item.img?\`<img src=\"\${item.img}\" class=\"item-img\" alt=\"\">\`:''}
-        <p class="item-desc">\${item.desc.replace(/\\\\n/g,'<br>')}</p>
-        \${item.link?\`<a href=\"\${item.link}\" target=\"_blank\" class=\"item-link\">🔗 دریافت</a>\`:''}
+        <div class=\"item-body\">\${item.body}</div>
+        \${item.link?\`<a href=\"\${item.link}\" target=\"_blank\" class=\"item-link\">🔗 دریافت فایل</a>\`:''}
       </div>
     \`).join('')}
   \`;
 }
-renderHome();
 </script>
 </body>
 </html>`;
 }
-function generateCategoriesHTML(){
-  if(!categories.length) return '<p class="empty-state">هنوز دسته‌بندی تعریف نشده ⚙️</p>';
-  return categories.map((cat,i)=>`
-    <div class="category-card" onclick="openCategory(${i})">
-      <div class="cat-icon">${cat.icon}</div>
-      <h3 class="cat-name">${cat.name}</h3>
-      <p class="cat-desc">${cat.desc || 'مشاهده محتوا'}</p>
-      <p class="cat-count">${cat.items.length} مورد</p>
-    </div>
-  `).join('');
-}
 function copyCode(){
-  const code = document.getElementById('full-code-box').textContent;
+  const code = document.getElementById('full-code').textContent;
   navigator.clipboard.writeText(code).then(()=>{
     alert('✅ کد کامل کپی شد! در گیت‌هاب جایگزین کن و ذخیره کن');
   }).catch(()=>alert('کپی نشد — دستی انتخاب و کپی کن'));
 }
+
+// شروع
+document.addEventListener('DOMContentLoaded', load);
 </script>
 </body>
 </html>
