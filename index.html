@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VORTEXPLAY 🎮 | Cyberpunk Edition</title>
+<title>VORTEXPLAY 👑 | Royal Neon Ultimate</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Audiowide&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 
@@ -15,227 +15,260 @@
   --neon-pink: #ff00e5;
   --neon-purple: #b000ff;
   --neon-green: #00ff88;
-  --neon-orange: #ff6600;
-  --neon-yellow: #ffee00;
-  --neon-red: #ff0055;
+  --neon-gold: #ffd700;
+  --gold-dark: #b8860b;
+  --gold-light: #fff2b0;
   --bg-black: #000000;
   --bg-navy: #0a0e27;
   --bg-deep-purple: #1a0033;
   --bg-ink: #000814;
   --text-ice: #e0f7ff;
   --text-ice-blue: #b0e0ff;
-  --text-silver: #c0c0c0;
-  --text-gold: #ffd700;
+  --glow-gold: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 40px #ffd700;
   --glow-cyan: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 40px #00f0ff;
   --glow-pink: 0 0 10px #ff00e5, 0 0 20px #ff00e5, 0 0 40px #ff00e5;
   --glow-purple: 0 0 10px #b000ff, 0 0 20px #b000ff, 0 0 40px #b000ff;
-  --glow-green: 0 0 10px #00ff88, 0 0 20px #00ff88, 0 0 40px #00ff88;
 }
 
 body{
-  font-family:'Tajawal',sans-serif;
+  font-family:'Vazirmatn',sans-serif;
   min-height:100vh;
   background:
-    radial-gradient(ellipse at top, #1a0033 0%, transparent 50%),
-    radial-gradient(ellipse at bottom, #0a0e27 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 50%, rgba(176,0,255,0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,240,255,0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 40% 80%, rgba(255,0,229,0.2) 0%, transparent 50%),
     linear-gradient(180deg, #000000 0%, #000814 100%);
   color:var(--text-ice);
   overflow-x:hidden;
+  animation:bgPulse 8s ease-in-out infinite
+}
+@keyframes bgPulse{
+  0%,100%{opacity:0.85}
+  50%{opacity:1}
 }
 
-/* ========== پس‌زمینه لایه‌بندی شده ========== */
-.bg-layer-1, .bg-layer-2, .bg-layer-3{
-  position:fixed;inset:0;pointer-events:none;z-index:0
+/* ========== لایه‌های پس‌زمینه ========== */
+.bg-grid{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,240,255,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,240,255,0.08) 1px, transparent 1px);
+  background-size:50px 50px;
+  animation:gridMove 20s linear infinite
 }
-.bg-layer-2{
-  background:
-    linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px),
-    linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px);
-  background-size:60px 60px;
-  transform:perspective(500px) rotateX(60deg);
-  transform-origin:center top;
-  mask-image:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-  -webkit-mask-image:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-  opacity:0.4
+@keyframes gridMove{
+  0%{transform:translate(0,0)}
+  100%{transform:translate(50px,50px)}
 }
 
 /* ذرات نئونی */
+.particles{position:fixed;inset:0;z-index:1;pointer-events:none}
 .particle{
-  position:fixed;width:4px;height:4px;border-radius:50%;
-  pointer-events:none;z-index:1;animation:floatUp 15s infinite ease-in-out
+  position:absolute;border-radius:50%;
+  animation:floatUp 15s infinite ease-in-out
 }
-.p-cyan{background:var(--neon-cyan);box-shadow:var(--glow-cyan);animation-duration:18s}
-.p-pink{background:var(--neon-pink);box-shadow:var(--glow-pink);animation-duration:22s;animation-delay:2s}
-.p-purple{background:var(--neon-purple);box-shadow:var(--glow-purple);animation-duration:20s;animation-delay:5s}
+.p-gold{width:5px;height:5px;background:var(--neon-gold);box-shadow:var(--glow-gold);animation-duration:18s}
+.p-cyan{width:4px;height:4px;background:var(--neon-cyan);box-shadow:var(--glow-cyan);animation-duration:20s;animation-delay:3s}
+.p-pink{width:6px;height:6px;background:var(--neon-pink);box-shadow:var(--glow-pink);animation-duration:22s;animation-delay:6s}
 @keyframes floatUp{
   0%{transform:translateY(100vh) translateX(0);opacity:0}
   10%{opacity:1}
   90%{opacity:1}
-  100%{transform:translateY(-100px) translateX(20px);opacity:0}
+  100%{transform:translateY(-100px) translateX(30px);opacity:0}
 }
 
 /* اسکن لاین */
 .scanline{
-  position:fixed;top:0;left:0;width:100%;height:2px;
-  background:linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-  box-shadow:var(--glow-cyan);animation:scan 8s linear infinite;
-  pointer-events:none;z-index:999;opacity:0.3
+  position:fixed;top:0;left:0;width:100%;height:3px;
+  background:linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-gold), var(--neon-pink), transparent);
+  box-shadow:var(--glow-cyan);animation:scan 6s linear infinite;
+  pointer-events:none;z-index:999;opacity:0.5
 }
 @keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(100vh)}}
 
-.page-wrap{position:relative;z-index:1}
+.page-wrap{position:relative;z-index:10}
 
-/* ========== هدر ========== */
+/* ========== هدر سلطنتی ========== */
 header{
-  position:relative;padding:30px 20px;text-align:center;
-  border-bottom:1px solid rgba(0,240,255,0.2);
-  background:linear-gradient(180deg, rgba(0,240,255,0.08) 0%, transparent 100%)
+  position:relative;padding:40px 20px;text-align:center;
+  border-bottom:2px solid transparent;
+  border-image:linear-gradient(90deg, var(--neon-gold), var(--neon-cyan), var(--neon-pink), var(--neon-purple), var(--neon-gold)) 1;
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(20px)
 }
 .admin-btn{
-  position:absolute;top:20px;left:20px;
-  background:rgba(0,240,255,0.1);border:1px solid var(--neon-cyan);
-  color:var(--neon-cyan);padding:10px 18px;border-radius:8px;
-  font-family:inherit;font-weight:700;cursor:pointer;transition:0.3s
+  position:absolute;top:25px;left:20px;
+  background:linear-gradient(135deg, rgba(255,215,0,0.15), rgba(0,240,255,0.15));
+  border:2px solid var(--neon-gold);color:var(--neon-gold);
+  padding:12px 22px;border-radius:12px;
+  font-family:'Orbitron',sans-serif;font-weight:700;cursor:pointer;
+  transition:0.3s;box-shadow:0 0 15px rgba(255,215,0,0.2)
 }
 .admin-btn:hover{
-  background:rgba(0,240,255,0.2);box-shadow:var(--glow-cyan);
-  transform:scale(1.05)
+  transform:scale(1.08);box-shadow:var(--glow-gold), 0 0 30px rgba(0,240,255,0.3);
+  border-color:var(--neon-cyan)
 }
-.logo{
-  font-family:'Orbitron',sans-serif;font-size:clamp(2rem,6vw,4rem);font-weight:900;
-  background:linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+.crown{font-size:3rem;animation:crownFloat 3s ease-in-out infinite;filter:drop-shadow(0 0 15px #ffd700)}
+@keyframes crownFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+.logo-text{
+  font-family:'Orbitron',sans-serif;font-size:clamp(2.5rem,7vw,4.5rem);font-weight:900;
+  background:linear-gradient(135deg, var(--neon-gold) 0%, var(--neon-cyan) 35%, var(--neon-purple) 70%, var(--neon-pink) 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  text-shadow:none;letter-spacing:3px;
-  animation:logoPulse 3s ease-in-out infinite
+  filter:drop-shadow(0 0 20px rgba(255,215,0,0.6));
+  animation:titleGlow 3s ease-in-out infinite;letter-spacing:4px
 }
-@keyframes logoPulse{
-  0%,100%{filter:drop-shadow(0 0 15px rgba(0,240,255,0.5))}
-  50%{filter:drop-shadow(0 0 30px rgba(176,0,255,0.6))}
+@keyframes titleGlow{
+  0%,100%{filter:drop-shadow(0 0 15px rgba(255,215,0,0.7))}
+  50%{filter:drop-shadow(0 0 30px rgba(255,215,0,1)), drop-shadow(0 0 50px rgba(0,240,255,0.6))}
 }
-.subhead{color:var(--text-ice-blue);opacity:0.9;margin-top:10px;font-size:1.1rem}
+.subhead{color:var(--text-ice-blue);opacity:0.9;margin-top:12px;font-size:1.15rem}
 
-.container{max-width:1200px;margin:0 auto;padding:40px 20px}
+.container{max-width:1200px;margin:0 auto;padding:50px 20px}
 .section-title{
-  font-family:'Orbitron',sans-serif;font-size:1.6rem;margin-bottom:30px;
-  color:var(--neon-cyan);display:flex;align-items:center;gap:12px
+  font-family:'Orbitron',sans-serif;font-size:clamp(1.5rem,4vw,2.2rem);
+  color:var(--neon-gold);margin-bottom:35px;display:flex;align-items:center;gap:15px
 }
 .section-title::after{
-  content:'';flex:1;height:1px;
-  background:linear-gradient(90deg, rgba(0,240,255,0.4), transparent)
+  content:'';flex:1;height:2px;
+  background:linear-gradient(90deg, rgba(255,215,0,0.5), rgba(0,240,255,0.3), transparent)
 }
 
-/* ========== کارت‌های دسته‌بندی سه‌بعدی ========== */
-.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:25px}
+/* ========== کارت‌های سه‌بعدی سلطنتی ========== */
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:30px}
 .cat-card{
-  background:rgba(26,0,51,0.6);backdrop-filter:blur(20px);
-  border:1px solid rgba(0,240,255,0.3);border-radius:20px;padding:28px;
-  cursor:pointer;transition:0.4s cubic-bezier(0.4,0,0.2,1);
-  transform:perspective(1000px) rotateX(0deg) rotateY(0deg)
+  background:rgba(26,0,51,0.6);backdrop-filter:blur(30px);
+  border:2px solid transparent;border-image:linear-gradient(135deg, var(--neon-gold), var(--neon-cyan)) 1;
+  border-radius:24px;padding:32px;cursor:pointer;
+  transition:0.4s cubic-bezier(0.4,0,0.2,1);
+  transform:perspective(1000px) rotateX(0) rotateY(0);
+  position:relative;overflow:hidden
 }
+.cat-card::before{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,215,0,0.15), transparent);
+  transition:left 0.6s
+}
+.cat-card:hover::before{left:100%}
 .cat-card:hover{
-  transform:perspective(1000px) rotateX(5deg) rotateY(-5deg) translateY(-10px);
-  border-color:var(--neon-purple);box-shadow:var(--glow-purple), 0 20px 60px rgba(0,0,0,0.6);
-  background:rgba(26,0,51,0.8)
+  transform:perspective(1000px) rotateX(6deg) rotateY(-6deg) translateY(-15px);
+  border-image:linear-gradient(135deg, var(--neon-gold), var(--neon-pink), var(--neon-cyan)) 1;
+  box-shadow:var(--glow-gold), 0 0 50px rgba(0,240,255,0.3), 0 25px 60px rgba(0,0,0,0.6);
+  background:rgba(26,0,51,0.85)
 }
-.cat-icon{font-size:3rem;margin-bottom:15px}
-.cat-name{font-family:'Orbitron',sans-serif;font-size:1.25rem;color:var(--neon-cyan);margin-bottom:8px}
-.cat-desc{color:var(--text-ice-blue);opacity:0.8;line-height:1.7;margin-bottom:12px}
+.cat-icon{font-size:3.5rem;margin-bottom:18px;filter:drop-shadow(0 0 10px rgba(255,215,0,0.5))}
+.cat-name{font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--neon-gold);margin-bottom:10px}
+.cat-desc{color:var(--text-ice-blue);opacity:0.85;line-height:1.8;margin-bottom:15px}
 .cat-count{
-  display:inline-block;padding:4px 12px;border-radius:20px;
-  background:rgba(0,255,136,0.15);color:var(--neon-green);font-size:0.85px
+  display:inline-block;padding:6px 16px;border-radius:30px;
+  background:rgba(0,255,136,0.15);color:var(--neon-green);font-weight:600;
+  box-shadow:0 0 10px rgba(0,255,136,0.2)
 }
-.empty-msg{text-align:center;padding:60px 20px;color:#444;font-size:1.1rem}
+.empty-msg{text-align:center;padding:80px 20px;color:#555;font-size:1.2rem}
 
 /* ========== صفحه داخلی ========== */
 .back-btn{
-  display:inline-flex;align-items:center;gap:8px;color:var(--neon-cyan);
-  text-decoration:none;margin-bottom:25px;cursor:pointer;transition:0.2s;font-weight:700
+  display:inline-flex;align-items:center;gap:10px;color:var(--neon-gold);
+  text-decoration:none;margin-bottom:30px;cursor:pointer;transition:0.3s;font-weight:700;font-size:1.1rem
 }
-.back-btn:hover{color:var(--neon-pink);transform:translateX(-5px)}
+.back-btn:hover{color:var(--neon-cyan);transform:translateX(-8px);filter:drop-shadow(0 0 10px #00f0ff)}
 .item-card{
-  background:rgba(26,0,51,0.5);border:1px solid rgba(0,240,255,0.2);
-  border-radius:16px;padding:24px;margin-bottom:20px;transition:0.3s
+  background:rgba(26,0,51,0.55);border:2px solid rgba(255,215,0,0.25);
+  border-radius:20px;padding:28px;margin-bottom:24px;transition:0.3s;
+  backdrop-filter:blur(10px)
 }
-.item-card:hover{border-color:rgba(255,0,229,0.4);background:rgba(26,0,51,0.7)}
-.item-title{font-size:1.2rem;font-weight:700;color:var(--text-ice);margin-bottom:10px}
-.item-img{max-width:100%;border-radius:10px;margin:12px 0;max-height:250px;object-fit:cover}
-.item-body{color:var(--text-ice-blue);line-height:1.8;margin-bottom:15px;white-space:pre-wrap}
+.item-card:hover{
+  border-color:rgba(0,240,255,0.5);background:rgba(26,0,51,0.75);
+  box-shadow:0 0 25px rgba(0,240,255,0.15)
+}
+.item-title{font-size:1.3rem;font-weight:700;color:var(--neon-gold);margin-bottom:12px}
+.item-img{max-width:100%;border-radius:14px;margin:15px 0;max-height:280px;object-fit:cover;border:1px solid rgba(255,215,0,0.2)}
+.item-body{color:var(--text-ice-blue);line-height:1.9;margin-bottom:18px;white-space:pre-wrap;font-size:1.05rem}
 .item-link{
-  display:inline-flex;align-items:center;gap:8px;
-  background:linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
-  color:#000;padding:10px 24px;border-radius:10px;text-decoration:none;font-weight:700;
-  transition:0.3s
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(90deg, var(--neon-gold), var(--neon-cyan));
+  color:#000;padding:14px 32px;border-radius:14px;text-decoration:none;font-weight:700;font-size:1rem;
+  transition:0.3s;box-shadow:0 0 20px rgba(255,215,0,0.3)
 }
-.item-link:hover{box-shadow:var(--glow-purple);transform:scale(1.05)}
+.item-link:hover{transform:scale(1.05);box-shadow:var(--glow-gold), 0 0 40px rgba(0,240,255,0.4)}
 .hidden{display:none}
 
 /* ========== پنل مدیریت ========== */
 .admin-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:999;
+  position:fixed;inset:0;background:rgba(0,0,0,0.94);z-index:999;
   display:none;align-items:center;justify-content:center;padding:20px
 }
 .admin-overlay.active{display:flex}
 .admin-box{
   background:linear-gradient(135deg, #0a0e27, #1a0033);
-  border:2px solid var(--neon-cyan);border-radius:20px;padding:30px;
-  max-width:520px;width:100%;max-height:90vh;overflow-y:auto;
-  box-shadow:var(--glow-purple)
+  border:3px solid transparent;border-image:linear-gradient(135deg, var(--neon-gold), var(--neon-cyan), var(--neon-pink)) 1;
+  border-radius:24px;padding:35px;max-width:540px;width:100%;max-height:90vh;overflow-y:auto;
+  box-shadow:var(--glow-gold), 0 0 60px rgba(0,240,255,0.25)
 }
 .admin-box h2{
   text-align:center;font-family:'Orbitron',sans-serif;
-  color:var(--neon-cyan);margin-bottom:25px
+  color:var(--neon-gold);margin-bottom:30px;
+  text-shadow:0 0 15px rgba(255,215,0,0.4)
 }
 .inp{
-  width:100%;padding:14px 16px;margin:8px 0;border-radius:10px;
-  border:1px solid rgba(0,240,255,0.3);background:rgba(0,0,0,0.5);
-  color:#FFF;font-size:1rem;font-family:inherit
+  width:100%;padding:16px 20px;margin:10px 0;border-radius:12px;
+  border:2px solid rgba(255,215,0,0.3);background:rgba(0,0,0,0.6);
+  color:#FFF;font-size:1rem;font-family:inherit;transition:0.3s
 }
-.inp:focus{outline:none;border-color:var(--neon-purple);box-shadow:0 0 15px rgba(176,0,255,0.3)}
+.inp:focus{
+  outline:none;border-color:var(--neon-gold);
+  box-shadow:0 0 20px rgba(255,215,0,0.3), inset 0 0 10px rgba(255,215,0,0.1)
+}
 .btn{
-  padding:13px 22px;border-radius:10px;border:none;font-weight:700;
-  cursor:pointer;font-family:inherit;transition:0.3s;margin:6px
+  padding:14px 24px;border-radius:12px;border:none;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:0.3s;margin:8px 0
 }
 .btn-primary{
-  background:linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
-  color:#000;width:100%;margin-top:10px;font-size:1rem
+  background:linear-gradient(90deg, var(--neon-gold), var(--neon-cyan));
+  color:#000;width:100%;margin-top:12px;font-size:1.05rem
 }
-.btn-primary:hover{box-shadow:var(--glow-purple);transform:scale(1.02)}
-.btn-secondary{background:transparent;border:1px solid var(--neon-cyan);color:var(--neon-cyan)}
-.btn-danger{background:transparent;border:1px solid var(--neon-red);color:var(--neon-red)}
-.tabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.btn-primary:hover{transform:scale(1.03);box-shadow:var(--glow-gold)}
+.btn-secondary{background:transparent;border:2px solid var(--neon-cyan);color:var(--neon-cyan)}
+.btn-secondary:hover{background:rgba(0,240,255,0.1)}
+.btn-danger{background:transparent;border:2px solid var(--neon-pink);color:var(--neon-pink)}
+.tabs{display:flex;gap:10px;margin-bottom:25px;flex-wrap:wrap}
 .tab{
-  padding:10px 16px;border-radius:8px;border:1px solid rgba(0,240,255,0.25);
-  cursor:pointer;color:#888;transition:0.2s;font-size:0.9rem
+  padding:12px 18px;border-radius:10px;border:2px solid rgba(255,215,0,0.25);
+  cursor:pointer;color:#888;transition:0.2s;font-weight:600
 }
-.tab.active{background:rgba(0,240,255,0.15);border-color:var(--neon-cyan);color:var(--neon-cyan)}
+.tab.active{
+  background:rgba(255,215,0,0.1);border-color:var(--neon-gold);color:var(--neon-gold);
+  box-shadow:0 0 15px rgba(255,215,0,0.15)
+}
 .tab-page{display:none}
 .tab-page.active{display:block}
 .code-box{
-  background:#000;border:1px solid #222;border-radius:10px;padding:18px;
+  background:#000;border:2px solid rgba(0,240,255,0.3);border-radius:14px;padding:20px;
   font-family:monospace;font-size:0.8rem;white-space:pre-wrap;word-break:break-all;
-  color:#9f9;max-height:300px;overflow:auto;margin-top:15px;line-height:1.6
+  color:#9f9;max-height:320px;overflow:auto;margin-top:18px;line-height:1.7
 }
 .list-item{
-  padding:12px;border-bottom:1px solid rgba(0,240,255,0.1);
-  display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap
+  padding:14px;border-bottom:1px solid rgba(255,215,0,0.1);
+  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap
 }
 footer{
-  text-align:center;padding:30px 20px;margin-top:60px;
-  border-top:1px solid rgba(0,240,255,0.1);color:#444;font-size:0.85rem
+  text-align:center;padding:35px 20px;margin-top:70px;
+  border-top:2px solid rgba(255,215,0,0.1);color:#555;font-size:0.9rem
 }
 </style>
 </head>
 <body>
-<div class="bg-layer-1"></div>
-<div class="bg-layer-2"></div>
+<div class="bg-grid"></div>
+<div class="particles" id="particles"></div>
 <div class="scanline"></div>
-<div id="particles"></div>
 
 <div class="page-wrap">
 <header>
   <button class="admin-btn" onclick="openPanel()">⚙️ مدیریت</button>
-  <h1 class="logo">VORTEXPLAY</h1>
-  <p class="subhead">سامانه گیمینگ سایبرپانک — نسخه نهایی</p>
+  <div class="crown">👑</div>
+  <h1 class="logo-text">VORTEXPLAY</h1>
+  <p class="subhead">سامانه سلطنتی گیمینگ — نسخه نهایی</p>
 </header>
 
 <div class="container">
@@ -249,24 +282,24 @@ footer{
   <div id="cat-page" class="hidden">
     <span class="back-btn" onclick="goBack()">← بازگشت به صفحه اصلی</span>
     <h2 id="cat-name" class="section-title"></h2>
-    <p id="cat-desc" style="color:#66e0ff;margin-bottom:25px"></p>
+    <p id="cat-desc" style="color:#66e0ff;margin-bottom:30px;font-size:1.05rem"></p>
     <div id="items-container"></div>
   </div>
 </div>
 
 <footer>
-  VORTEXPLAY © 2026 | سایبرپانک Edition | هاست دائمی گیت‌هاب
+  VORTEXPLAY © 2026 | سلطنتی نئونی Edition | هاست دائمی گیت‌هاب
 </footer>
 </div>
 
 <!-- پنل مدیریت -->
 <div id="admin-panel" class="admin-overlay">
   <div class="admin-box">
-    <h2>🔐 پنل مدیریت</h2>
+    <h2>🔐 پنل مدیریت سلطنتی</h2>
     
     <div id="login-view">
       <input type="password" id="pass-inp" class="inp" placeholder="رمز ۳۲ رقمی را وارد کنید">
-      <button class="btn btn-primary" onclick="checkPass()">ورود</button>
+      <button class="btn btn-primary" onclick="checkPass()">ورود به سامانه</button>
     </div>
 
     <div id="admin-view" style="display:none">
@@ -278,36 +311,36 @@ footer{
 
       <!-- تب دسته‌بندی -->
       <div class="tab-page active" id="tab-cats">
-        <h4 style="color:var(--neon-cyan);margin-bottom:12px">ایجاد دسته جدید</h4>
+        <h4 style="color:var(--neon-gold);margin-bottom:15px;font-size:1.1rem">ایجاد دسته جدید</h4>
         <input type="text" id="new-cat-name" class="inp" placeholder="نام دسته">
         <input type="text" id="new-cat-desc" class="inp" placeholder="توضیح کوتاه">
-        <input type="text" id="new-cat-icon" class="inp" placeholder="آیکون 🎮 یا لینک عکس">
-        <button class="btn btn-primary" onclick="addCat()">✅ ایجاد</button>
-        <div id="cat-list" style="margin-top:20px"></div>
+        <input type="text" id="new-cat-icon" class="inp" placeholder="آیکون 🎮 یا اموجی">
+        <button class="btn btn-primary" onclick="addCat()">✅ ایجاد دسته</button>
+        <div id="cat-list" style="margin-top:25px"></div>
       </div>
 
       <!-- تب محتوا -->
       <div class="tab-page" id="tab-items">
-        <h4 style="color:var(--neon-cyan);margin-bottom:12px">افزودن پیام / فایل</h4>
+        <h4 style="color:var(--neon-gold);margin-bottom:15px;font-size:1.1rem">افزودن پیام / فایل</h4>
         <select id="sel-cat" class="inp">
           <option value="">انتخاب دسته مقصد...</option>
         </select>
         <input type="text" id="item-title" class="inp" placeholder="عنوان">
-        <textarea id="item-body" class="inp" rows="4" placeholder="متن و توضیحات"></textarea>
+        <textarea id="item-body" class="inp" rows="5" placeholder="متن و توضیحات"></textarea>
         <input type="text" id="item-img" class="inp" placeholder="لینک عکس (اختیاری)">
         <input type="text" id="item-link" class="inp" placeholder="لینک دانلود (اختیاری)">
-        <button class="btn btn-primary" onclick="addItem()">✅ افزودن</button>
+        <button class="btn btn-primary" onclick="addItem()">✅ افزودن محتوا</button>
       </div>
 
       <!-- تب کد -->
       <div class="tab-page" id="tab-code">
-        <h4 style="color:var(--neon-cyan);margin-bottom:12px">کد کامل برای گیت‌هاب</h4>
-        <p style="color:#666;font-size:0.9rem;margin-bottom:10px">کد زیر را کپی کن و جای کل فایل index.html در گیت‌هاب قرار بده:</p>
+        <h4 style="color:var(--neon-gold);margin-bottom:15px;font-size:1.1rem">کد کامل برای گیت‌هاب</h4>
+        <p style="color:#777;font-size:0.9rem;margin-bottom:12px">کد زیر را کپی کن و جای کل فایل index.html در گیت‌هاب قرار بده:</p>
         <div class="code-box" id="full-code">در حال ساخت کد...</div>
-        <button class="btn btn-secondary" style="margin-top:10px;width:100%" onclick="copyCode()">📋 کپی کامل کد</button>
+        <button class="btn btn-secondary" style="margin-top:15px;width:100%" onclick="copyCode()">📋 کپی کامل کد</button>
       </div>
 
-      <button class="btn btn-secondary" style="margin-top:20px;width:100%" onclick="closePanel()">بستن</button>
+      <button class="btn btn-secondary" style="margin-top:25px;width:100%" onclick="closePanel()">بستن پنل</button>
     </div>
   </div>
 </div>
@@ -320,8 +353,8 @@ let activeCat = null;
 // ساخت ذرات پس‌زمینه
 function createParticles(){
   const cont = document.getElementById('particles');
-  const colors = ['p-cyan','p-pink','p-purple'];
-  for(let i=0;i<30;i++){
+  const colors = ['p-gold','p-cyan','p-pink'];
+  for(let i=0;i<40;i++){
     const p = document.createElement('div');
     p.className = `particle ${colors[Math.floor(Math.random()*colors.length)]}`;
     p.style.left = `${Math.random()*100}%`;
@@ -333,12 +366,12 @@ function createParticles(){
 // بارگذاری
 function load(){
   createParticles();
-  const s = localStorage.getItem('vortex_data');
+  const s = localStorage.getItem('vortex_royal_data');
   if(s) data = JSON.parse(s);
   renderCats();
 }
 function save(){
-  localStorage.setItem('vortex_data', JSON.stringify(data));
+  localStorage.setItem('vortex_royal_data', JSON.stringify(data));
   updateCodeBox();
 }
 
@@ -441,7 +474,7 @@ function renderCatList(){
   l.innerHTML = data.categories.map((cat,i)=>`
     <div class="list-item">
       <span>${cat.icon} ${cat.name} (${cat.items.length})</span>
-      <button class="btn btn-danger" style="padding:6px 12px;font-size:0.8rem" onclick="delCat(${i})">حذف</button>
+      <button class="btn btn-danger" style="padding:8px 14px;font-size:0.85rem" onclick="delCat(${i})">حذف</button>
     </div>
   `).join('');
 }
@@ -482,53 +515,57 @@ function generateStaticHTML(){
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VORTEXPLAY 🎮 | Cyberpunk Edition</title>
+<title>VORTEXPLAY 👑 | Royal Neon Ultimate</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--neon-cyan:#00f0ff;--neon-pink:#ff00e5;--neon-purple:#b000ff;--neon-green:#00ff88;--neon-orange:#ff6600;--neon-yellow:#ffee00;--neon-red:#ff0055;--bg-black:#000;--bg-navy:#0a0e27;--bg-deep-purple:#1a0033;--bg-ink:#000814;--text-ice:#e0f7ff;--text-ice-blue:#b0e0ff;--text-silver:#c0c0c0;--text-gold:#ffd700;--glow-cyan:0 0 10px #00f0ff,0 0 20px #00f0ff,0 0 40px #00f0ff;--glow-pink:0 0 10px #ff00e5,0 0 20px #ff00e5,0 0 40px #ff00e5;--glow-purple:0 0 10px #b000ff,0 0 20px #b000ff,0 0 40px #b000ff;--glow-green:0 0 10px #00ff88,0 0 20px #00ff88,0 0 40px #00ff88}
-body{font-family:'Tajawal',sans-serif;min-height:100vh;background:radial-gradient(ellipse at top,#1a0033 0%,transparent 50%),radial-gradient(ellipse at bottom,#0a0e27 0%,transparent 50%),linear-gradient(180deg,#000 0%,#000814 100%);color:var(--text-ice);overflow-x:hidden}
-.bg-layer-2{position:fixed;inset:0;background:linear-gradient(90deg,rgba(0,240,255,0.03)1px,transparent 1px),linear-gradient(rgba(0,240,255,0.03)1px,transparent 1px);background-size:60px 60px;transform:perspective(500px)rotateX(60deg);transform-origin:center top;mask-image:linear-gradient(to top,rgba(0,0,0,0.8),transparent);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,0.8),transparent);opacity:0.4;pointer-events:none;z-index:0}
-.scanline{position:fixed;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,#00f0ff,transparent);box-shadow:var(--glow-cyan);animation:scan 8s linear infinite;pointer-events:none;z-index:999;opacity:0.3}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--neon-cyan:#00f0ff;--neon-pink:#ff00e5;--neon-purple:#b000ff;--neon-green:#00ff88;--neon-gold:#ffd700;--bg-black:#000;--bg-navy:#0a0e27;--bg-deep-purple:#1a0033;--text-ice:#e0f7ff;--text-ice-blue:#b0e0ff;--glow-gold:0 0 10px #ffd700,0 0 20px #ffd700;--glow-cyan:0 0 10px #00f0ff,0 0 20px #00f0ff}
+body{font-family:'Vazirmatn',sans-serif;min-height:100vh;background:radial-gradient(ellipse at 20% 50%,rgba(176,0,255,0.25) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(0,240,255,0.25) 0%,transparent 50%),linear-gradient(180deg,#000 0%,#000814 100%);color:var(--text-ice);overflow-x:hidden}
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,240,255,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,0.08) 1px,transparent 1px);background-size:50px 50px;animation:gridMove 20s linear infinite}
+@keyframes gridMove{0%{transform:translate(0,0)}100%{transform:translate(50px,50px)}}
+.scanline{position:fixed;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,transparent,#ffd700,#00f0ff,#ff00e5,transparent);animation:scan 6s linear infinite;pointer-events:none;z-index:999;opacity:0.5}
 @keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(100vh)}}
-.page-wrap{position:relative;z-index:1}
-header{position:relative;padding:30px 20px;text-align:center;border-bottom:1px solid rgba(0,240,255,0.2);background:linear-gradient(180deg,rgba(0,240,255,0.08)0%,transparent 100%)}
-.logo{font-family:'Orbitron',sans-serif;font-size:clamp(2rem,6vw,4rem);font-weight:900;background:linear-gradient(90deg,#00f0ff,#b000ff,#ff00e5);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:3px;animation:logoPulse 3s ease-in-out infinite}
-@keyframes logoPulse{0%,100%{filter:drop-shadow(0 0 15px rgba(0,240,255,0.5))}50%{filter:drop-shadow(0 0 30px rgba(176,0,255,0.6))}}
-.subhead{color:var(--text-ice-blue);opacity:0.9;margin-top:10px;font-size:1.1rem}
-.container{max-width:1200px;margin:0 auto;padding:40px 20px}
-.section-title{font-family:'Orbitron',sans-serif;font-size:1.6rem;margin-bottom:30px;color:var(--neon-cyan);display:flex;align-items:center;gap:12px}
-.section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(0,240,255,0.4),transparent)}
-.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:25px}
-.cat-card{background:rgba(26,0,51,0.6);backdrop-filter:blur(20px);border:1px solid rgba(0,240,255,0.3);border-radius:20px;padding:28px;cursor:pointer;transition:0.4s cubic-bezier(0.4,0,0.2,1);transform:perspective(1000px)rotateX(0deg)rotateY(0deg)}
-.cat-card:hover{transform:perspective(1000px)rotateX(5deg)rotateY(-5deg)translateY(-10px);border-color:var(--neon-purple);box-shadow:var(--glow-purple),0 20px 60px rgba(0,0,0,0.6);background:rgba(26,0,51,0.8)}
-.cat-icon{font-size:3rem;margin-bottom:15px}
-.cat-name{font-family:'Orbitron',sans-serif;font-size:1.25rem;color:var(--neon-cyan);margin-bottom:8px}
-.cat-desc{color:var(--text-ice-blue);opacity:0.8;line-height:1.7;margin-bottom:12px}
-.cat-count{display:inline-block;padding:4px 12px;border-radius:20px;background:rgba(0,255,136,0.15);color:var(--neon-green);font-size:0.85rem}
+.page-wrap{position:relative;z-index:10}
+header{position:relative;padding:40px 20px;text-align:center;border-bottom:2px solid transparent;border-image:linear-gradient(90deg,#ffd700,#00f0ff,#ff00e5,#b000ff,#ffd700) 1;background:rgba(0,0,0,0.7);backdrop-filter:blur(20px)}
+.crown{font-size:3rem;animation:crownFloat 3s ease-in-out infinite;filter:drop-shadow(0 0 15px #ffd700)}
+@keyframes crownFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.logo-text{font-family:'Orbitron',sans-serif;font-size:clamp(2.5rem,7vw,4.5rem);font-weight:900;background:linear-gradient(135deg,#ffd700 0%,#00f0ff 35%,#b000ff 70%,#ff00e5 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 20px rgba(255,215,0,0.6));animation:titleGlow 3s ease-in-out infinite;letter-spacing:4px}
+@keyframes titleGlow{0%,100%{filter:drop-shadow(0 0 15px rgba(255,215,0,0.7))}50%{filter:drop-shadow(0 0 30px rgba(255,215,0,1)),drop-shadow(0 0 50px rgba(0,240,255,0.6))}}
+.subhead{color:var(--text-ice-blue);opacity:0.9;margin-top:12px;font-size:1.15rem}
+.container{max-width:1200px;margin:0 auto;padding:50px 20px}
+.section-title{font-family:'Orbitron',sans-serif;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--neon-gold);margin-bottom:35px;display:flex;align-items:center;gap:15px}
+.section-title::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,rgba(255,215,0,0.5),rgba(0,240,255,0.3),transparent)}
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:30px}
+.cat-card{background:rgba(26,0,51,0.6);backdrop-filter:blur(30px);border:2px solid transparent;border-image:linear-gradient(135deg,#ffd700,#00f0ff) 1;border-radius:24px;padding:32px;cursor:pointer;transition:0.4s;transform:perspective(1000px) rotateX(0) rotateY(0)}
+.cat-card:hover{transform:perspective(1000px) rotateX(6deg) rotateY(-6deg) translateY(-15px);border-image:linear-gradient(135deg,#ffd700,#ff00e5,#00f0ff) 1;box-shadow:var(--glow-gold),0 0 50px rgba(0,240,255,0.3);background:rgba(26,0,51,0.85)}
+.cat-icon{font-size:3.5rem;margin-bottom:18px;filter:drop-shadow(0 0 10px rgba(255,215,0,0.5))}
+.cat-name{font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--neon-gold);margin-bottom:10px}
+.cat-desc{color:var(--text-ice-blue);opacity:0.85;line-height:1.8;margin-bottom:15px}
+.cat-count{display:inline-block;padding:6px 16px;border-radius:30px;background:rgba(0,255,136,0.15);color:var(--neon-green);font-weight:600}
 .hidden{display:none}
-.back-btn{display:inline-flex;align-items:center;gap:8px;color:var(--neon-cyan);text-decoration:none;margin-bottom:25px;cursor:pointer;transition:0.2s;font-weight:700}
-.back-btn:hover{color:var(--neon-pink);transform:translateX(-5px)}
-.item-card{background:rgba(26,0,51,0.5);border:1px solid rgba(0,240,255,0.2);border-radius:16px;padding:24px;margin-bottom:20px;transition:0.3s}
-.item-card:hover{border-color:rgba(255,0,229,0.4);background:rgba(26,0,51,0.7)}
-.item-title{font-size:1.2rem;font-weight:700;color:var(--text-ice);margin-bottom:10px}
-.item-img{max-width:100%;border-radius:10px;margin:12px 0;max-height:250px;object-fit:cover}
-.item-body{color:var(--text-ice-blue);line-height:1.8;margin-bottom:15px;white-space:pre-wrap}
-.item-link{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,#00f0ff,#b000ff);color:#000;padding:10px 24px;border-radius:10px;text-decoration:none;font-weight:700;transition:0.3s}
-.item-link:hover{box-shadow:var(--glow-purple);transform:scale(1.05)}
-.empty-msg{text-align:center;padding:60px 20px;color:#444;font-size:1.1rem}
-footer{text-align:center;padding:30px 20px;margin-top:60px;border-top:1px solid rgba(0,240,255,0.1);color:#444;font-size:0.85rem}
+.back-btn{display:inline-flex;align-items:center;gap:10px;color:var(--neon-gold);text-decoration:none;margin-bottom:30px;cursor:pointer;transition:0.3s;font-weight:700;font-size:1.1rem}
+.back-btn:hover{color:var(--neon-cyan);transform:translateX(-8px)}
+.item-card{background:rgba(26,0,51,0.55);border:2px solid rgba(255,215,0,0.25);border-radius:20px;padding:28px;margin-bottom:24px;transition:0.3s}
+.item-card:hover{border-color:rgba(0,240,255,0.5);background:rgba(26,0,51,0.75)}
+.item-title{font-size:1.3rem;font-weight:700;color:var(--neon-gold);margin-bottom:12px}
+.item-img{max-width:100%;border-radius:14px;margin:15px 0;max-height:280px;object-fit:cover}
+.item-body{color:var(--text-ice-blue);line-height:1.9;margin-bottom:18px;white-space:pre-wrap;font-size:1.05rem}
+.item-link{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,#ffd700,#00f0ff);color:#000;padding:14px 32px;border-radius:14px;text-decoration:none;font-weight:700;transition:0.3s}
+.item-link:hover{transform:scale(1.05);box-shadow:var(--glow-gold)}
+.empty-msg{text-align:center;padding:80px 20px;color:#555;font-size:1.2rem}
+footer{text-align:center;padding:35px 20px;margin-top:70px;border-top:2px solid rgba(255,215,0,0.1);color:#555;font-size:0.9rem}
 </style>
 </head>
 <body>
-<div class="bg-layer-2"></div>
+<div class="bg-grid"></div>
 <div class="scanline"></div>
 <div class="page-wrap">
 <header>
-  <h1 class="logo">VORTEXPLAY</h1>
-  <p class="subhead">سامانه گیمینگ سایبرپانک</p>
+  <div class="crown">👑</div>
+  <h1 class="logo-text">VORTEXPLAY</h1>
+  <p class="subhead">سامانه سلطنتی گیمینگ</p>
 </header>
 <div class="container" id="static-content">
   <h2 class="section-title">دسته‌بندی‌ها</h2>
@@ -543,7 +580,7 @@ footer{text-align:center;padding:30px 20px;margin-top:60px;border-top:1px solid 
     \`).join('')}
   </div>
 </div>
-<footer>VORTEXPLAY © 2026 | سایبرپانک Edition</footer>
+<footer>VORTEXPLAY © 2026 | سلطنتی نئونی Edition</footer>
 </div>
 <script>
 const DATA = ${d};
@@ -552,7 +589,7 @@ function openCat(i){
   document.getElementById('static-content').innerHTML = \`
     <span class=\"back-btn\" onclick=\"location.reload()\">← بازگشت</span>
     <h2 class=\"section-title\">\${cat.icon} \${cat.name}</h2>
-    <p style=\"color:#66e0ff;margin-bottom:25px\">\${cat.desc}</p>
+    <p style=\"color:#66e0ff;margin-bottom:30px;font-size:1.05rem\">\${cat.desc}</p>
     \${cat.items.length===0?'<p class=\"empty-msg\">هنوز محتوایی قرار نگرفته ✨</p>':cat.items.map(item=>\`
       <div class=\"item-card\">
         <h4 class=\"item-title\">\${item.title}</h4>
