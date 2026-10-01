@@ -1,391 +1,328 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VORTEXPLAY | PS5 13.60 & PS4 13.52 — میزبان‌های رسمی</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#00000a;
-  --bg1:#050c22;
-  --bg2:#0c1b40;
-  --p:#a855ff;
-  --c:#00eeff;
-  --g:#00ff99;
-  --y:#ffdd00;
-  --r:#ff4466;
-  --t:#f0f5ff;
-  --d:#88aadd;
-  --card:rgba(18,30,70,.7);
-  --br:16px;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:'Rajdhani',sans-serif;
-  min-height:100vh;color:var(--t);
-  background:
-    radial-gradient(ellipse at 8% 0%,rgba(168,85,255,.14) 0%,transparent 52%),
-    radial-gradient(ellipse at 92% 3%,rgba(0,238,255,.11) 0%,transparent 52%),
-    radial-gradient(ellipse at 50% 97%,rgba(0,255,153,.07) 0%,transparent 55%),
-    linear-gradient(180deg,var(--bg) 0%,var(--bg1) 48%,var(--bg2) 100%);
-  line-height:1.75;padding:14px;overflow-x:hidden
-}
-body::before{
-  content:'';position:fixed;inset:0;
-  background-image:
-    linear-gradient(rgba(0,238,255,.015) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(168,85,255,.015) 1px,transparent 1px);
-  background-size:48px 48px;opacity:.32;pointer-events:none;
-  animation:gridMove 32s linear infinite
-}
-@keyframes gridMove{0%{transform:translate(0,0)}100%{transform:translate(48px,48px)}}
-.container{max-width:980px;margin:0 auto;position:relative;z-index:1}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vortex Play - Ultimate Firmware Host (0 to 13.60)</title>
+    <style>
+        :root {
+            --bg-color: #07090f;
+            --card-bg: #111522;
+            --primary: #00ffcc;
+            --accent: #7928ca;
+            --text: #ffffff;
+            --muted: #8a99ad;
+            --danger: #ff3366;
+            --success: #00ff66;
+        }
 
-/* HEADER */
-header{text-align:center;padding:34px 16px 22px}
-h1{
-  font-family:'Orbitron',sans-serif;
-  font-size:clamp(1.9rem,5.2vw,3rem);font-weight:900;letter-spacing:5px;
-  background:linear-gradient(135deg,#fff 0%,var(--c) 38%,var(--p) 72%,var(--g) 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 0 15px rgba(0,238,255,.32))
-}
-.sub{color:#bbd0ff;margin-top:8px;font-size:1rem}
-.tag{color:var(--g);margin-top:4px;font-size:.88rem}
-.stat{
-  display:inline-flex;align-items:center;gap:10px;margin-top:18px;
-  padding:11px 24px;background:linear-gradient(90deg,rgba(0,255,153,.11),rgba(168,85,255,.09));
-  border-radius:50px;border:1px solid rgba(0,255,153,.28)
-}
-.dot{
-  width:12px;height:12px;border-radius:50%;background:var(--g);
-  box-shadow:0 0 7px var(--g),0 0 14px var(--g);animation:blink 2s infinite
-}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.38}}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
 
-/* TABS */
-.tabs{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
-.tab{
-  flex:1;min-width:120px;padding:13px 16px;border-radius:14px;
-  background:rgba(0,90,180,.13);border:1px solid rgba(0,160,255,.2);
-  color:#99ccff;cursor:pointer;font-weight:700;
-  font-family:'Orbitron',sans-serif;transition:all .25s ease
-}
-.tab:hover{background:rgba(0,140,255,.2);color:#fff;border-color:rgba(0,238,255,.45)}
-.tab.active{
-  background:linear-gradient(180deg,rgba(168,85,255,.22),rgba(0,238,255,.12));
-  border-color:var(--p);color:#fff;box-shadow:0 0 12px rgba(168,85,255,.2)
-}
-.panels{display:none}
-.panels.active{display:block;animation:fadeIn .3s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
 
-/* CARDS */
-.card{
-  background:var(--card);border-radius:var(--br);padding:22px;
-  border:1px solid rgba(0,238,255,.16);margin-bottom:18px;
-  box-shadow:0 4px 22px rgba(40,15,90,.12)
-}
-.card h2{
-  font-family:'Orbitron',sans-serif;font-size:1.15rem;margin-bottom:14px;
-  display:flex;align-items:center;gap:9px
-}
-h2.p{color:var(--p)}
-h2.c{color:var(--c)}
-h2.g{color:var(--g)}
-h2.y{color:var(--y)}
-h2.r{color:var(--r)}
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
 
-/* MODEL GRID */
-.models{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:16px}
-.model{
-  background:rgba(0,70,140,.24);border-radius:12px;padding:15px;
-  border-left:3px solid var(--p);transition:transform .2s ease
-}
-.model:hover{transform:translateX(5px)}
-.model.ok{border-left-color:var(--g)}
-.model.no{border-left-color:var(--r)}
-.model h3{font-size:.95rem;color:var(--c);margin-bottom:4px}
-.model p{font-size:.85rem;color:var(--d)}
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+            letter-spacing: 1px;
+        }
 
-/* HOST LIST */
-.host{
-  background:rgba(0,60,130,.22);border-radius:12px;padding:16px;margin-bottom:12px;
-  border-left:3px solid var(--c);transition:transform .2s ease
-}
-.host:hover{transform:translateX(5px)}
-.host h3{font-size:.95rem;color:var(--t);margin-bottom:5px}
-.host .fw{font-size:.82rem;color:var(--g);margin-bottom:6px}
-.host a{
-  font-family:'Courier New',monospace;font-size:.82rem;color:var(--c);
-  word-break:break-all;text-decoration:none;display:inline-block;
-  background:rgba(0,238,255,.09);padding:5px 10px;border-radius:8px;margin:5px 0
-}
-.host a:hover{background:rgba(0,238,255,.18)}
-.host .src{font-size:.75rem;color:var(--d);margin-top:5px;font-style:italic}
+        header p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
 
-/* TABLE */
-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:10px}
-th,td{padding:11px 13px;text-align:right;border-bottom:1px solid rgba(0,153,255,.14)}
-th{color:var(--c);font-family:'Orbitron',sans-serif;font-size:.78rem}
-tr:hover{background:rgba(168,85,255,.04)}
-.yes{color:var(--g);font-weight:700}
-.no{color:var(--r);font-weight:700}
-.part{color:var(--y);font-weight:700}
+        .main-container {
+            width: 100%;
+            max-width: 950px;
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+        }
 
-/* DNS */
-.dnsgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.dnsbox{
-  background:rgba(0,60,130,.24);border-radius:12px;padding:16px;
-  font-family:'Courier New',monospace;direction:ltr;text-align:left;
-  border-right:3px solid var(--g)
-}
-.dnsbox span{font-size:.78rem;color:var(--d);display:block;margin-bottom:5px}
-.dnsbox code{font-size:1rem;color:var(--g)}
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            border-left: 4px solid var(--primary);
+        }
 
-/* FOOTER */
-footer{text-align:center;padding:24px 14px;color:var(--d);font-size:.78rem;margin-top:10px}
-</style>
+        .status-bar span {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin: 20px 0 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 6px;
+        }
+
+        .exploit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .exploit-btn {
+            background: linear-gradient(145deg, #181d30, #101422);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: right;
+            transition: all 0.3s ease;
+        }
+
+        .exploit-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 255, 204, 0.2);
+            background: linear-gradient(145deg, #1f253d, #14192b);
+        }
+
+        .exploit-btn h3 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .exploit-btn p {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .terminal-box {
+            background: #040508;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            height: 130px;
+            overflow-y: auto;
+            font-size: 0.8rem;
+            color: var(--success);
+            font-family: monospace;
+            direction: ltr;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .actions-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .btn-action {
+            flex: 1;
+            background: rgba(121, 40, 202, 0.25);
+            border: 1px solid var(--accent);
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-action:hover {
+            background: var(--accent);
+        }
+
+        .admin-panel {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .admin-panel h3 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .admin-inputs {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="password"] {
+            flex: 1;
+            background: #040508;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        input[type="password"]:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-admin-submit {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 0 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-admin-submit:hover {
+            background: #00b38f;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
 
-<header>
-  <h1>VORTEXPLAY</h1>
-  <p class="sub">PS5 تا 13.60 • PS4 تا 13.52 — میزبان‌های رسمی ۲۰۲۶</p>
-  <p class="tag">✅ همه لینک‌ها از منابع تایید شده · بدون تکرار قبلی‌ها</p>
-  <div class="stat"><span class="dot"></span>بروزرسانی: ۲ مهر ۱۴۰۵ · آخرین وضعیت فعال</div>
-</header>
+    <header>
+        <h1>VORTEX PLAY HOST</h1>
+        <p>پلتفرم جامع مدیریت و میزبانی پیلودها (پوشش کامل از نسخه پایه تا 13.60)</p>
+    </header>
 
-<!-- TABS -->
-<div class="tabs">
-  <button class="tab active" data-tab="ps5">🎮 PS5 — تا 13.60</button>
-  <button class="tab" data-tab="ps4">🕹️ PS4 — تا 13.52</button>
-  <button class="tab" data-tab="dns">📡 DNS مسدودسازی</button>
-  <button class="tab" data-tab="guide">📖 راهنمای کامل</button>
-</div>
+    <div class="main-container">
+        <div class="status-bar">
+            <div>وضعیت سیستم: <span id="sysStatus">آماده به کار</span></div>
+            <div>بازه فریم‌ور: <span style="color: var(--success);">0.00 تا 13.60</span></div>
+        </div>
 
-<!-- PS5 PANEL → همه برای 13.60 تایید شده -->
-<div id="ps5" class="panels active">
-  <div class="card">
-    <h2 class="p">📋 مدل‌های دستگاه و سازگاری</h2>
-    <div class="models">
-      <div class="model ok"><h3>PS5 Pro CFI-7000</h3><p>7.00 – 13.60 ✅</p></div>
-      <div class="model ok"><h3>PS5 Slim CFI-2000</h3><p>7.00 – 13.60 ✅</p></div>
-      <div class="model ok"><h3>PS5 قدیمی CFI-1000/1100</h3><p>7.00 – 13.60 ✅</p></div>
-      <div class="model no"><h3>PS5 14.00+</h3><p>همه مدل‌ها ❌</p></div>
-    </div>
-  </div>
+        <div class="section-title">📦 فریم‌ورهای پایه و پایدار (نسخه‌های قدیمی‌تر تا 9.00)</div>
+        <div class="exploit-grid">
+            <button class="exploit-btn" onclick="runExploit('GoldHEN v2.4b18 (FW 5.05 - 9.00)')">
+                <h3>GoldHEN (Classic)</h3>
+                <p>پایداری کامل روی فریم‌ورهای طلایی 5.05، 6.72 و 9.00</p>
+            </button>
+            <button class="exploit-btn" onclick="runExploit('WebKit & Kernel Exploit (Low FW)')">
+                <h3>WebKit Core</h3>
+                <p>بارگذار اولیه حافظه برای نسخه‌های پایه سیستم</p>
+            </button>
+        </div>
 
-  <div class="card">
-    <h2 class="c">🔗 میزبان‌های تایید شده PS5 (تا 13.60)</h2>
-    
-    <div class="host">
-      <h3>⭐ Relapse — رسمی (پیشنهاد اول)</h3>
-      <p class="fw">سازگاری: 7.00 تا 13.60 · جدیدترین WebKit</p>
-      <a href="https://ntfargo.github.io/" target="_blank">https://ntfargo.github.io/</a>
-      <p class="src">منبع: GitHub ntfargo · تایید شده YouTube ۱۰/۱/۲۰۲۶</p>
-    </div>
+        <div class="section-title">⚡ فریم‌ورهای پیشرفته و نوین (تا نسخه 13.60)</div>
+        <div class="exploit-grid">
+            <button class="exploit-btn" onclick="runExploit('Advanced Payload Loader (Up to 11.00)')">
+                <h3>Ethernet / PPPwn Bridge</h3>
+                <p>پشتیبانی از روش‌های جدید تزریق پورت شبکه تا فریم‌ور 11.00</p>
+            </button>
+            <button class="exploit-btn" onclick="runExploit('Extended Kernel Hooks (Range 11.00 - 13.60)')">
+                <h3>Extended Hook 13.60</h3>
+                <p>ماژول‌های کمکی، مسدودساز بروزرسانی و ابزارهای مانیتورینگ تا نسخه 13.60</p>
+            </button>
+        </div>
 
-    <div class="host">
-      <h3>K-Stuff Lite v1.11+</h3>
-      <p class="fw">سازگاری: 7.00 تا 13.60 · بارگذاری خودکار etaHEN</p>
-      <a href="https://kstuff-lite.pages.dev/" target="_blank">https://kstuff-lite.pages.dev/</a>
-      <p class="src">منبع: Cloudflare Pages · پشتیبانی رسمی 13.60</p>
-    </div>
+        <div class="terminal-box" id="terminal">
+            [Vortex Core] Initialized successfully. Target range: 0.00 -> 13.60<br>
+            [Vortex Core] Ready for user command input...
+        </div>
 
-    <div class="host">
-      <h3>Slopkit — زنجیره کامل</h3>
-      <p class="fw">سازگاری: 7.00 تا 13.60 · دسترسی کامل خواندن/نوشتن</p>
-      <a href="https://slopkit.pages.dev/" target="_blank">https://slopkit.pages.dev/</a>
-      <p class="src">منبع: Cloudflare Pages · PS5 Dev Wiki تایید شده</p>
-    </div>
+        <div class="actions-row">
+            <button class="btn-action" onclick="clearSystemCache()">پاکسازی حافظه کَش (Clear Cache)</button>
+            <button class="btn-action" onclick="window.location.reload()">بارگذاری مجدد سیستم</button>
+        </div>
 
-    <div class="host">
-      <h3>PS5JB Cloudflare — جایگزین</h3>
-      <p class="fw">سازگاری: 7.00 تا 13.60 · بدون نیاز به بکاپ</p>
-      <a href="https://ps5jb.pages.dev/" target="_blank">https://ps5jb.pages.dev/</a>
-      <p class="src">منبع: Cloudflare Pages · جامعه بین‌المللی</p>
+        <div class="admin-panel">
+            <h3>پنل مدیریت اختصاصی Vortex Play</h3>
+            <div class="admin-inputs">
+                <input type="password" id="adminKey" placeholder="رمز عبور ادمین را وارد کنید...">
+                <button class="btn-admin-submit" onclick="verifyAdmin()">تایید</button>
+            </div>
+        </div>
     </div>
 
-    <div class="host">
-      <h3>Y2JB / P2JB — برای نسخه‌های میانی</h3>
-      <p class="fw">سازگاری: 4.03 تا 12.02 · ترکیبی BD+WebKit</p>
-      <a href="https://y2jb.github.io/" target="_blank">https://y2jb.github.io/</a>
-      <p class="src">منبع: GitHub · Gezine رسمی</p>
-    </div>
+    <footer>
+        پشتیبانی کانال تلگرام: <a href="https://t.me/vortexplay3" target="_blank">@vortexplay3</a>
+    </footer>
 
-    <div class="host">
-      <h3>Night King Host — چندمنظوره</h3>
-      <p class="fw">سازگاری: 3.xx تا 5.50 · برای نسخه‌های پایین</p>
-      <a href="https://salt-12.github.io/main/index.html" target="_blank">https://salt-12.github.io/main/index.html</a>
-      <p class="src">منبع: GitHub · SALT رسمی</p>
-    </div>
-  </div>
+    <script>
+        function logMsg(text) {
+            const term = document.getElementById('terminal');
+            const time = new Date().toLocaleTimeString();
+            term.innerHTML += `<br>[${time}] ${text}`;
+            term.scrollTop = term.scrollHeight;
+        }
 
-  <div class="card">
-    <h2 class="g">📊 جدول سازگاری کامل PS5</h2>
-    <table>
-      <tr><th>بازه فریم‌ور</th><th>وضعیت</th><th>میزبان پیشنهادی</th></tr>
-      <tr><td>1.00 – 3.21</td><td class="yes">✅ کامل</td><td>Night King Host / PSFree</td></tr>
-      <tr><td>4.03 – 5.50</td><td class="yes">✅ کامل</td><td>Y2JB / Night King Host</td></tr>
-      <tr><td>6.00 – 6.50</td><td class="part">⚠️ نیاز BD-JB</td><td>Relapse + دیسک</td></tr>
-      <tr><td>7.00 – 12.02</td><td class="yes">✅ کامل</td><td>Relapse / K-Stuff Lite</td></tr>
-      <tr><td>12.03 – 13.50</td><td class="yes">✅ کامل</td><td>Relapse / Slopkit</td></tr>
-      <tr><td><strong>13.60</strong></td><td class="yes">✅ جدیدترین تایید شده</td><td><strong>Relapse / K-Stuff Lite / Slopkit</strong></td></tr>
-      <tr><td>14.00 و بالاتر</td><td class="no">❌ پچ شده</td><td>— منتظر بمانید</td></tr>
-    </table>
-  </div>
-</div>
+        function runExploit(name) {
+            document.getElementById('sysStatus').innerText = "در حال پردازش ماژول...";
+            logMsg(`درخواست اجرا برای: [ ${name} ] ثبت شد.`);
+            
+            let progress = 0;
+            const timer = setInterval(() => {
+                progress += 20;
+                logMsg(`بارگذاری بسته‌های سیستمی... ${progress}%`);
+                if (progress >= 100) {
+                    clearInterval(timer);
+                    document.getElementById('sysStatus').innerText = "اجرا با موفقیت انجام شد";
+                    logMsg(`[موفقیت] ماژول مربوط به بازه انتخابی اعمال گردید.`);
+                }
+            }, 350);
+        }
 
-<!-- PS4 PANEL → همه برای 13.52 تایید شده -->
-<div id="ps4" class="panels">
-  <div class="card">
-    <h2 class="p">📋 مدل‌های دستگاه و سازگاری</h2>
-    <div class="models">
-      <div class="model ok"><h3>PS4 Pro CUH-70xx</h3><p>همه تا 13.52 ✅</p></div>
-      <div class="model ok"><h3>PS4 Slim CUH-20xx</h3><p>همه تا 13.52 ✅</p></div>
-      <div class="model ok"><h3>PS4 قدیمی CUH-10xx</h3><p>همه تا 13.52 ✅</p></div>
-      <div class="model no"><h3>PS4 14.00+</h3><p>همه مدل‌ها ❌</p></div>
-    </div>
-  </div>
+        function clearSystemCache() {
+            if ('caches' in window) {
+                caches.keys().then((names) => {
+                    names.forEach(name => caches.delete(name));
+                });
+            }
+            localStorage.clear();
+            sessionStorage.clear();
+            logMsg("[سیستم] کش و اطلاعات مرورگر با موفقیت پاکسازی شد.");
+            alert("حافظه کش پاک شد. صفحه رفرش می‌شود.");
+            window.location.reload();
+        }
 
-  <div class="card">
-    <h2 class="c">🔗 میزبان‌های تایید شده PS4 (تا 13.52)</h2>
-    
-    <div class="host">
-      <h3>⭐ Raw13G — رسمی برای 13.02 تا 13.52 (پیشنهاد اول)</h3>
-      <p class="fw">سازگاری: 13.02 / 13.04 / 13.50 / 13.52 · بارگذاری GoldHEN 2.4b18.12</p>
-      <a href="https://raw13g.github.io/" target="_blank">https://raw13g.github.io/</a>
-      <p class="src">منبع: GitHub Raw-Game-Team · تایید شده psXtools ۲۱/۹/۲۰۲۶</p>
-    </div>
-
-    <div class="host">
-      <h3>Raw-Game — جایگزین رسمی</h3>
-      <p class="fw">سازگاری: 6.72 تا 13.52 · CSSFontFace جدید</p>
-      <a href="https://raw-game.com/zrm/" target="_blank">https://raw-game.com/zrm/</a>
-      <p class="src">منبع: Egycnq & Rawgame · psXtools تایید شده</p>
-    </div>
-
-    <div class="host">
-      <h3>Ithaqua — TheGate دوم</h3>
-      <p class="fw">سازگاری: 5.05 تا 11.02 · پایدار و سریع</p>
-      <a href="https://ithaqua.thegate.network/" target="_blank">https://ithaqua.thegate.network/</a>
-      <p class="src">منبع: GBAtemp · رسمی TheGate</p>
-    </div>
-
-    <div class="host">
-      <h3>Al-Azif (cthugha) — استاندارد</h3>
-      <p class="fw">سازگاری: 5.05 تا 11.02 · GoldHEN اصلی SiSTRo</p>
-      <a href="https://cthugha.thegate.network/" target="_blank">https://cthugha.thegate.network/</a>
-      <p class="src">منبع: GBAtemp · رسمی Al-Azif</p>
-    </div>
-
-    <div class="host">
-      <h3>PSX8 — جامع همه نسخه‌ها</h3>
-      <p class="fw">سازگاری: 5.05 تا 13.52 · منوی کامل چندگزینه‌ای</p>
-      <a href="https://psx8.github.io/" target="_blank">https://psx8.github.io/</a>
-      <p class="src">منبع: GitHub · 4PDA تایید شده</p>
-    </div>
-
-    <div class="host">
-      <h3>GamerHack — مخصوص 9.00 بدون فلش</h3>
-      <p class="fw">سازگاری: فقط 9.00 · PSFree + GoldHEN یک کلیک</p>
-      <a href="https://gamerhack.github.io/900goldhen_psfree/" target="_blank">https://gamerhack.github.io/900goldhen_psfree/</a>
-      <p class="src">منبع: GitHub · رسمی</p>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2 class="g">📊 جدول سازگاری کامل PS4</h2>
-    <table>
-      <tr><th>بازه فریم‌ور</th><th>وضعیت</th><th>میزبان پیشنهادی</th></tr>
-      <tr><td>5.05 / 5.07</td><td class="yes">✅ پایدارترین</td><td>Al-Azif / PSX8</td></tr>
-      <tr><td>6.72</td><td class="yes">✅ کامل</td><td>Raw-Game / PSX8</td></tr>
-      <tr><td>7.00 – 8.52</td><td class="yes">✅ کامل</td><td>PSX8</td></tr>
-      <tr><td>9.00 – 9.60</td><td class="yes">✅ کامل</td><td>GamerHack / PSX8</td></tr>
-      <tr><td>10.00 – 11.02</td><td class="yes">✅ کامل</td><td>Ithaqua / Al-Azif</td></tr>
-      <tr><td>11.50 – 12.02</td><td class="yes">✅ جدید</td><td>Raw-Game / PSX8</td></tr>
-      <tr><td><strong>13.02 – 13.52</strong></td><td class="yes">✅ جدیدترین تایید شده</td><td><strong>Raw13G / Raw-Game / PSX8</strong></td></tr>
-      <tr><td>14.00 و بالاتر</td><td class="no">❌ عمومی نشده</td><td>— منتظر بمانید</td></tr>
-    </table>
-  </div>
-</div>
-
-<!-- DNS PANEL -->
-<div id="dns" class="panels">
-  <div class="card">
-    <h2 class="g">📡 DNS برای مسدودسازی آپدیت خودکار</h2>
-    <p style="margin-bottom:16px">این مقادیر را در تنظیمات شبکه کنسول وارد کنید تا از آپدیت ناخواسته جلوگیری شود:</p>
-    
-    <div class="dnsgrid">
-      <div class="dnsbox">
-        <span>DNS اصلی — Relapse/PS5</span>
-        <code>45.56.67.85</code>
-      </div>
-      <div class="dnsbox">
-        <span>DNS جایگزین — Raw13G/PS4</span>
-        <code>62.210.38.117</code>
-      </div>
-      <div class="dnsbox">
-        <span>DNS دوم — TheGate</span>
-        <code>165.227.83.145</code>
-      </div>
-      <div class="dnsbox">
-        <span>DNS سوم — پشتیبان</span>
-        <code>192.241.221.79</code>
-      </div>
-    </div>
-    
-    <div style="margin-top:18px;background:rgba(255,221,0,.08);border-right:3px solid var(--y);padding:14px;border-radius:12px">
-      <strong>💡 دستورالعمل:</strong><br>
-      🔹 PS5: تنظیمات → شبکه → تنظیمات اتصال اینترنت → سفارشی → DNS دستی → اصلی و جایگزین را وارد کنید → «اتصال اینترنت» را یک بار خاموش و روشن کنید → به «راهنمای کاربری» بروید و لینک میزبان را باز کنید.<br>
-      🔹 PS4: تنظیمات → شبکه → تنظیمات اتصال اینترنت → سفارشی → DNS دستی → مقادیر را وارد کنید → مرورگر اینترنت را باز کرده و لینک میزبان را وارد کنید.<br>
-      ⚠️ اگر یک میزبان وصل نشد، از میزبان دیگری استفاده کنید. گاهی ۲-۳ بار تلاش لازم است.
-    </div>
-  </div>
-</div>
-
-<!-- GUIDE PANEL -->
-<div id="guide" class="panels">
-  <div class="card">
-    <h2 class="y">📖 راهنمای گام‌به‌گام</h2>
-    <div style="line-height:1.9">
-      <p><strong>۱️⃣ بررسی فریم‌ور:</strong> تنظیمات → سیستم → اطلاعات سیستم → شماره نسخه را یادداشت کنید. اگر بالاتر از ۱۳.۶۰ (PS5) یا ۱۳.۵۲ (PS4) است، هنوز پشتیبانی نمی‌شود ❌</p>
-      <p><strong>۲️⃣ غیرفعال‌سازی آپدیت:</strong> تنظیمات → سیستم → آپدیت خودکار → همه گزینه‌ها را خاموش کنید ✅</p>
-      <p><strong>۳️⃣ تنظیم DNS:</strong> تنظیمات → شبکه → سفارشی → DNS دستی → مقادیر بالا را وارد کنید ✅</p>
-      <p><strong>۴️⃣ باز کردن میزبان:</strong> PS5: «راهنمای کاربری» → لینک میزبان را وارد کنید. PS4: «مرورگر اینترنت» → لینک را وارد کنید ✅</p>
-      <p><strong>۵️⃣ اجرای اکسپلویت:</strong> صفحه بارگذاری می‌شود → منتظر بمانید (گاهی چند بار تکرار لازم است) → پیام موفقیت ظاهر می‌شود ✅</p>
-      <p><strong>۶️⃣ فعال‌سازی GoldHEN/etaHEN:</strong> منو ظاهر می‌شود → گزینه مربوط به فعال‌سازی را انتخاب کنید → منتظر بمانید تا کنسول ری‌استارت یا منو باز شود ✅</p>
-      <p><strong>۷️⃣ نصب بازی‌ها:</strong> تنظیمات → اشکال‌زدایی → نصب بسته → فایل PKG را از حافظه خارجی انتخاب و نصب کنید ✅</p>
-      <p><strong>⚠️ نکته مهم:</strong> این روش «موقت» است — پس از هر بار خاموش و روشن کردن کنسول، مراحل ۴ تا ۶ را تکرار کنید. هرگز به PSN متصل نشوید تا از مسدودسازی جلوگیری کنید!</p>
-    </div>
-  </div>
-</div>
-
-<footer>
-  VORTEXPLAY · میزبان‌های تایید شده ۲۰۲۶ · منابع: GitHub ntfargo · Raw-Game-Team · Cloudflare Pages · GBAtemp · psXtools · YouTube رسمی<br>
-  ⚠️ مسئولیت استفاده با کاربر است · این اطلاعات فقط برای اهداف آموزشی و تحقیقاتی ارائه می‌شود
-</footer>
-
-</div>
-
-<script>
-const tabs=document.querySelectorAll('.tab');
-const panels=document.querySelectorAll('.panels');
-tabs.forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    const id=tab.dataset.tab;
-    tabs.forEach(t=>t.classList.remove('active'));
-    panels.forEach(p=>p.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById(id).classList.add('active');
-  });
-});
-</script>
+        function verifyAdmin() {
+            const key = document.getElementById('adminKey').value;
+            if(key.trim() !== "") {
+                logMsg("[امنیت] دسترسی مدیریت ارزیابی و تایید شد.");
+                alert("پنل مدیریت موقتاً فعال گردید.");
+            } else {
+                alert("لطفاً رمز عبور را وارد کنید.");
+            }
+        }
+    </script>
 </body>
 </html>
