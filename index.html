@@ -1,13 +1,90 @@
-<!DOCTYPE html>
+// ==========================================
+// VORTEX PLAY - ULTIMATE CLOUDFLARE PANEL
+// ==========================================
+
+const ADMIN_TOKEN = "a1b2c3d4e5f678901234567890abcdef"; // رمز عبور ۳۲ کاراکتری مدیریت
+const DEFAULT_UUID = "d342d11e-d424-4583-b36e-524ab1f0afa4";
+
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    const path = url.pathname;
+    const host = url.host;
+
+    // مدیریت درخواست‌های وب‌سکت VLESS
+    if (request.headers.get("Upgrade") === "websocket") {
+      return await handleWebSocket(request);
+    }
+
+    // صفحه اصلی / پنل مدیریت
+    if (path === "/") {
+      return new Response(getPanelHTML(host), {
+        headers: { "Content-Type": "text/html; charset=utf-8" },
+      });
+    }
+
+    // تولید لینک اشتراک (Sub)
+    if (path.startsWith("/sub/")) {
+      const token = path.split("/")[2];
+      if (token !== ADMIN_TOKEN) {
+        return new Response("Unauthorized Access", { status: 403 });
+      }
+      const subContent = `vless://${DEFAULT_UUID}@${host}:443?encryption=none&security=tls&sni=${host}&type=ws&path=%2F#Vortex-Play-Sub`;
+      return new Response(btoa(subContent), {
+        headers: { "Content-Type": "text/plain; charset=utf-8" },
+      });
+    }
+
+    // API ایجاد کانفیگ جدید
+    if (path === "/api/create" && request.method === "POST") {
+      try {
+        const body = await request.json();
+        if (body.token !== ADMIN_TOKEN) {
+          return new Response(JSON.stringify({ error: "Invalid Token" }), { status: 401, headers: { "Content-Type": "application/json" } });
+        }
+        const newUuid = generateUUID();
+        const conf = `vless://${newUuid}@${host}:443?encryption=none&security=tls&sni=${host}&type=ws&path=%2F#${body.name || 'Vortex-User'}`;
+        return new Response(JSON.stringify({ success: true, config: conf, uuid: newUuid }), {
+          headers: { "Content-Type": "application/json" },
+        });
+      } catch (e) {
+        return new Response(JSON.stringify({ error: "Bad Request" }), { status: 400, headers: { "Content-Type": "application/json" } });
+      }
+    }
+
+    return new Response("Vortex Play Node is Active.", { status: 200 });
+  },
+};
+
+async function handleWebSocket(request) {
+  // شبیه‌سازی و هندلینگ پایه‌ای پروکسی ویس‌سکت
+  const webSocketPair = new WebSocketPair();
+  const [client, server] = Object.values(webSocketPair);
+  server.accept();
+  return new Response(null, {
+    status: 101,
+    webSocket: client,
+  });
+}
+
+function generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+function getPanelHTML(host) {
+  return `<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vortex Play - Ultimate Firmware Host (0 to 13.60)</title>
+    <title>Vortex Play - Secure Management Panel</title>
     <style>
         :root {
-            --bg-color: #07090f;
-            --card-bg: #111522;
+            --bg: #07090f;
+            --card: #111522;
             --primary: #00ffcc;
             --accent: #7928ca;
             --text: #ffffff;
@@ -15,314 +92,96 @@
             --danger: #ff3366;
             --success: #00ff66;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        header h1 {
-            font-size: 2.2rem;
-            color: var(--primary);
-            text-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
-            letter-spacing: 1px;
-        }
-
-        header p {
-            color: var(--muted);
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .main-container {
-            width: 100%;
-            max-width: 950px;
-            background: var(--card-bg);
-            border: 1px solid rgba(0, 255, 204, 0.2);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-        }
-
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-            border-left: 4px solid var(--primary);
-        }
-
-        .status-bar span {
-            color: var(--primary);
-            font-weight: bold;
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            color: var(--primary);
-            margin: 20px 0 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 6px;
-        }
-
-        .exploit-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .exploit-btn {
-            background: linear-gradient(145deg, #181d30, #101422);
-            color: var(--text);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 16px;
-            border-radius: 12px;
-            cursor: pointer;
-            text-align: right;
-            transition: all 0.3s ease;
-        }
-
-        .exploit-btn:hover {
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 255, 204, 0.2);
-            background: linear-gradient(145deg, #1f253d, #14192b);
-        }
-
-        .exploit-btn h3 {
-            font-size: 1rem;
-            color: var(--primary);
-            margin-bottom: 4px;
-        }
-
-        .exploit-btn p {
-            font-size: 0.75rem;
-            color: var(--muted);
-        }
-
-        .terminal-box {
-            background: #040508;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            height: 130px;
-            overflow-y: auto;
-            font-size: 0.8rem;
-            color: var(--success);
-            font-family: monospace;
-            direction: ltr;
-            text-align: left;
-            margin: 20px 0;
-        }
-
-        .actions-row {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-
-        .btn-action {
-            flex: 1;
-            background: rgba(121, 40, 202, 0.25);
-            border: 1px solid var(--accent);
-            color: #fff;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .btn-action:hover {
-            background: var(--accent);
-        }
-
-        .admin-panel {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 20px;
-        }
-
-        .admin-panel h3 {
-            font-size: 1rem;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .admin-inputs {
-            display: flex;
-            gap: 10px;
-        }
-
-        input[type="password"] {
-            flex: 1;
-            background: #040508;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        input[type="password"]:focus {
-            border-color: var(--primary);
-        }
-
-        .btn-admin-submit {
-            background: var(--primary);
-            color: #000;
-            border: none;
-            padding: 0 25px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-admin-submit:hover {
-            background: #00b38f;
-        }
-
-        footer {
-            margin-top: 20px;
-            font-size: 0.85rem;
-            color: var(--muted);
-            text-align: center;
-        }
-
-        footer a {
-            color: var(--primary);
-            text-decoration: none;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: monospace; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .container { width: 100%; max-width: 700px; background: var(--card); border: 1px solid rgba(0,255,204,0.3); border-radius: 16px; padding: 30px; box-shadow: 0 0 30px rgba(0,0,0,0.8); }
+        h1 { color: var(--primary); font-size: 1.6rem; text-align: center; margin-bottom: 5px; text-shadow: 0 0 10px rgba(0,255,204,0.3); }
+        p.subtitle { text-align: center; color: var(--muted); font-size: 0.85rem; margin-bottom: 25px; }
+        
+        .login-box, .panel-box { display: flex; flex-direction: column; gap: 15px; }
+        .hidden { display: none !important; }
+        
+        label { font-size: 0.85rem; color: var(--muted); }
+        input { background: #040508; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; color: #fff; font-size: 0.95rem; outline: none; }
+        input:focus { border-color: var(--primary); }
+        
+        button { background: var(--primary); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        button:hover { background: #00b38f; }
+        
+        .output-box { background: #040508; border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; word-break: break-all; color: var(--success); font-size: 0.85rem; margin-top: 5px; }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .stat-card { background: rgba(0,0,0,0.4); padding: 12px; border-radius: 8px; border-left: 3px solid var(--primary); }
+        .stat-card span { display: block; color: var(--primary); font-size: 1.1rem; font-weight: bold; margin-top: 5px; }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>VORTEX PLAY PANEL</h1>
+        <p class="subtitle">سیستم مدیریت متمرکز و ساخت کانفیگ اختصاصی</p>
 
-    <header>
-        <h1>VORTEX PLAY HOST</h1>
-        <p>پلتفرم جامع مدیریت و میزبانی پیلودها (پوشش کامل از نسخه پایه تا 13.60)</p>
-    </header>
-
-    <div class="main-container">
-        <div class="status-bar">
-            <div>وضعیت سیستم: <span id="sysStatus">آماده به کار</span></div>
-            <div>بازه فریم‌ور: <span style="color: var(--success);">0.00 تا 13.60</span></div>
+        <!-- فرم احراز هویت با رمز ۳۲ رقمی -->
+        <div id="loginSection" class="login-box">
+            <label>توکن / رمز عبور ۳۲ رقمی مدیریت:</label>
+            <input type="password" id="tokenInput" placeholder="رمز ۳۲ کاراکتری را وارد کنید...">
+            <button onclick="login()">ورود به پنل مدیریت</button>
         </div>
 
-        <div class="section-title">📦 فریم‌ورهای پایه و پایدار (نسخه‌های قدیمی‌تر تا 9.00)</div>
-        <div class="exploit-grid">
-            <button class="exploit-btn" onclick="runExploit('GoldHEN v2.4b18 (FW 5.05 - 9.00)')">
-                <h3>GoldHEN (Classic)</h3>
-                <p>پایداری کامل روی فریم‌ورهای طلایی 5.05، 6.72 و 9.00</p>
-            </button>
-            <button class="exploit-btn" onclick="runExploit('WebKit & Kernel Exploit (Low FW)')">
-                <h3>WebKit Core</h3>
-                <p>بارگذار اولیه حافظه برای نسخه‌های پایه سیستم</p>
-            </button>
-        </div>
-
-        <div class="section-title">⚡ فریم‌ورهای پیشرفته و نوین (تا نسخه 13.60)</div>
-        <div class="exploit-grid">
-            <button class="exploit-btn" onclick="runExploit('Advanced Payload Loader (Up to 11.00)')">
-                <h3>Ethernet / PPPwn Bridge</h3>
-                <p>پشتیبانی از روش‌های جدید تزریق پورت شبکه تا فریم‌ور 11.00</p>
-            </button>
-            <button class="exploit-btn" onclick="runExploit('Extended Kernel Hooks (Range 11.00 - 13.60)')">
-                <h3>Extended Hook 13.60</h3>
-                <p>ماژول‌های کمکی، مسدودساز بروزرسانی و ابزارهای مانیتورینگ تا نسخه 13.60</p>
-            </button>
-        </div>
-
-        <div class="terminal-box" id="terminal">
-            [Vortex Core] Initialized successfully. Target range: 0.00 -> 13.60<br>
-            [Vortex Core] Ready for user command input...
-        </div>
-
-        <div class="actions-row">
-            <button class="btn-action" onclick="clearSystemCache()">پاکسازی حافظه کَش (Clear Cache)</button>
-            <button class="btn-action" onclick="window.location.reload()">بارگذاری مجدد سیستم</button>
-        </div>
-
-        <div class="admin-panel">
-            <h3>پنل مدیریت اختصاصی Vortex Play</h3>
-            <div class="admin-inputs">
-                <input type="password" id="adminKey" placeholder="رمز عبور ادمین را وارد کنید...">
-                <button class="btn-admin-submit" onclick="verifyAdmin()">تایید</button>
+        <!-- پنل اصلی مدیریت (پس از ورود موفق) -->
+        <div id="panelSection" class="panel-box hidden">
+            <div class="stat-grid">
+                <div class="stat-card">وضعیت سرور <span style="color: var(--success);"> آنلاین و پایدار</span></div>
+                <div class="stat-card">پروتکل فعال <span>VLESS + WebSocket</span></div>
             </div>
+
+            <label>نام کاربر یا کلاینت جدید:</label>
+            <input type="text" id="clientName" placeholder="مثال: Vortex_User_01">
+            <button onclick="createConfig()">ساخت و تولید کانفیگ جدید</button>
+
+            <label>خروجی کانفیگ ساخته شده:</label>
+            <div class="output-box" id="configOutput">هنوز کانفیجی ساخته نشده است.</div>
+
+            <label>لینک اشتراک کلی (Subscription):</label>
+            <div class="output-box" id="subOutput">https://${host}/sub/${ADMIN_TOKEN}</div>
+            
+            <button style="background: var(--accent); color: #fff;" onclick="copySubLink()">کپی لینک اشتراک کل</button>
         </div>
     </div>
 
-    <footer>
-        پشتیبانی کانال تلگرام: <a href="https://t.me/vortexplay3" target="_blank">@vortexplay3</a>
-    </footer>
-
     <script>
-        function logMsg(text) {
-            const term = document.getElementById('terminal');
-            const time = new Date().toLocaleTimeString();
-            term.innerHTML += `<br>[${time}] ${text}`;
-            term.scrollTop = term.scrollHeight;
-        }
+        const savedToken = "${ADMIN_TOKEN}";
 
-        function runExploit(name) {
-            document.getElementById('sysStatus').innerText = "در حال پردازش ماژول...";
-            logMsg(`درخواست اجرا برای: [ ${name} ] ثبت شد.`);
-            
-            let progress = 0;
-            const timer = setInterval(() => {
-                progress += 20;
-                logMsg(`بارگذاری بسته‌های سیستمی... ${progress}%`);
-                if (progress >= 100) {
-                    clearInterval(timer);
-                    document.getElementById('sysStatus').innerText = "اجرا با موفقیت انجام شد";
-                    logMsg(`[موفقیت] ماژول مربوط به بازه انتخابی اعمال گردید.`);
-                }
-            }, 350);
-        }
-
-        function clearSystemCache() {
-            if ('caches' in window) {
-                caches.keys().then((names) => {
-                    names.forEach(name => caches.delete(name));
-                });
-            }
-            localStorage.clear();
-            sessionStorage.clear();
-            logMsg("[سیستم] کش و اطلاعات مرورگر با موفقیت پاکسازی شد.");
-            alert("حافظه کش پاک شد. صفحه رفرش می‌شود.");
-            window.location.reload();
-        }
-
-        function verifyAdmin() {
-            const key = document.getElementById('adminKey').value;
-            if(key.trim() !== "") {
-                logMsg("[امنیت] دسترسی مدیریت ارزیابی و تایید شد.");
-                alert("پنل مدیریت موقتاً فعال گردید.");
+        function login() {
+            const input = document.getElementById('tokenInput').value.trim();
+            if(input === savedToken) {
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('panelSection').classList.remove('hidden');
             } else {
-                alert("لطفاً رمز عبور را وارد کنید.");
+                alert('رمز عبور ۳۲ رقمی اشتباه است!');
             }
+        }
+
+        async function createConfig() {
+            const name = document.getElementById('clientName').value.trim() || 'Vortex-Client';
+            const res = await fetch('/api/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: savedToken, name: name })
+            });
+            const data = await res.json();
+            if(data.success) {
+                document.getElementById('configOutput').innerText = data.config;
+                alert('کانفیگ با موفقیت ساخته شد!');
+            } else {
+                alert('خطا در ساخت کانفیگ');
+            }
+        }
+
+        function copySubLink() {
+            const text = document.getElementById('subOutput').innerText;
+            navigator.clipboard.writeText(text);
+            alert('لینک اشتراک کپی شد!');
         }
     </script>
 </body>
-</html>
+</html>`;
+}
